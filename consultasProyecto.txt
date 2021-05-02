@@ -1,9 +1,8 @@
-﻿-- Nombres de proyectos hechos para un cliente (para cliente con NIT 1001)
+﻿-- Nombres de proyectos hechos para un cliente (para cliente con nombre)
 
-b1=ρ NombreProyecto←pro_nombreProyecto π Proyecto.pro_nombreProyecto (Proyecto ⨝ Proyecto.cli_NIT=Cliente.cli_NIT σ Cliente.cli_NIT=1001 Cliente)
+b1=ρ NombreProyecto←pro_nombreProyecto π Proyecto.pro_nombreProyecto (Proyecto ⨝ Proyecto.cli_NIT=Cliente.cli_NIT σ Cliente.cli_razonSocial="Hola" Cliente)
 
-
--- Nombres de tipos de ensayos realizados en un proyecto (para proyecto con id 5)
+-- Nombres de tipos de ensayos realizados en un proyecto (para proyecto con ID 5) (REV)
 
 b2=ρ NombreEnsayo ← tip_nombreTipoEnsayo π TipoEnsayo.tip_nombreTipoEnsayo  (((σ InformeFinal.pro_idProyecto=5 InformeFinal ⨝  ArchivoResultado) ⨝  EnsayoMuestra) ⨝  TipoEnsayo)
 
