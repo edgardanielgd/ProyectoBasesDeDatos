@@ -1,102 +1,204 @@
-group:Datos
-Cliente={
+group:BD
+Cliente = {
 cli_NIT, cli_razonSocial, cli_telefono, cli_sede, cli_certificadoCamaraComercio, cli_nombreContacto, cli_apellidoContacto, cli_emailContacto
-1001, 'Constructora Bolívar', 3001231212, 'Bogota', 'C:\certi.txt', 'Juan Camilo', 'Ortiz Gomez', 'orti@gmail.com'
-1002, 'Gobierno de Colombia', 01800000, 'Colonbia', 'C:\certi2.txt', 'Ivan Manuel','Duque Rodriguez', 'duquesito@gmail.com'
-1003, 'IGAC', 3004510231, 'Zipaquirá', 'C:\certi3.txt', 'Ana María', 'Martínez Ortiz', 'ana@gmail.com'
+8999992948,'Servicio Geológico Colombiano', '2200200', 'Bogotá', 'C:\Users\josel\Documents\CertificadoServicioGeologicoColombiano', 'Óscar Eladio', 'Paredes Zapata', 'cliente@sgc.gov.co'
+8001542751,'Idiger', '4292800', 'Bogotá', 'C:\Users\josel\Documents\CertificadoIdiger', 'Guillermo', 'Escobar Castro', 'notificacionesjudiciales@idiger.gov.co'
+8170014359,'CI Ambiental S.A.S',  '317 5030960', 'Barranquilla', 'C:\Users\josel\Documents\CertificadoCIAmbiental', 'Carlos', 'Trujillo', 'info@ciambiental.com'
+9005586047,'DACH & ASOCIADOS S.A.S',  '6421617', 'Bogotá', 'C:\Users\josel\Documents\CertificadoDACHAsociados', 'Julián', 'Ramírez', 'NULL'
+8300108934,'Geocing S.A.S', '7046969', 'Bogotá', 'C:\Users\josel\Documents\CertificadoGeocing', 'Carlos', 'Gómez', 'proyectos@geocing.com'
 }
 Proyecto = {
 pro_idProyecto, pro_cantidadEnsayos, pro_valorTotal, pro_IVA, pro_nombreProyecto, pro_FechaInicioProyecto, pro_FechaFinalizacionProyecto, cli_NIT
-1, 2, 100000, 1900, 'Proyecto B-35', '03/04/2021', '05/06/2021', 1001
-2, 1, 100000, 1900, 'Proyecto los sauces', '03/05/2020', '06/07/2021', 1001
-3, 3, 100000, 1700, 'Casas por la paz', '05/06/2019', '04/07/2020', 1002
-4, 1, 200000, 3800, 'Estudio predio el pantano', '04/04/2021', '05/06/2021', 1003
-5, 2, 300000, 5700, 'Estudio quebrada San Eduardo', '03/05/2021', '04/06/2021', 1003
+1, NULL, 130142100, 24726999, 'Contrato de interventoría No. 481 de 2017', '14/12/2017', '01/09/2018', 8001542751
+2, 567, 136796825, 25991396.75, '500 de 2019', '16/12/2019', '21/08/2020', 8001542751
+3, 7, 79640000, 15131600, 'Certificado trabajos realizados en el año 2011', '01/01/2011', '31/12/2011', 8170014359
+4, NULL, 29000000, 5510000, 'Orden de servicios No. 002', '03/01/2013', '11/01/2013', 9005586047
+5, 28, 22800000, 4332000, 'Proyecto GE-334 Fopae', '05/08/2014', '23/9/2014', 8300108934
+6, 14, 10150000, 1928500, 'OS No. CG-280', '08/09/2011', '09/05/2011', 8300108934
+7, 6, 3828000, 727320, 'OS No. CG-294', '20/12/2011', '24/01/2012', 8300108934
 }
-EstadoPago = {
-pro_idProyecto, esp_valorAbonado, esp_fechaAbono,esp_fechaPagoTotal
-1, 0, '',''
-2, 10000, '04/05/2020','05/07/2021'
-3,0,'','03/06/2020'
-4,20000,'05/05/2021',''
-5,0,'01/01/2001','04/06/2021'
+Perforacion = {
+per_idPerforacion, per_nombrePerforacion, per_localizacion, per_latitud, per_longitud, pro_idProyecto
+1, 'PZ-12', 'Ciudad Bolívar', 4.5795, 74.1574, 1
+2, 'PZ-3', 'Ciudad Bolívar', 4.5797, 74.1524, 1
+3, 'PZ-12', 'Cáqueza', 4.418807, -73.93555, 2
+4, 'PZ-1', 'Fomeque', 4.438735, -73.824062, 3
+5, 'PZ-2', 'Macheta', 4.960182, -73.690088, 4
+6, 'PZ-3', 'Gachala', 4.588114, -73.60923, 5
+7, 'PZ-4', 'Miraflores', 5.185256, -73.15222, 6
+8, 'PZ-5', 'Aquitania', 5.337696, -72.904008, 7
 }
-Muestra={
-mue_idMuestra,mue_nombreMuestra,mue_condicionEmpaque,mue_tipoMuestra,mue_ubicacionBodega,mue_tipoExploracion,mue_descripcionMuestra,pro_idProyecto
-1,'Muestra 1','bolsa','alterada','pasillo 1','sondeo','Muestra de suelo a usar',1
-2,'Muestra 2','bolsa','alterada','pasillo 2 rec 1','apique','Muestra para calidad de suelo',1
-3,'Muestra 3','tubo','inalterada','pasillo 3 rec 2','sondeo','Muestra de agua',2
-4,'Muestra 4','bloque','inalterada','pasillo 4 rec 3','apique','Bloque de material no identificados',3
-5,'Muestra 5','bolsa','alterada','pasillo 5 rec 2 sec 1','sondeo','Bolsa con residuos encontrados',3
-6,'Muestra 6','tubo','alterada','pasillo 6 rec 3','apique','Muestra de agua lluvia',4
-7,'Muestra 7','bolsa','inalterada','pasillo 5','sondeo','Muestra de suelo',5
+Empleado = {
+emp_idEmpleado, emp_nombreEmpleado, emp_apellidoEmpleado, emp_oficioEmpleado
+1, 'JESUS', 'Bermúdez', 'Laboratorista'
+2, 'ELENA', 'Medina', 'Laboratorista'
+3, 'DAVID', 'Gómez', 'Laboratorista'
+4, 'ISABEL', 'Álvarez', 'Jefe de laboratorio'
+5, 'PAULA', 'Bello', 'Laboratorista'
+6, 'JAVIER', 'Bello', 'Pasante'
 }
-CategoriaEnsayo={
-cat_idCategoriaEnsayo,cat_nombreCategoriaEnsayo
-1,'Ensayos de resistencia al corte'
-2,'Ensayos dinámicos'
-3,'Ensayos de deformidad'
-4,'Ensayos de caracterización básica'
-5,'Ensayo de caracterización básica ROCA'
-6,'Ensayo de resistencia al corte ROCA'
+TipoEnsayo = {
+tip_idTipoEnsayo, tip_nombreTipoEnsayo
+1, 'Triaxial UU'
+2, 'Triaxial CU'
+3, 'Triaxial CD'
+4, 'Compresión inconfinada'
+5, 'Corte directo'
+6, 'Triaxial cíclico'
+7, 'Columna resonante'
+8, 'Bender element'
+9, 'Consolidación'
+10, 'Expansión libre '
+11, 'Expansión controlada '
+12, 'Consolidación en succión controlada'
+13, 'Humedad'
+14, 'Límites'
+15, 'Peso unitario'
+16, 'Granulometría'
+17, 'Hidrometría'
 }
-TipoEnsayo={
-tip_nombreTipoEnsayo,tip_normaEnsayo,equ_nombreEquipo
-'Ensayo triaxial monotónico','Norma 1','Equipo 1'
-'Ensayo de compresion inconfinada','Norma 2','Equipo 1'
-'Ensayo de corte directo','Norma 3','Equipo 2'
-'Ensayo triaxial cíclico a esfuerzo controlado y deformación controlada','Norma 4','Equipo 3'
-'Ensayo de consolidación','Norma 4','Equipo 3'
-'Humedad','Norma 5','Equipo 1'
-'Límites','Norma 5','Equipo 4'
-'Peso unitario','Norma 5','Equipo 4'
-'Densidad','Norma 6','Equipo 4'
-'Porosidad','Norma 7','Equipo 4'
-'Ensayos de carga puntual','Norma 8','Equipo 5'
+Muestra = {
+mue_idMuestra, mue_condicionEmpaque, mue_tipoMuestra, mue_descripcionMuestra, mue_ubicacionBodega, mue_tipoExploracion, mue_numeroMuestra, mue_profundidad, per_idPerforacion
+1, 'Bolsa', 'Inalterada', 'Suelo limoso', 'Pasillo 3', 'Apique', 2, 93, 1
+2, 'Bloque', 'Inalterada', 'Arena naranja', 'Pasillo 1', 'Apique', 4, 123, 1
+3, 'Bolsa', 'Alterada', 'Arcilla blanda con gravas', 'Pasillo 1', 'Apique', 5, 172, 1
+4, 'Empaque', 'Alterada', 'Arena naranja', 'Pasillo 4', 'Sondeo', 6, 4, 1
+5, 'Bloque', 'Inalterada', 'Suelo volcánico', 'Pasillo 4', 'Sondeo', 7, 124, 1
+6, 'Bloque', 'Alterada', 'Suelo volcánico', 'Pasillo 3', 'Sondeo', 8, 150, 1
+7, 'Empaque', 'Inalterada', 'Suelo volcánico', 'Pasillo 1', 'Apique', 1, 189, 2
+8, 'Empaque', 'Alterada', 'Suelo limoso', 'Pasillo 2', 'Sondeo', 2, 194, 2
+9, 'Empaque', 'Alterada', 'Suelo volcánico', 'Pasillo 4', 'Sondeo', 3, 117, 2
+10, 'Empaque', 'Alterada', 'Suelo volcánico', 'Pasillo 2', 'Apique', 4, 12, 2
+11, 'Bloque', 'Alterada', 'Suelo volcánico', 'Pasillo 3', 'Sondeo', 5, 192, 2
+12, 'Bloque', 'Inalterada', 'Arcilla blanda con gravas', 'Pasillo 5', 'Sondeo', 6, 162, 2
+13, 'Bolsa', 'Inalterada', 'Arena naranja', 'Pasillo 6', 'Sondeo', 7, 141, 2
+14, 'Empaque', 'Alterada', 'Lutita roja', 'Pasillo 6', 'Apique', 1, 10, 3
+15, 'Empaque', 'Inalterada', 'Arcilla blanda con gravas', 'Pasillo 1', 'Sondeo', 2, 45, 3
+16, 'Bolsa', 'Inalterada', 'Arcilla blanda con gravas', 'Pasillo 5', 'Sondeo', 3, 68, 3
+17, 'Bolsa', 'Inalterada', 'Suelo con gravas', 'Pasillo 3', 'Apique', 4, 28, 3
+18, 'Bloque', 'Alterada', 'Arena naranja', 'Pasillo 6', 'Sondeo', 5, 57, 3
+19, 'Bloque', 'Alterada', 'Suelo limoso', 'Pasillo 3', 'Sondeo', 1, 107, 4
+20, 'Empaque', 'Inalterada', 'Lutita roja', 'Pasillo 4', 'Sondeo', 2, 155, 4
+21, 'Bolsa', 'Inalterada', 'Suelo con gravas', 'Pasillo 2', 'Sondeo', 3, 115, 4
+22, 'Bloque', 'Inalterada', 'Arena naranja', 'Pasillo 3', 'Apique', 4, 35, 4
+23, 'Empaque', 'Alterada', 'Suelo con gravas', 'Pasillo 4', 'Sondeo', 5, 18, 4
+24, 'Bloque', 'Inalterada', 'Suelo volcánico', 'Pasillo 2', 'Apique', 6, 51, 4
+25, 'Bloque', 'Inalterada', 'Arcilla blanda con gravas', 'Pasillo 3', 'Sondeo', 7, 174, 4
+26, 'Empaque', 'Inalterada', 'Suelo volcánico', 'Pasillo 1', 'Apique', 8, 32, 4
+27, 'Bolsa', 'Alterada', 'Arcilla blanda con gravas', 'Pasillo 4', 'Apique', 9, 192, 4
+28, 'Bolsa', 'Inalterada', 'Arcilla blanda con gravas', 'Pasillo 1', 'Apique', 10, 21, 4
+29, 'Bolsa', 'Inalterada', 'Suelo volcánico', 'Pasillo 5', 'Sondeo', 11, 142, 4
+30, 'Empaque', 'Alterada', 'Lutita roja', 'Pasillo 5', 'Sondeo', 1, 85, 5
+31, 'Empaque', 'Alterada', 'Suelo volcánico', 'Pasillo 3', 'Apique', 2, 198, 5
+32, 'Bolsa', 'Inalterada', 'Suelo con gravas', 'Pasillo 2', 'Apique', 3, 166, 5
+33, 'Bloque', 'Alterada', 'Suelo con gravas', 'Pasillo 2', 'Apique', 1, 185, 6
+34, 'Bloque', 'Alterada', 'Suelo limoso', 'Pasillo 4', 'Apique', 1, 27, 7
+35, 'Bloque', 'Inalterada', 'Suelo volcánico', 'Pasillo 4', 'Sondeo', 2, 112, 7
+36, 'Empaque', 'Alterada', 'Suelo con gravas', 'Pasillo 3', 'Sondeo', 3, 50, 7
+37, 'Bolsa', 'Alterada', 'Arena naranja', 'Pasillo 2', 'Apique', 1, 148, 8
+38, 'Bolsa', 'Inalterada', 'Suelo volcánico', 'Pasillo 6', 'Sondeo', 2, 65, 8
+39, 'Bolsa', 'Inalterada', 'Arena naranja', 'Pasillo 5', 'Apique', 3, 1, 8
+40, 'Bolsa', 'Inalterada', 'Suelo volcánico', 'Pasillo 5', 'Apique', 4, 151, 8
 }
-Equipo={
-equ_nombreEquipo,cat_idCategoriaEnsayo
-'Equipo 1',1
-'Equipo 2',1
-'Equipo 3',2
-'Equipo 4',4
-'Equipo 5',6
+EnsayoMuestra = {
+ens_idEnsayoMuestra, ens_fechaEnsayoMuestra, ens_hayResiduo, ens_condicionesParticularesEstudio, emp_idEmpleado, mue_idMuestra, tip_idTipoEnsayo, ens_estado
+1, '19/12/2020', 'No', 'Realizar con presiones de 120kPa', 6, 1, 3, 'Finalizado'
+2, '19/12/2020', 'No','', 3, 2, 13, 'Finalizado'
+3, '19/12/2020', 'No','', 1, 3, 4, 'Finalizado'
+4, '19/12/2020', 'No','', 2, 4, 15, 'Finalizado'
+5, '19/12/2020', 'No','', 1, 5, 5, 'Finalizado'
+6, '19/12/2020', 'Si','', 2, 6, 17, 'Finalizado'
+7, '25/12/2018', 'Si','', 5, 7, 17, 'Finalizado'
+8, '25/12/2018', 'No','', 2, 8, 8, 'Finalizado'
+9, '25/12/2018', 'No','', 1, 9, 9, 'Finalizado'
+10, '25/12/2018', 'No','', 6, 10, 3, 'Finalizado'
+11, '25/12/2018', 'No','', 2, 11, 2, 'Finalizado'
+12, '25/12/2018', 'No','', 4, 12, 15, 'Finalizado'
+13, '25/12/2018', 'Si','', 4, 13, 12, 'Finalizado'
+14, '01/02/2020', 'Si','', 5, 14, 9, 'Finalizado'
+15, '01/02/2020', 'No','', 6, 15, 4, 'Finalizado'
+16, '01/02/2020', 'No','', 3, 16, 16, 'Finalizado'
+17, '01/02/2020', 'Si','', 6, 17, 11, 'Finalizado'
+18, '01/02/2020', 'Si','', 5, 18, 16, 'Finalizado'
+19, '01/05/2012', 'No','', 6, 19, 2, 'Finalizado'
+20, '01/05/2012', 'No','', 3, 20, 13, 'Finalizado'
+21, '01/05/2012', 'Si','', 6, 21, 12, 'Finalizado'
+22, '01/05/2012', 'No','', 5, 22, 4, 'Finalizado'
+23, '01/05/2012', 'No','', 4, 23, 12, 'Finalizado'
+24, '01/05/2012', 'Si','', 4, 24, 13, 'Finalizado'
+25, '01/05/2012', 'Si','', 6, 25, 9, 'Finalizado'
+26, '01/05/2012', 'Si','', 3, 26, 1, 'Finalizado'
+27, '01/05/2012', 'No', '',6, 27, 9, 'Finalizado'
+28, '01/05/2012', 'No','', 6, 28, 7, 'Finalizado'
+29, '01/05/2012', 'Si','', 1, 29, 12, 'Finalizado'
+30, '11/03/2013', 'No','', 4, 30, 3, 'Finalizado'
+31, '11/03/2013', 'No','', 4, 31, 8, 'Finalizado'
+32, '11/03/2013', 'No','', 1, 32, 8, 'Finalizado'
+33, '22/10/2014', 'No','', 6, 33, 4, 'Finalizado'
+34, '16/9/2011', 'Si','', 5, 34, 16, 'Finalizado'
+35, '16/9/2011', 'Si','', 5, 35, 9, 'Finalizado'
+36, '16/9/2011', 'Si','', 3, 36, 13, 'Finalizado'
+37, '25/02/2012', 'No','', 6, 37, 3, 'Finalizado'
+38, '25/02/2012', 'Si','', 2, 38, 8, 'Finalizado'
+39, '25/02/2012', 'No','', 6, 39, 5, 'Finalizado'
+40, '25/02/2012', 'No','', 3, 40, 7, 'Finalizado'
+41, '19/12/2020', 'No','', 6, 1, 2, 'Finalizado'
+42, '01/05/2012', 'Si','', 2, 22, 15, 'Finalizado'
+43, '16/9/2011', 'Si','', 2, 34, 6, 'Finalizado'
 }
-Empleado={
-emp_idEmpleado,emp_nombreEmpleado,emp_oficioEmpleado
-1,'José Barrera','Realización ensayos en suelos'
-2,'Juan Martinez','Realización ensayos en suelos'
-3,'Aquiles Bailoyo','Realización ensayos en roca'
+ArchivoResultado = {
+ens_idEnsayoMuestra, ens_rutaArchivo, pro_idProyecto
+1, 'C:\Users\josel\Documents\Resultado1', 1
+2, 'C:\Users\josel\Documents\Resultado2', 1
+3, 'C:\Users\josel\Documents\Resultado3', 1
+4, 'C:\Users\josel\Documents\Resultado4', 1
+5, 'C:\Users\josel\Documents\Resultado5', 1
+6, 'C:\Users\josel\Documents\Resultado6', 1
+7, 'C:\Users\josel\Documents\Resultado7', 1
+8, 'C:\Users\josel\Documents\Resultado8', 1
+9, 'C:\Users\josel\Documents\Resultado9', 1
+10, 'C:\Users\josel\Documents\Resultado10', 1
+11, 'C:\Users\josel\Documents\Resultado11', 1
+12, 'C:\Users\josel\Documents\Resultado12', 1
+13, 'C:\Users\josel\Documents\Resultado13', 1
+14, 'C:\Users\josel\Documents\Resultado14', 2
+15, 'C:\Users\josel\Documents\Resultado15', 2
+16, 'C:\Users\josel\Documents\Resultado16', 2
+17, 'C:\Users\josel\Documents\Resultado17', 2
+18, 'C:\Users\josel\Documents\Resultado18', 2
+19, 'C:\Users\josel\Documents\Resultado19', 3
+20, 'C:\Users\josel\Documents\Resultado20', 3
+21, 'C:\Users\josel\Documents\Resultado21', 3
+22, 'C:\Users\josel\Documents\Resultado22', 3
+23, 'C:\Users\josel\Documents\Resultado23', 3
+24, 'C:\Users\josel\Documents\Resultado24', 3
+25, 'C:\Users\josel\Documents\Resultado25', 3
+26, 'C:\Users\josel\Documents\Resultado26', 3
+27, 'C:\Users\josel\Documents\Resultado27', 3
+28, 'C:\Users\josel\Documents\Resultado28', 3
+29, 'C:\Users\josel\Documents\Resultado29', 3
+30, 'C:\Users\josel\Documents\Resultado30', 4
+31, 'C:\Users\josel\Documents\Resultado31', 4
+32, 'C:\Users\josel\Documents\Resultado32', 4
+33, 'C:\Users\josel\Documents\Resultado33', 5
+34, 'C:\Users\josel\Documents\Resultado34', 6
+35, 'C:\Users\josel\Documents\Resultado35', 6
+36, 'C:\Users\josel\Documents\Resultado36', 6
+37, 'C:\Users\josel\Documents\Resultado37', 7
+38, 'C:\Users\josel\Documents\Resultado38', 7
+39, 'C:\Users\josel\Documents\Resultado39', 7
+40, 'C:\Users\josel\Documents\Resultado40', 7
+41, 'C:\Users\josel\Documents\Resultado41', 1
+42, 'C:\Users\josel\Documents\Resultado42', 4
+43, 'C:\Users\josel\Documents\Resultado43', 6
 }
-EnsayoMuestra={
-ens_idEnsayoMuestra,ens_fechaEnsayoMuestra,ens_hayResiduo,ens_condicionesParticulares,ens_estado,emp_idEmpleado,mue_idMuestra,tip_nombreTipoEnsayo
-1,'03/05/2021',1,'Buen estado, preservar en lugar humedo','pendiente',1,1,'Ensayo de consolidación'
-2,'04/05/2021',1,'El proceso tiene que ser repetido debido a confirmaciones','pendiente',2,2,'Humedad'
-3,'01/02/2021',0,'El proceso debe realizarse solo una vez con exactitud','realizado',1,3,'Ensayo de compresión inconfinada'
-4,'03/03/2020',0,'Sin condiciones particulares','en curso',1,4,'Ensayo triaxial cíclico a esfuerzo controlado y deformación controlada'
-5,'05/04/2020',0,'Sin condiciones particulares','en curso',1,4,'Ensayo de consolidación'
-6,'06/05/2020',1,'Mantener en lugar húmedo','realizado',2,5,'Humedad'
-7,'05/05/2021',1,'Recolectar material sólido para estudiar la muestra','realizado',1,6,'Ensayo triaxial monotónico'
-8,'17/05/2021',0,'Mantener el lugar seco','en curso',3,7,'Ensayos de carga puntual'
-9,'19/05/2021',1,'Mantener el lugar seco','pendiente',3,7,'Porosidad'
-}
-InformeFinal={
-pro_idProyecto,inf_fechaRemisionInforme,inf_observacionesInforme
-1,'05/06/2021','No entregado'
-2,'08/07/2021','Entrega tardia'
-3,'04/07/2020','Entregado satisfactoriamente'
-4,'05/06/2021','No entregado'
-5,'01/06/2021','Entrega temprana'
-}
-ArchivoResultado={
-ens_idEnsayoMuestra,ens_rutaArchivo,pro_idProyecto
-1,'C:\Resultado.txt',1
-2,'C:\Resultado2.txt',1
-3,'C:\Resultado3.txt',2
-4,'C:\Resultado4.txt',3
-5,'C:\Resultado5.txt',3
-6,'C:\Resultado6.txt',3
-7,'C:\Resultado7.txt',4
-8,'C:\Resultado8.txt',5
-9,'C:\Resultado9.txt',5
+InformeFinal = {
+inf_fechaRemisionInforme, inf_observacionesInforme, pro_idProyecto
+'01/09/2018','', 1
+'21/08/2020','', 2
+'31/12/2011','', 3
+'11/01/2013','', 4
+'23/9/2014','', 5
+'09/05/2011','', 6
+'24/01/2012','', 7
 }
