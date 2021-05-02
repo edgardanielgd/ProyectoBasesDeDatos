@@ -21,9 +21,18 @@ b6=ρ NombreProyecto←Proyecto.pro_nombreProyecto  π Proyecto.pro_nombreProyec
 
 -- Quien hace un ensayo, estado de los ensayos, ruta del archivo (si fue ejecutado)
 
-b7=ρ NombreEmpleado←Empleado.emp_nombreEmpleado ρ Estado←EnsayoMuestra.ens_estado
-ρ Ruta←ArchivoResultado.ens_rutaArchivo π Empleado.emp_nombreEmpleado, EnsayoMuestra.ens_estado, ArchivoResultado.ens_rutaArchivo ((((Proyecto ⨝ Muestra) ⨝EnsayoMuestra)⨝ Empleado)⟕ArchivoResultado)
+b7=ρ NombreEmpleado←Empleado.emp_nombreEmpleado ρ ApellidoEmpleado←Empleado.emp_apellidoEmpleado ρ Estado←EnsayoMuestra.ens_estado ρ Ruta←ArchivoResultado.ens_rutaArchivo π Empleado.emp_nombreEmpleado,Empleado.emp_apellidoEmpleado, EnsayoMuestra.ens_estado, ArchivoResultado.ens_rutaArchivo ((((Proyecto ⨝ Muestra) ⨝EnsayoMuestra)⨝ Empleado)⟕ArchivoResultado)
 
 -- Obtener la suma y promedio de todos los proyectos por Cliente
 
 b8=ρ RazonSocial←cli_razonSocial ρ Resultado π cli_razonSocial,TotalPagado,PromedioProyecto γ cli_NIT,cli_razonSocial;sum(pro_valorTotal)→TotalPagado,avg(pro_valorTotal)→PromedioProyecto (Cliente⟕Proyecto)
+
+-- Obtener el promedio de profundidad de las muestras para cada proyecto
+
+b9=ρ NombreProyecto←Proyecto.pro_nombreProyecto π Proyecto.pro_nombreProyecto,Promedio γ Proyecto.pro_idProyecto,Proyecto.pro_nombreProyecto; avg(Muestra.mue_profundidad)→Promedio (Proyecto⨝Perforacion⨝Muestra)
+
+-- Obtener por localizaciones la cantidad de perforaciones hechas para un proyecto
+
+γ Perforacion.per_localizacion; count(Perfor acion.per_idPerforacion)→Cantidad (Perforacion⨝(σ pro_idProyecto=2 Proyecto))
+
+

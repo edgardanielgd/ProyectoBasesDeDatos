@@ -202,3 +202,13 @@ inf_fechaRemisionInforme, inf_observacionesInforme, pro_idProyecto
 '09/05/2011','', 6
 '24/01/2012','', 7
 }
+EstadoPago = {
+pro_idProyecto, esp_valorAbonado, esp_fechaAbono, esp_fechaPagoTotal
+1, 0, '', '01/09/2018'
+2, 41039047.5, '16/12/2019', '21/08/2020'
+3, 0,'', '31/12/2011'
+4, 0,'', '11/01/2013'
+5, 7524000,'05/08/2014', '23/9/2014'
+6, 0,'', '09/05/2011'
+7, 0,'', '24/01/2012'
+}
