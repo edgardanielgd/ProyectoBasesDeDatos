@@ -61,4 +61,57 @@ JOIN (
     WHERE pro_nombreProyecto='Idiger'
 ) AS t3 USING(pro_idProyecto);
 
+-- Actualizar los archivos resultado para una muestra
+UPDATE archivoresultado SET ens_rutaArchivo="C:\Downloads\Resultado20" 
+WHERE archivoresultado.ens_idEnsayoMuestra IN (
+	SELECT ens_idEnsayoMuestra FROM ensayomuestra
+    WHERE mue_idMuestra=5
+);
 
+--  Reemplazar un tipo de ensayo por otro en un conjunto de perforaciones
+UPDATE ensayomuestra SET tip_idTipoEnsayo=10
+WHERE tip_idTipoEnsayo=5 AND 
+mue_idMuestra IN (
+	SELECT muestra.mue_idMuestra FROM muestra
+    WHERE per_idPerforacion IN (1,5,6)
+);
+
+-- Remover los clientes cuya sumatoria de pago de proyectos sea menor a
+-- un millón
+DELETE FROM cliente WHERE
+cli_NIT IN (
+	SELECT cliente.cli_NIT FROM cliente
+    JOIN Proyecto USING(cli_NIT)
+    GROUP BY cliente.cli_NIT
+    HAVING SUM(Proyecto.pro_valorTotal)<1000000
+);
+
+
+CREATE USER IF NOT EXISTS 'administrador'@'localhost' IDENTIFIED BY 'P&Logistica123';
+CREATE USER IF NOT EXISTS 'administrador2'@'localhost' IDENTIFIED BY 'OlaDeMar';
+CREATE USER IF NOT EXISTS 'empleado1'@'localhost' IDENTIFIED BY 'JoseBarrera123';
+CREATE USER IF NOT EXISTS 'empleado2'@'localhost' IDENTIFIED BY 'JuanRodrigo123';
+CREATE USER IF NOT EXISTS 'empleado3'@'localhost' IDENTIFIED BY 'NatyBD123';
+CREATE USER IF NOT EXISTS 'empleado4'@'localhost' IDENTIFIED BY 'AnitaSofia123';
+CREATE USER IF NOT EXISTS 'empleado5'@'localhost' IDENTIFIED BY 'AndresMendoza123';
+
+-- Colocando accesos a tablas
+GRANT ALL ON mydb TO 'administrador'@'localhost';
+GRANT ALL ON mydb TO 'administrador2'@'localhost';
+GRANT SELECT ON mydb.* TO 'empleado1'@'localhost' ;
+GRANT SELECT ON mydb.* TO 'empleado2'@'localhost' ;
+GRANT SELECT ON mydb.* TO 'empleado3'@'localhost' ;
+GRANT SELECT ON mydb.* TO 'empleado4'@'localhost' ;
+GRANT SELECT ON mydb.* TO 'empleado5'@'localhost' ;
+
+GRANT INSERT ON mydb.ensayomuestra TO 'empleado1'@'localhost';
+GRANT INSERT ON mydb.ensayomuestra TO 'empleado2'@'localhost';
+GRANT INSERT ON mydb.ensayomuestra TO 'empleado3'@'localhost';
+GRANT INSERT ON mydb.ensayomuestra TO 'empleado4'@'localhost';
+GRANT INSERT ON mydb.ensayomuestra TO 'empleado5'@'localhost';
+
+GRANT INSERT ON mydb.archivoresultado TO 'empleado1'@'localhost';
+GRANT INSERT ON mydb.archivoresultado TO 'empleado2'@'localhost';
+GRANT INSERT ON mydb.archivoresultado TO 'empleado3'@'localhost';
+GRANT INSERT ON mydb.archivoresultado TO 'empleado4'@'localhost';
+GRANT INSERT ON mydb.archivoresultado TO 'empleado5'@'localhost';
