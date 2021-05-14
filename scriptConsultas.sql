@@ -115,3 +115,14 @@ GRANT INSERT ON mydb.archivoresultado TO 'empleado2'@'localhost';
 GRANT INSERT ON mydb.archivoresultado TO 'empleado3'@'localhost';
 GRANT INSERT ON mydb.archivoresultado TO 'empleado4'@'localhost';
 GRANT INSERT ON mydb.archivoresultado TO 'empleado5'@'localhost';
+
+CREATE VIEW vista1 AS
+SELECT inf_fechaRemisionInforme, inf_observacionesInforme FROM informefinal;
+
+GRANT UPDATE ON mydb.vista1 TO 'empleado1'@'localhost';
+GRANT UPDATE ON mydb.vista1 TO 'empleado2'@'localhost';
+GRANT UPDATE ON mydb.vista1 TO 'empleado3'@'localhost';
+GRANT UPDATE ON mydb.vista1 TO 'empleado4'@'localhost';
+GRANT UPDATE ON mydb.vista1 TO 'empleado5'@'localhost';
+
+
