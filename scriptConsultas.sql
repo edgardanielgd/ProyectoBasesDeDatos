@@ -1,10 +1,24 @@
--- Nombres de proyecto para un cliente con nombre
+  -- Nombres de proyecto para un cliente con nombre
 use mydb;
 SELECT pro_nombreProyecto AS NombreProyecto 
 FROM Proyecto JOIN 
 (SELECT cli_NIT FROM cliente WHERE cli_razonSocial="Idiger")
 AS clien 
 USING (cli_NIT);
+
+-- Lista de ensayos que faltan por realizar en un proyecto dado por su ID
+SELECT per_nombrePerforacion, mue_numeroMuestra, mue_profundidad, tip_nombreTipoEnsayo FROM Proyecto
+NATURAL JOIN perforacion NATURAL JOIN muestra NATURAL JOIN EnsayoMuestra NATURAL JOIN TipoEnsayo
+WHERE Proyecto.pro_idProyecto = 4 AND ens_estado = 1;  -- ens_estado = 1 -> pendiente
+
+-- Lista de ensayos que ya se realizaron, junto con su ejecutor y fecha
+SELECT per_nombrePerforacion, mue_numeroMuestra, mue_profundidad, tip_nombreTipoEnsayo, emp_nombreEmpleado, ens_fechaEnsayoMuestra FROM Proyecto
+NATURAL JOIN perforacion NATURAL JOIN muestra NATURAL JOIN EnsayoMuestra NATURAL JOIN TipoEnsayo NATURAL JOIN Empleado
+WHERE Proyecto.pro_idProyecto = 4 AND ens_estado = 3;  -- ens_estado = 3 -> realizado
+
+-- Abono y saldo por pagar para un proyecto dado su ID proyecto
+SELECT cli_razonSocial, pro_nombreProyecto, esp_valorAbonado, esp_fechaAbono, (pro_valorTotal - esp_valorAbonado) AS saldoPorPagar
+FROM cliente NATURAL JOIN Proyecto NATURAL JOIN EstadoPago WHERE pro_idProyecto = 3;
 
 -- Nombres de tipo de ensayo para un proyecto con ID
 SELECT DISTINCT tip_nombreTipoEnsayo AS TipoEnsayo
@@ -41,18 +55,14 @@ JOIN (
     WHERE inf_fechaRemisionInforme=NULL
 )AS t2 USING (pro_idProyecto);
 
--- Quien hace un ensayo, estado de los ensayos, ruta del archivo (si fue ejecutado)
+-- Quién hace un ensayo, estado de los ensayos, ruta del archivo (si fue ejecutado)
 SELECT emp_nombreEmpleado AS Nombre,emp_apellidoEmpleado AS Apellido,ens_estado AS Estado, archivoresultado.ens_rutaArchivo AS Ruta
 FROM ensayomuestra
 JOIN empleado USING(emp_idEmpleado)
 JOIN archivoresultado USING(ens_idEnsayoMuestra);
 
--- Obtener el promedio de profundidad de las muestras para cada proyecto
-SELECT pro_nombreProyecto AS Nombre,AVG(mue_profundidad) AS Promedio
-FROM proyecto
-JOIN perforacion USING(pro_idProyecto)
-JOIN muestra USING(per_idPerforacion)
-GROUP BY (pro_idProyecto);
+-- Valor promedio $$$ contratado con un cliente dado
+SELECT cli_razonSocial ,AVG(pro_valorTotal) AS valorPromedioContratado FROM Proyecto NATURAL JOIN Cliente WHERE cli_razonSocial = 'Idiger';
 
 -- Obtener por localizaciones la cantidad de perforaciones hechas para un proyecto
 SELECT per_localizacion AS Localizacion, COUNT(per_idPerforacion) AS Cantidad
@@ -149,5 +159,3 @@ GRANT UPDATE ON mydb.vista1 TO 'empleado2'@'localhost';
 GRANT UPDATE ON mydb.vista1 TO 'empleado3'@'localhost';
 GRANT UPDATE ON mydb.vista1 TO 'empleado4'@'localhost';
 GRANT UPDATE ON mydb.vista1 TO 'empleado5'@'localhost';*/
-
-
