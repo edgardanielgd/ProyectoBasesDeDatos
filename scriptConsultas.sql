@@ -62,7 +62,9 @@ JOIN empleado USING(emp_idEmpleado)
 JOIN archivoresultado USING(ens_idEnsayoMuestra);
 
 -- Valor promedio $$$ contratado con un cliente dado
-SELECT cli_razonSocial ,AVG(pro_valorTotal) AS valorPromedioContratado FROM Proyecto NATURAL JOIN Cliente WHERE cli_razonSocial = 'Idiger';
+SELECT cli_razonSocial ,AVG(pro_valorTotal) AS valorPromedioContratado 
+FROM Proyecto NATURAL JOIN Cliente 
+WHERE cli_razonSocial = 'Idiger';
 
 -- Obtener por localizaciones la cantidad de perforaciones hechas para un proyecto
 SELECT per_localizacion AS Localizacion, COUNT(per_idPerforacion) AS Cantidad
@@ -72,6 +74,7 @@ JOIN (
     WHERE pro_nombreProyecto='OS No. CG-280'
 ) AS t3 USING(pro_idProyecto)
 GROUP BY per_localizacion;
+
 
 -- Actualizar los archivos resultado para una muestra
 UPDATE archivoresultado SET ens_rutaArchivo="C:\Downloads\Resultado20" 
@@ -88,74 +91,96 @@ mue_idMuestra IN (
     WHERE per_idPerforacion IN (1,5,6)
 );
 
+-- Cambiar el estado de un ensayo a muestra (conociendo id de ensayo muestra)
+UPDATE ensayomuestra SET ens_estado=3
+WHERE ens_idEnsayoMuestra=5;
+
+
+-- Remover un proyecto (con sus perforaciones, muestras, ensayos a muestras,
+-- archivos resultado e informe final)
+-- Nos dan la ID de proyecto
+DELETE FROM informefinal 
+WHERE pro_idProyecto=5; -- Borando el informe del proyecto
+
+DELETE FROM estadopago
+WHERE pro_idProyecto=5; -- Borrando el estado de pago
+
+DELETE FROM archivoresultado
+WHERE pro_idProyecto=5; -- Borrando los archivos resultado 
+
+CREATE VIEW vw_perforaciones 
+AS SELECT per_idPerforacion FROM perforacion 
+WHERE pro_idProyecto=5;
+
+CREATE VIEW vw_muestras
+AS SELECT mue_idMuestra FROM muestra
+NATURAL JOIN vw_perforaciones;
+
+DELETE FROM ensayomuestra 
+WHERE mue_idMuestra IN (vw_muestras);
+
+DELETE FROM muestras
+WHERE per_idPerforacion IN (vw_perforacion);
+
+DELETE FROM perforacion
+WHERE pro_idProyecto=5;
+
+DELETE FROM proyecto
+WHERE pro_idProyecto=5;
+
+DROP VIEW vw_muestras;
+DROP VIEW vw_perforaciones;
+
+
 -- Remover los clientes cuya sumatoria de pago de proyectos sea menor a
 -- un millón
-CREATE VIEW vw_aux AS 
+CREATE VIEW vw_clientes AS 
 SELECT cliente.cli_NIT FROM cliente
     JOIN Proyecto USING(cli_NIT)
     GROUP BY cliente.cli_NIT
     HAVING SUM(Proyecto.pro_valorTotal)<1000000;
-    
-DELETE FROM cliente WHERE
-cli_NIT IN (
-	SELECT cli_NIT FROM vw_aux
-);
 
-DROP VIEW vw_aux;
+CREATE VIEW vw_proyectos 
+AS SELECT pro_idProyecto FROM proyecto
+WHERE cli_NIT IN (vw_clientes);
+
+-- Delete Edgar
+-- Update Jose Luis
 
 CREATE USER IF NOT EXISTS 'administrador'@'localhost' IDENTIFIED BY 'P&Logistica123';
 CREATE USER IF NOT EXISTS 'administrador2'@'localhost' IDENTIFIED BY 'OlaDeMar';
-CREATE USER IF NOT EXISTS 'empleado1'@'localhost' IDENTIFIED BY 'JoseBarrera123';
-CREATE USER IF NOT EXISTS 'empleado2'@'localhost' IDENTIFIED BY 'JuanRodrigo123';
-CREATE USER IF NOT EXISTS 'empleado3'@'localhost' IDENTIFIED BY 'NatyBD123';
-CREATE USER IF NOT EXISTS 'empleado4'@'localhost' IDENTIFIED BY 'AnitaSofia123';
-CREATE USER IF NOT EXISTS 'empleado5'@'localhost' IDENTIFIED BY 'AndresMendoza123';
+CREATE USER IF NOT EXISTS 'jefeLab1'@'localhost' IDENTIFIED BY 'JoseBarrera123';
+CREATE USER IF NOT EXISTS 'laboratorista1'@'localhost' IDENTIFIED BY 'JuanRodrigo123';
+CREATE USER IF NOT EXISTS 'laboratorista2'@'localhost' IDENTIFIED BY 'NatyBD123';
+CREATE USER IF NOT EXISTS 'laboratorista3'@'localhost' IDENTIFIED BY 'AnitaSofia123';
+CREATE USER IF NOT EXISTS 'laboratorista4'@'localhost' IDENTIFIED BY 'AndresMendoza123';
 
+SELECT * FROM mysql.user;
 CREATE ROLE IF NOT EXISTS 'admin';
-CREATE ROLE IF NOT EXISTS 'empleado';
-REVOKE INSERT,UPDATE,SELECT,DELETE ON mydb.* FROM 'empleado';
-GRANT ALL ON mydb TO 'admin';
-GRANT SELECT ON mydb.* TO 'empleado';
-GRANT INSERT ON mydb.ensayomuestra TO 'empleado';
-GRANT INSERT ON mydb.archivoresultado TO 'empleado';
-CREATE VIEW  vista1 AS
-SELECT inf_fechaRemisionInforme, inf_observacionesInforme FROM informefinal;
-GRANT UPDATE ON mydb.vista1 TO 'empleado';
-GRANT 'empleado' TO 'empleado1'@'localhost';
-GRANT 'empleado' TO 'empleado2'@'localhost';
-GRANT 'empleado' TO 'empleado3'@'localhost';
-GRANT 'empleado' TO 'empleado4'@'localhost';
-GRANT 'empleado' TO 'empleado5'@'localhost';
+CREATE ROLE IF NOT EXISTS 'jefeLab';
+CREATE ROLE IF NOT EXISTS 'laboratorista';
+
+
+GRANT ALL ON mydb.* TO 'laboratorista','jefeLab','admin';
+REVOKE INSERT,UPDATE,SELECT,DELETE ON mydb.* FROM 'laboratorista','jefeLab';
+GRANT SELECT ON mydb.* TO 'laboratorista','jefeLab';
+REVOKE SELECT ON mydb.cliente FROM 'laboratorista','jefeLab';
+REVOKE SELECT ON mydb.estadopago FROM 'laboratorista','jefeLab';
+REVOKE SELECT ON mydb.proyecto FROM 'laboratorista','jefeLab';
+
+CREATE VIEW vw_proyecto_lab
+AS SELECT pro_idProyecto,pro_nombreProyecto FROM proyecto;
+
+GRANT SELECT on mydb.vw_proyecto_lab TO 'laboratorista','jefeLab';
+
+GRANT INSERT,UPDATE ON mydb.ensayomuestra TO 'laboratorista','jefeLab';
+GRANT INSERT,UPDATE ON mydb.archivoresultado TO 'laboratorista','jefeLab';
+GRANT ALL ON mydb.informefinal TO 'jefeLab';
+GRANT 'jefeLab' TO 'jefeLab1'@'localhost';
+GRANT 'laboratorista' TO 'laboratorista1'@'localhost';
+GRANT 'laboratorista' TO 'laboratorista2'@'localhost';
+GRANT 'laboratorista' TO 'laboratorista3'@'localhost';
+GRANT 'laboratorista' TO 'laboratorista4'@'localhost';
 GRANT 'admin' TO 'administrador'@'localhost';
 GRANT 'admin' TO 'administrador2'@'localhost';
 
-
-
--- Colocando accesos a tablas
-/*GRANT ALL ON mydb TO 'administrador'@'localhost';
-GRANT ALL ON mydb TO 'administrador2'@'localhost';
-GRANT SELECT ON mydb.* TO 'empleado1'@'localhost' ;
-GRANT SELECT ON mydb.* TO 'empleado2'@'localhost' ;
-GRANT SELECT ON mydb.* TO 'empleado3'@'localhost' ;
-GRANT SELECT ON mydb.* TO 'empleado4'@'localhost' ;
-GRANT SELECT ON mydb.* TO 'empleado5'@'localhost' ;*/
-
-/*GRANT INSERT ON mydb.ensayomuestra TO 'empleado1'@'localhost';
-GRANT INSERT ON mydb.ensayomuestra TO 'empleado2'@'localhost';
-GRANT INSERT ON mydb.ensayomuestra TO 'empleado3'@'localhost';
-GRANT INSERT ON mydb.ensayomuestra TO 'empleado4'@'localhost';
-GRANT INSERT ON mydb.ensayomuestra TO 'empleado5'@'localhost';*/
-
-/*GRANT INSERT ON mydb.archivoresultado TO 'empleado1'@'localhost';
-GRANT INSERT ON mydb.archivoresultado TO 'empleado2'@'localhost';
-GRANT INSERT ON mydb.archivoresultado TO 'empleado3'@'localhost';
-GRANT INSERT ON mydb.archivoresultado TO 'empleado4'@'localhost';
-GRANT INSERT ON mydb.archivoresultado TO 'empleado5'@'localhost';*/
-
-
-
-/*GRANT UPDATE ON mydb.vista1 TO 'empleado1'@'localhost';
-GRANT UPDATE ON mydb.vista1 TO 'empleado2'@'localhost';
-GRANT UPDATE ON mydb.vista1 TO 'empleado3'@'localhost';
-GRANT UPDATE ON mydb.vista1 TO 'empleado4'@'localhost';
-GRANT UPDATE ON mydb.vista1 TO 'empleado5'@'localhost';*/
