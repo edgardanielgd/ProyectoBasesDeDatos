@@ -99,38 +99,50 @@ WHERE ens_idEnsayoMuestra=5;
 -- Remover un proyecto (con sus perforaciones, muestras, ensayos a muestras,
 -- archivos resultado e informe final)
 -- Nos dan la ID de proyecto
+CREATE VIEW vw_perforaciones 
+AS SELECT DISTINCT per_idPerforacion FROM perforacion 
+WHERE pro_idProyecto=5;
+
+CREATE VIEW vw_muestras
+AS SELECT DISTINCT mue_idMuestra FROM muestra
+NATURAL JOIN vw_perforaciones;
+
+CREATE VIEW vw_ensayosmuestra
+AS SELECT DISTINCT ens_idEnsayoMuestra FROM ensayomuestra
+NATURAL JOIN vw_muestras;
+
+DELETE FROM archivoresultado
+WHERE ens_idEnsayoMuestra IN (
+	SELECT * FROM vw_ensayosmuestra
+    );
+
+
 DELETE FROM informefinal 
 WHERE pro_idProyecto=5; -- Borando el informe del proyecto
 
 DELETE FROM estadopago
 WHERE pro_idProyecto=5; -- Borrando el estado de pago
 
-DELETE FROM archivoresultado
-WHERE pro_idProyecto=5; -- Borrando los archivos resultado 
-
-CREATE VIEW vw_perforaciones 
-AS SELECT per_idPerforacion FROM perforacion 
-WHERE pro_idProyecto=5;
-
-CREATE VIEW vw_muestras
-AS SELECT mue_idMuestra FROM muestra
-NATURAL JOIN vw_perforaciones;
-
 DELETE FROM ensayomuestra 
-WHERE mue_idMuestra IN (vw_muestras);
+WHERE ens_idEnsayoMuestra IN (
+	SELECT * FROM 
+    vw_ensayosmuestra
+);
 
-DELETE FROM muestras
-WHERE per_idPerforacion IN (vw_perforacion);
+DELETE FROM muestra
+WHERE mue_idMuestra IN (SELECT * FROM 
+vw_muestras);
 
 DELETE FROM perforacion
-WHERE pro_idProyecto=5;
+WHERE per_idPerforacion IN (SELECT * FROM 
+vw_perforaciones);
 
 DELETE FROM proyecto
 WHERE pro_idProyecto=5;
 
 DROP VIEW vw_muestras;
 DROP VIEW vw_perforaciones;
-
+DROP VIEW vw_ensayosmuestra;
 
 -- Remover los clientes cuya sumatoria de pago de proyectos sea menor a
 -- un millón
@@ -141,11 +153,70 @@ SELECT cliente.cli_NIT FROM cliente
     HAVING SUM(Proyecto.pro_valorTotal)<1000000;
 
 CREATE VIEW vw_proyectos 
-AS SELECT pro_idProyecto FROM proyecto
-WHERE cli_NIT IN (vw_clientes);
+AS SELECT  DISTINCT pro_idProyecto FROM proyecto
+NATURAL JOIN vw_clientes;
 
+CREATE VIEW vw_perforaciones
+AS SELECT  DISTINCT per_idPerforacion FROM perforacion
+NATURAL JOIN vw_proyectos;
+
+CREATE VIEW vw_muestras
+AS SELECT  DISTINCT mue_idMuestra FROM muestra
+NATURAL JOIN vw_perforaciones;
+
+CREATE VIEW vw_ensayosmuestra
+AS SELECT  DISTINCT ens_idEnsayoMuestra FROM ensayomuestra
+NATURAL JOIN vw_muestras;
+
+DELETE FROM archivoresultado
+WHERE ens_idEnsayoMuestra IN (SELECT * FROM vw_ensayosmuestra);
+
+DELETE FROM informefinal
+WHERE pro_idproyecto IN (SELECT * FROM vw_proyectos);
+
+DELETE FROM estadopago
+WHERE pro_idproyecto IN (SELECT * FROM vw_proyectos);
+
+DELETE FROM ensayomuestra
+WHERE ens_idEnsayoMuestra IN ( 
+SELECT ens_idEnsayoMuestra FROM vw_ensayosmuestra
+);
+
+DELETE FROM muestra
+WHERE mue_idMuestra IN(SELECT * FROM vw_muestras);
+
+DELETE FROM perforacion
+WHERE per_idPerforacion IN(SELECT * FROM vw_perforaciones);
+
+DELETE FROM proyecto
+WHERE pro_idProyecto IN (SELECT * FROM vw_proyectos);
+
+DELETE FROM cliente
+WHERE cli_NIT IN (SELECT * FROM vw_clientes);
+
+DROP VIEW vw_ensayosmuestra;
+DROP VIEW vw_muestras;
+DROP VIEW vw_perforaciones;
+DROP VIEW vw_proyectos;
+DROP VIEW vw_clientes;
 -- Delete Edgar
 -- Update Jose Luis
+
+-- Borrar una muestra de un proyecto
+CREATE VIEW vw_ensayosmuestra
+as select distinct ens_idEnsayoMuestra FROM
+ensayomuestra WHERE mue_idMuestra=10;
+
+DELETE FROM archivoresultado 
+WHERE ens_idEnsayoMuestra IN (
+	SELECT * FROM vw_ensayosmuestra
+);
+DELETE FROM ensayomuestra
+WHERE ens_idEnsayoMuestra IN (
+	SELECT * FROM vw_ensayosmuestra
+);
+DELETE FROM muestra WHERE mue_idMuestra=10;
+DROP VIEW vw_ensayosmuestra;	
 
 CREATE USER IF NOT EXISTS 'administrador'@'localhost' IDENTIFIED BY 'P&Logistica123';
 CREATE USER IF NOT EXISTS 'administrador2'@'localhost' IDENTIFIED BY 'OlaDeMar';
