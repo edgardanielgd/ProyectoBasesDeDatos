@@ -259,7 +259,10 @@ CREATE ROLE IF NOT EXISTS 'laboratorista';
 
 
 GRANT ALL ON mydb.* TO 'laboratorista','jefeLab','admin';
-REVOKE INSERT,UPDATE,SELECT,DELETE ON mydb.* FROM 'laboratorista','jefeLab';
+GRANT ALL ON mydb.cliente TO 'laboratorista','jefeLab','admin';
+GRANT ALL ON mydb.estadopago TO 'laboratorista','jefeLab','admin';
+GRANT ALL ON mydb.proyecto TO 'laboratorista','jefeLab','admin';
+REVOKE INSERT,UPDATE,SELECT,DELETE,CREATE,ALTER ON mydb.* FROM 'laboratorista','jefeLab';
 GRANT SELECT ON mydb.* TO 'laboratorista','jefeLab';
 REVOKE SELECT ON mydb.cliente FROM 'laboratorista','jefeLab';
 REVOKE SELECT ON mydb.estadopago FROM 'laboratorista','jefeLab';
