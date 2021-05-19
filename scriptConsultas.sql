@@ -283,3 +283,4 @@ GRANT 'laboratorista' TO 'laboratorista3'@'localhost';
 GRANT 'laboratorista' TO 'laboratorista4'@'localhost';
 GRANT 'admin' TO 'administrador'@'localhost';
 GRANT 'admin' TO 'administrador2'@'localhost';
+DROP VIEW vw_proyecto_lab;
