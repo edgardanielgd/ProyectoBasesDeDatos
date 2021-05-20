@@ -1,5 +1,7 @@
 -- Nombres de proyecto para un cliente con nombre
 use mydb;
+SET GLOBAL local_infile = 'ON';
+SHOW VARIABLES LIKE "secure_file_priv";
 SELECT pro_nombreProyecto AS NombreProyecto 
 FROM Proyecto JOIN 
 (SELECT cli_NIT FROM cliente WHERE cli_razonSocial="Idiger")
@@ -251,30 +253,32 @@ CREATE USER IF NOT EXISTS 'laboratorista1'@'localhost' IDENTIFIED BY 'JuanRodrig
 CREATE USER IF NOT EXISTS 'laboratorista2'@'localhost' IDENTIFIED BY 'NatyBD123';
 CREATE USER IF NOT EXISTS 'laboratorista3'@'localhost' IDENTIFIED BY 'AnitaSofia123';
 CREATE USER IF NOT EXISTS 'laboratorista4'@'localhost' IDENTIFIED BY 'AndresMendoza123';
-
-SELECT * FROM mysql.user;
 CREATE ROLE IF NOT EXISTS 'admin';
 CREATE ROLE IF NOT EXISTS 'jefeLab';
 CREATE ROLE IF NOT EXISTS 'laboratorista';
 
+CREATE VIEW vw_proyecto_lab
+AS SELECT pro_idProyecto,pro_nombreProyecto FROM proyecto;
 
 GRANT ALL ON mydb.* TO 'laboratorista','jefeLab','admin';
-GRANT ALL ON mydb.cliente TO 'laboratorista','jefeLab','admin';
-GRANT ALL ON mydb.estadopago TO 'laboratorista','jefeLab','admin';
-GRANT ALL ON mydb.proyecto TO 'laboratorista','jefeLab','admin';
+GRANT ALL ON mydb.cliente TO 'laboratorista','jefeLab';
+GRANT ALL ON mydb.estadopago TO 'laboratorista','jefeLab';
+GRANT ALL ON mydb.proyecto TO 'laboratorista','jefeLab';
+GRANT ALL ON mydb.empleado TO 'laboratorista';
 REVOKE INSERT,UPDATE,SELECT,DELETE,CREATE,ALTER ON mydb.* FROM 'laboratorista','jefeLab';
 GRANT SELECT ON mydb.* TO 'laboratorista','jefeLab';
 REVOKE SELECT ON mydb.cliente FROM 'laboratorista','jefeLab';
 REVOKE SELECT ON mydb.estadopago FROM 'laboratorista','jefeLab';
 REVOKE SELECT ON mydb.proyecto FROM 'laboratorista','jefeLab';
-
-CREATE VIEW vw_proyecto_lab
-AS SELECT pro_idProyecto,pro_nombreProyecto FROM proyecto;
-
+REVOKE SELECT ON mydb.empleado FROM 'laboratorista';
 GRANT SELECT on mydb.vw_proyecto_lab TO 'laboratorista','jefeLab';
 
-GRANT INSERT,UPDATE ON mydb.ensayomuestra TO 'laboratorista','jefeLab';
-GRANT INSERT,UPDATE ON mydb.archivoresultado TO 'laboratorista','jefeLab';
+GRANT INSERT,UPDATE,DELETE ON mydb.ensayomuestra TO 'jefeLab';
+GRANT INSERT,UPDATE ON mydb.ensayomuestra TO 'laboratorista';
+
+GRANT INSERT,UPDATE ON mydb.archivoresultado TO 'laboratorista';
+GRANT INSERT,UPDATE,DELETE ON mydb.archivoresultado TO 'jefeLab';
+
 GRANT ALL ON mydb.informefinal TO 'jefeLab';
 GRANT 'jefeLab' TO 'jefeLab1'@'localhost';
 GRANT 'laboratorista' TO 'laboratorista1'@'localhost';
@@ -283,4 +287,5 @@ GRANT 'laboratorista' TO 'laboratorista3'@'localhost';
 GRANT 'laboratorista' TO 'laboratorista4'@'localhost';
 GRANT 'admin' TO 'administrador'@'localhost';
 GRANT 'admin' TO 'administrador2'@'localhost';
-DROP VIEW vw_proyecto_lab;
+GRANT ALL ON mydb.* TO 'laboratorista','jefeLab','admin';
+REVOKE SELECT ON mydb.cliente FROM 'laboratorista','jefeLab';
