@@ -1,4 +1,5 @@
 -- Nombres de proyecto para un cliente con nombre
+CREATE SCHEMA IF NOT EXISTS mydb;
 use mydb;
 SET GLOBAL local_infile = 'ON';
 SHOW VARIABLES LIKE "secure_file_priv";
