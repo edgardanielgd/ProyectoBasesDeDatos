@@ -63,10 +63,29 @@ FROM EnsayoMuestra
 NATURAL JOIN Empleado 
 NATURAL JOIN ArchivoResultado;
 
--- Valor promedio $$$ contratado con un cliente dado
+-- Valor promedio $$$ contratado con un conjunto de clientes
 SELECT cli_razonSocial ,AVG(pro_valorTotal) AS valorPromedioContratado 
 FROM Proyecto NATURAL JOIN Cliente 
-WHERE cli_razonSocial = 'Idiger';
+WHERE cli_razonSocial IN ('Idiger','CI Ambiental S.A.S','DACH & ASOCIADOS S.A.S');
+
+-- Seleccionar los tipos de ensayo y la cantidad de ensayos muestra
+-- que se han realizado sobre ellos, para aquellos con minimo tres ensayos a muestras
+
+SELECT tip_nombreTipoEnsayo, COUNT(ens_idEnsayoMuestra) FROM TipoEnsayo
+NATURAL JOIN EnsayoMuestra
+GROUP BY tip_idTipoEnsayo
+HAVING COUNT(ens_idEnsayoMuestra)>=3;
+
+-- Seleccionar los clientes para los cuales se han hecho mas de 3 ensayos distintos
+
+SELECT cli_razonSocial, COUNT(DISTINCT tip_idTipoEnsayo) FROM Cliente
+NATURAL JOIN Proyecto
+NATURAL JOIN Perforacion
+NATURAL JOIN Muestra
+NATURAL JOIN EnsayoMuestra
+GROUP BY cli_NIT
+HAVING COUNT(DISTINCT tip_idTipoEnsayo)>=3;
+
 
 -- Obtener por localizaciones la cantidad de perforaciones hechas para un proyecto
 SELECT per_localizacion AS Localizacion, COUNT(per_idPerforacion) AS Cantidad
@@ -76,6 +95,7 @@ NATURAL JOIN (
     WHERE pro_nombreProyecto='OS No. CG-280'
 ) AS t3
 GROUP BY per_localizacion;
+
 
 -- Actualizar los archivos resultado para una muestra
 UPDATE ArchivoResultado SET ens_rutaArchivo="C:\Downloads\Resultado20" 
