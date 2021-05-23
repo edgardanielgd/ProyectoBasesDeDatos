@@ -1,7 +1,8 @@
--- Nombres de proyecto para un cliente con nombre
-use mydb;
+﻿use mydb;
 SET GLOBAL local_infile = 'ON';
 SHOW VARIABLES LIKE "secure_file_priv";
+
+-- Nombres de proyecto para un cliente con nombre
 SELECT pro_nombreProyecto AS NombreProyecto 
 FROM Proyecto JOIN 
 (SELECT cli_NIT FROM Cliente WHERE cli_razonSocial="Idiger")

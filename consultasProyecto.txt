@@ -1,12 +1,12 @@
 ﻿-- Nombres de proyectos hechos para un cliente (para cliente con nombre)
 
-b1=ρ NombreProyecto←pro_nombreProyecto π Proyecto.pro_nombreProyecto (Proyecto ⨝ Proyecto.cli_NIT=Cliente.cli_NIT σ Cliente.cli_razonSocial="Hola" Cliente)
+b1=ρ NombreProyecto←pro_nombreProyecto π Proyecto.pro_nombreProyecto (Proyecto ⨝ σ cli_razonSocial='Idiger' Cliente )
 
--- Nombres de tipos de ensayos realizados en un proyecto (para proyecto con ID 5) (REV)
+-- Nombres de tipos de ensayos realizados en un proyecto (para proyecto con ID 5)
 
 b2=ρ NombreEnsayo ← tip_nombreTipoEnsayo π TipoEnsayo.tip_nombreTipoEnsayo  (((σ InformeFinal.pro_idProyecto=5 InformeFinal ⨝  ArchivoResultado) ⨝  EnsayoMuestra) ⨝  TipoEnsayo)
 
--- Nombres de los tipos de ensayos realizados a una muestra (Para muestra con id 4)
+-- Nombres de los tipos de ensayos realizados a una muestra (Para muestra con id 4) (REV)
 
 b4=ρ NombreEnsayo←tip_nombreTipoEnsayo π TipoEnsayo.tip_nombreTipoEnsayo  ((σ Muestra.mue_idMuestra=4 Muestra ⨝  EnsayoMuestra) ⨝  TipoEnsayo)
 
@@ -22,16 +22,33 @@ b6=ρ NombreProyecto←Proyecto.pro_nombreProyecto  π Proyecto.pro_nombreProyec
 
 b7=ρ NombreEmpleado←Empleado.emp_nombreEmpleado ρ ApellidoEmpleado←Empleado.emp_apellidoEmpleado ρ Estado←EnsayoMuestra.ens_estado ρ Ruta←ArchivoResultado.ens_rutaArchivo π Empleado.emp_nombreEmpleado,Empleado.emp_apellidoEmpleado, EnsayoMuestra.ens_estado, ArchivoResultado.ens_rutaArchivo ((((Proyecto ⨝ Muestra) ⨝EnsayoMuestra)⨝ Empleado)⟕ArchivoResultado)
 
--- Obtener la suma y promedio de todos los proyectos por Cliente
+-- Obtener por localizaciones la cantidad de perforaciones hechas para un proyecto 
 
-b8=ρ RazonSocial←cli_razonSocial ρ Resultado π cli_razonSocial,TotalPagado,PromedioProyecto γ cli_NIT,cli_razonSocial;sum(pro_valorTotal)→TotalPagado,avg(pro_valorTotal)→PromedioProyecto (Cliente⟕Proyecto)
+b8=γ Perforacion.per_localizacion; count(Perforacion.per_idPerforacion)→Cantidad (Perforacion⨝(σ pro_idProyecto=2 Proyecto))
 
--- Obtener el promedio de profundidad de las muestras para cada proyecto
+-- Lista de ensayos que faltan por realizar en un proyecto dado por su ID
 
-b9=ρ NombreProyecto←Proyecto.pro_nombreProyecto π Proyecto.pro_nombreProyecto,Promedio γ Proyecto.pro_idProyecto,Proyecto.pro_nombreProyecto; avg(Muestra.mue_profundidad)→Promedio (Proyecto⨝Perforacion⨝Muestra)
+b9=ρ NombrePerforacion←per_nombrePerforacion ρ NumeroMuestra ← mue_numeroMuestra ρ ProfundidadMuestra ← mue_profundidad ρ TipoEnsayo ← tip_nombreTipoEnsayo π per_nombrePerforacion,mue_numeroMuestra,mue_profundidad,tip_nombreTipoEnsayo (( σ pro_idProyecto = 4 Perforacion) ⨝ Muestra ⨝ (σ ens_estado='Pendiente' EnsayoMuestra) ⨝ TipoEnsayo)
 
--- Obtener por localizaciones la cantidad de perforaciones hechas para un proyecto
+-- Lista de ensayos que ya se realizaron para un proyecto, junto con su ejecutor y fecha
+b10=ρ NombrePerforacion←per_nombrePerforacion ρ NumeroMuestra ← mue_numeroMuestra ρ ProfundidadMuestra ← mue_profundidad ρ TipoEnsayo ← tip_nombreTipoEnsayo ρ NombreEmpleado ← emp_nombreEmpleado ρ Fecha ← ens_fechaEnsayoMuestra π per_nombrePerforacion,mue_numeroMuestra,mue_profundidad,tip_nombreTipoEnsayo,ens_fechaEnsayoMuestra,emp_nombreEmpleado (( σ pro_idProyecto = 4 Perforacion) ⨝ Muestra ⨝ (σ ens_estado='Finalizado' EnsayoMuestra) ⨝ TipoEnsayo ⨝ Empleado)
 
-γ Perforacion.per_localizacion; count(Perfor acion.per_idPerforacion)→Cantidad (Perforacion⨝(σ pro_idProyecto=2 Proyecto))
+-- Abono y saldo por pagar para un proyecto dado su ID proyecto
+b11=ρ RazonSocial←cli_razonSocial ρ NombreProyecto ← pro_nombreProyecto ρ ValorAbonado ← esp_valorAbonado ρ FechaAbono ← esp_fechaAbono  π cli_razonSocial,pro_nombreProyecto,esp_valorAbonado,esp_fechaAbono,(pro_valorTotal - esp_valorAbonado) →SaldoPagar (( σ pro_idProyecto = 3 Proyecto) ⨝ Cliente ⨝ EstadoPago)
 
+-- Valor promedio $$$ contratado con un conjunto de clientes
 
+b12=ρ RazonSocial←cli_razonSocial π cli_razonSocial,valorPromedioContratado γ cli_razonSocial;avg(pro_valorTotal)→valorPromedioContratado (Proyecto ⨝ (σ (cli_razonSocial='Idiger' or  cli_razonSocial='CI Ambiental S.A.S' or cli_razonSocial='DACH & ASOCIADOS S.A.S') Cliente))
+
+-- Seleccionar los tipos de ensayo y la cantidad de ensayos muestra
+-- que se han realizado sobre ellos, para aquellos con minimo tres ensayos a muestras
+
+aux=γ tip_idTipoEnsayo,tip_nombreTipoEnsayo;count(ens_idEnsayoMuestra)→Cantidad (TipoEnsayo ⨝ EnsayoMuestra)
+
+b13=ρ NombreTipoEnsayo←tip_nombreTipoEnsayo π tip_nombreTipoEnsayo,Cantidad (σ Cantidad>=3 aux)
+
+-- Seleccionar los clientes para los cuales se han hecho mas de 3 ensayos (la seccion de 'distintos' aun no es posible en relax)
+
+aux2=γ cli_NIT,cli_razonSocial;count(ens_idEnsayoMuestra)→Cantidad (Cliente ⨝ Proyecto ⨝ Perforacion ⨝ Muestra ⨝ EnsayoMuestra)
+
+b14=ρ RazonSocial←cli_razonSocial π cli_razonSocial,Cantidad (σ Cantidad>=3 aux2)
