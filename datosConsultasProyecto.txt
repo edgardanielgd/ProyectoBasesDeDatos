@@ -36,6 +36,7 @@ emp_idEmpleado, emp_nombreEmpleado, emp_apellidoEmpleado, emp_oficioEmpleado
 4, 'ISABEL', 'Álvarez', 'Jefe de laboratorio'
 5, 'PAULA', 'Bello', 'Laboratorista'
 6, 'JAVIER', 'Bello', 'Pasante'
+7, 'GUILLERMO','AVILA','Gerente'
 }
 TipoEnsayo = {
 tip_idTipoEnsayo, tip_nombreTipoEnsayo
