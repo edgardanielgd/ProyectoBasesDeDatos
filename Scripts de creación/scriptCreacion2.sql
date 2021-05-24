@@ -170,6 +170,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`informeFinal` (
   `inf_fechaRemisionInforme` DATETIME NOT NULL COMMENT 'Representa la fecha en la cual un informe ha sido remitido',
   `inf_observacionesInforme` VARCHAR(1000) NULL COMMENT 'Representa observaciones opcionales dadas a un informe al momento de ser creado / entregado',
   `pro_idProyecto` INT NOT NULL COMMENT 'Representa una llave foránea converitda en primaria en una relación 1-1 con la tabla proyecto',
+  `inf_rutaInformeFinal` VARCHAR (200) NOT NULL COMMENT 'Ruta donde están almacenados los archivos resultado individuales',
   PRIMARY KEY (`pro_idProyecto`),
   CONSTRAINT `fk_informeFinal_Proyecto1`
     FOREIGN KEY (`pro_idProyecto`)
@@ -368,13 +369,13 @@ INSERT INTO EnsayoMuestra VALUES(43,'2011-09-16',1,'NULL',2,34,6,'3');
 
 
 -- datos informes finales
-INSERT INTO informeFinal VALUES('2018-01-09','NULL','1');
-INSERT INTO informeFinal VALUES('2020-08-21','NULL','2');
-INSERT INTO informeFinal VALUES('2011-12-31','NULL','3');
-INSERT INTO informeFinal VALUES('2013-11-1','NULL','4');
-INSERT INTO informeFinal VALUES('2014-9-23','NULL','5');
-INSERT INTO informeFinal VALUES('2011-9-5','NULL','6');
-INSERT INTO informeFinal VALUES('2012-01-24','NULL','7');
+INSERT INTO informeFinal VALUES('2018-01-09','NULL','1', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 1');
+INSERT INTO informeFinal VALUES('2020-08-21','NULL','2', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 2');
+INSERT INTO informeFinal VALUES('2011-12-31','NULL','3', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 3');
+INSERT INTO informeFinal VALUES('2013-11-1','NULL','4', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 4');
+INSERT INTO informeFinal VALUES('2014-9-23','NULL','5', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 5');
+INSERT INTO informeFinal VALUES('2011-9-5','NULL','6', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 6');
+INSERT INTO informeFinal VALUES('2012-01-24','NULL','7', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 7');
 
 
 

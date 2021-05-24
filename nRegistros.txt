@@ -1,7 +1,0 @@
-Cliente: 5
-Proyecto: 7
-Muestras: 40
-Ensayos: Ya los conocemos
-Categoria: ya los conocemos
-Empleado: 10
-EnsayosMuestra: 50
