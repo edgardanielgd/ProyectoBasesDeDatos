@@ -194,14 +194,14 @@ ens_idEnsayoMuestra, ens_rutaArchivo, pro_idProyecto
 43, 'C:\Users\josel\Documents\Resultado43', 6
 }
 InformeFinal = {
-inf_fechaRemisionInforme, inf_observacionesInforme, pro_idProyecto
-'01/09/2018','', 1
-'21/08/2020','', 2
-'31/12/2011','', 3
-'11/01/2013','', 4
-'23/9/2014','', 5
-'09/05/2011','', 6
-'24/01/2012','', 7
+inf_fechaRemisionInforme, inf_observacionesInforme, inf_rutaInformeFinal, pro_idProyecto
+'01/09/2018','','C:\Users\josel\Documents\', 1
+'21/08/2020','','C:\Users\josel\Documents\', 2
+'31/12/2011','','C:\Users\josel\Documents\', 3
+'11/01/2013','','C:\Users\josel\Documents\', 4
+'23/9/2014','','C:\Users\josel\Documents\', 5
+'09/05/2011','','C:\Users\josel\Documents\', 6
+'24/01/2012','','C:\Users\josel\Documents\', 7
 }
 EstadoPago = {
 pro_idProyecto, esp_valorAbonado, esp_fechaAbono, esp_fechaPagoTotal
