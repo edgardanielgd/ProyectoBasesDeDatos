@@ -40,7 +40,7 @@ AS SELECT pro_idProyecto,pro_nombreProyecto FROM Proyecto;
 -- Rutas de informe final para cada proyecto
 CREATE VIEW vw_informeFinal_vs_Proyecto
 AS SELECT inf_rutaInformeFinal, inf_fechaRemisionInforme, inf_observacionesInforme, pro_nombreProyecto FROM
-informeFinal NATURAL JOIN Proyecto
+informeFinal NATURAL JOIN Proyecto;
 
 
 
@@ -48,6 +48,25 @@ informeFinal NATURAL JOIN Proyecto
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+DROP VIEW vw_informeFinal_vs_Proyecto;
+DROP VIEW vw_proyecto_lab;
+DROP VIEW vw_perforacion_vs_proyecto;
+DROP VIEW vw_empleado_vs_proyecto;
+DROP VIEW vw_proyecto_vs_archivoresultado;
+DROP VIEW vw_cliente_vs_proyecto;
 
 
 
