@@ -71,4 +71,34 @@ FOR EACH ROW
 BEGIN
 	CALL proc_cambiar_tipo_ensayo_default(OLD.tip_idTipoEnsayo);
 END; $$
+/*
+CREATE TRIGGER trg_del_muestra_after AFTER DELETE ON Muestra
+FOR EACH ROW
+BEGIN
+	DECLARE var INT DEFAULT 0;
+    
+    SELECT pro_idProyecto INTO var 
+    FROM Proyecto NATURAL JOIN 
+    (SELECT per_idPerforacion FROM
+    Perforacion WHERE per_idPerforacion = OLD.per_idPerforacion);
+    
+    UPDATE Proyecto SET pro_cantidadEnsayos=pro_cantidadEnsayos-1;
+    
+END; $$
+
+CREATE TRIGGER trg_ins_muestra_after AFTER INSERT ON Muestra
+FOR EACH ROW
+BEGIN
+	DECLARE var INT DEFAULT 0;
+    
+    SELECT pro_idProyecto INTO var 
+    FROM Proyecto NATURAL JOIN 
+    (SELECT per_idPerforacion FROM
+    Perforacion WHERE per_idPerforacion = NEW.per_idPerforacion);
+    
+    UPDATE Proyecto SET pro_cantidadEnsayos=pro_cantidadEnsayos+1;
+    
+END; $$
+*/
 DELIMITER ;
+SHOW TRIGGERS;
