@@ -404,3 +404,14 @@ INSERT INTO ArchivoResultado VALUES('40','C:\Users\josel\Documents\Resultado40',
 INSERT INTO ArchivoResultado VALUES('41','C:\Users\josel\Documents\Resultado41','1');
 INSERT INTO ArchivoResultado VALUES('42','C:\Users\josel\Documents\Resultado42','4');
 INSERT INTO ArchivoResultado VALUES('43','C:\Users\josel\Documents\Resultado43','6');
+
+
+------ Tabla historial para EnsayoMuestra -----------
+CREATE TABLE historialEnsayoMuestra(
+    id_registro_historial INT auto_increment PRIMARY KEY,
+    id_ensayo_muestra INT NOT NULL,
+    usuario VARCHAR(60) NOT NULL,
+    operacion varchar (15) check ( operacion in
+        ('Adicion', 'Actualizacion','Borrado')) NOT NULL,
+    fecha DATETIME NOT NULL
+);
