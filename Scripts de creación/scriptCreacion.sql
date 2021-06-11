@@ -1,61 +1,55 @@
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET latin1 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS mydb DEFAULT CHARACTER SET latin1 ;
+USE mydb ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Cliente`
+-- Table mydb.Cliente
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Cliente` (
-  `cli_NIT` BIGINT NOT NULL COMMENT 'NIT es el identificador único que tiene cada empresa en Colombia',
-  `cli_razonSocial` VARCHAR(100) NOT NULL COMMENT 'La razón social es el nombre comercial de una empresa',
-  `cli_telefono` VARCHAR(11) NOT NULL COMMENT 'Representa un único teléfono de contacto para la empresa (Mismos entes de la empresa sugieren el guardado de solamente un teléfono de contacto)',
-  `cli_sede` VARCHAR(20) NULL COMMENT 'Representa la sede de la empresa que ha solicitado la realización de algún proyecto',
-  `cli_certificadoCamaraComercio` VARCHAR(255) NULL COMMENT 'Certificado de cada empresa disponible en https://linea.ccb.org.co/CertificadosElectronicosR/Index.html',
-  `cli_nombreContacto` VARCHAR(45) NOT NULL COMMENT 'Nombre persona intermediaria de una empresa. Por ejemplo puede ser una secretaria o un empleado específico en una empresa',
-  `cli_apellidoContacto` VARCHAR(45) NOT NULL COMMENT 'Representa el apellido del contacto de la empresa. Mismas directivas del negocio destino de la base de dato manifiestan la necesidad de guardar sólo un contacto de la empresa',
-  `cli_emailContacto` VARCHAR(45) NOT NULL COMMENT 'Representa el email de contacto. La presencia de sólo un contacto por empresa se explica en la columna \"cli_apellidoContacto\"',
-  PRIMARY KEY (`cli_NIT`))
+CREATE TABLE IF NOT EXISTS mydb.Cliente (
+  cli_NIT BIGINT PRIMARY KEY COMMENT 'NIT es el identificador único que tiene cada empresa en Colombia',
+  cli_razonSocial VARCHAR(100) NOT NULL COMMENT 'La razón social es el nombre comercial de una empresa',
+  cli_telefono VARCHAR(11) NOT NULL COMMENT 'Representa un único teléfono de contacto para la empresa (Mismos entes de la empresa sugieren el guardado de solamente un teléfono de contacto)',
+  cli_sede VARCHAR(20) NULL COMMENT 'Representa la sede de la empresa que ha solicitado la realización de algún proyecto',
+  cli_certificadoCamaraComercio VARCHAR(255) NULL COMMENT 'Certificado de cada empresa disponible en https://linea.ccb.org.co/CertificadosElectronicosR/Index.html',
+  cli_nombreContacto VARCHAR(45) NOT NULL COMMENT 'Nombre persona intermediaria de una empresa. Por ejemplo puede ser una secretaria o un empleado específico en una empresa',
+  cli_apellidoContacto VARCHAR(45) NOT NULL COMMENT 'Representa el apellido del contacto de la empresa. Mismas directivas del negocio destino de la base de dato manifiestan la necesidad de guardar sólo un contacto de la empresa',
+  cli_emailContacto VARCHAR(45) NOT NULL COMMENT 'Representa el email de contacto. La presencia de sólo un contacto por empresa se explica en la columna \"cli_apellidoContacto\"'
+)
 ENGINE = InnoDB
 COMMENT = 'Representa la entidad Fuerte \'Cliente\', señala siempre a una empresa (por ésta razón su identificador es el NIT de dicha empresa)';
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Proyecto`
+-- Table mydb.Proyecto
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Proyecto` (
-  `pro_idProyecto` INT NOT NULL COMMENT 'Representa la llave primaria de la entidad proyecto de tipo numérico',
-  `pro_cantidadEnsayos` INT NULL COMMENT 'Cantidad total de ensayos a realizar',
-  `pro_valorTotal` INT NOT NULL COMMENT 'Precio total del proyecto',
-  `pro_IVA` INT NOT NULL DEFAULT 0.19 COMMENT 'representa un iva específico a cobrar dentro del proyecto: (19% del valor total) con la posibilidad de ser distinto',
-  `pro_nombreProyecto` VARCHAR(80) NOT NULL COMMENT 'Representa el nombre dado por el cliente para asignar a un proyecto que éste planea realizar o para el cuál busca estudiar alguna muestra',
-  `pro_FechaInicioProyecto` DATE NOT NULL COMMENT 'Representa la fecha en la que se inicia un proyecto (Fecha en la que se crea el registro)',
-  `pro_FechaFinalizacionProyecto` DATE NOT NULL COMMENT 'Representa la fecha en la que se da fin a un proyecto. Puede ser cuando se entrega el informe, cuando se completa el pago u otra fecha.',
-  `cli_NIT` BIGINT NOT NULL COMMENT 'Representa la llave foránea que relaciona cada proyecto con un único cliente',
-  PRIMARY KEY (`pro_idProyecto`),
-  INDEX `fk_Proyecto_Cliente1_idx` (`cli_NIT` ASC) VISIBLE,
-  CONSTRAINT `fk_Proyecto_Cliente1`
-    FOREIGN KEY (`cli_NIT`)
-    REFERENCES `mydb`.`Cliente` (`cli_NIT`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE IF NOT EXISTS Proyecto (
+  pro_idProyecto INT PRIMARY KEY COMMENT 'Representa la llave primaria de la entidad proyecto de tipo numérico',
+  pro_cantidadEnsayos INT NULL COMMENT 'Cantidad total de ensayos a realizar',
+  pro_valorTotal INT NOT NULL COMMENT 'Precio total del proyecto',
+  pro_IVA INT NOT NULL DEFAULT 0.19 COMMENT 'representa un iva específico a cobrar dentro del proyecto: (19% del valor total) con la posibilidad de ser distinto',
+  pro_nombreProyecto VARCHAR(80) NOT NULL COMMENT 'Representa el nombre dado por el cliente para asignar a un proyecto que éste planea realizar o para el cuál busca estudiar alguna muestra',
+  pro_FechaInicioProyecto DATE NOT NULL COMMENT 'Representa la fecha en la que se inicia un proyecto (Fecha en la que se crea el registro)',
+  pro_FechaFinalizacionProyecto DATE NOT NULL COMMENT 'Representa la fecha en la que se da fin a un proyecto. Puede ser cuando se entrega el informe, cuando se completa el pago u otra fecha.',
+  cli_NIT BIGINT NOT NULL COMMENT 'Representa la llave foránea que relaciona cada proyecto con un único cliente',
+  FOREIGN KEY (cli_NIT)
+    REFERENCES Cliente(cli_NIT)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION) 
 ENGINE = InnoDB
 COMMENT = 'Representa la entidad Proyecto, la cual es generada cada vez que un servicio es prestado a un cliente';
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Perforacion`
+-- Table mydb.Perforacion
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Perforacion` (
-  `per_idPerforacion` INT NOT NULL COMMENT 'Representa un identificador unico para cada perforación realizada',
-  `per_nombrePerforacion` VARCHAR(45) NOT NULL COMMENT 'Define un nombre para la perforación realizada (no se usa como identificador dado que no es único para cada perforación)',
-  `per_localizacion` VARCHAR(100) NOT NULL COMMENT 'Se refiere a la localización general de la perforación',
-  `per_latitud` DECIMAL(8,6) NOT NULL COMMENT 'Define las coordenadas en latitud de la perforación',
-  `per_longitud` DECIMAL(9,6) NOT NULL COMMENT 'Representa la longitud donde se encuentra la perforación',
-  `pro_idProyecto` INT NOT NULL COMMENT 'Representa la llave foránea para la relación 1 a varios con la entidad proyecto',
-  PRIMARY KEY (`per_idPerforacion`),
-  INDEX `fk_Perforacion_Proyecto1_idx` (`pro_idProyecto` ASC) VISIBLE,
-  CONSTRAINT `fk_Perforacion_Proyecto1`
-    FOREIGN KEY (`pro_idProyecto`)
-    REFERENCES `mydb`.`Proyecto` (`pro_idProyecto`)
+CREATE TABLE IF NOT EXISTS mydb.Perforacion (
+  per_idPerforacion INT PRIMARY KEY COMMENT 'Representa un identificador unico para cada perforación realizada',
+  per_nombrePerforacion VARCHAR(45) NOT NULL COMMENT 'Define un nombre para la perforación realizada (no se usa como identificador dado que no es único para cada perforación)',
+  per_localizacion VARCHAR(100) NOT NULL COMMENT 'Se refiere a la localización general de la perforación',
+  per_latitud DECIMAL(8,6) NOT NULL COMMENT 'Define las coordenadas en latitud de la perforación',
+  per_longitud DECIMAL(9,6) NOT NULL COMMENT 'Representa la longitud donde se encuentra la perforación',
+  pro_idProyecto INT NOT NULL COMMENT 'Representa la llave foránea para la relación 1 a varios con la entidad proyecto',
+  FOREIGN KEY (pro_idProyecto)
+    REFERENCES Proyecto(pro_idProyecto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -63,23 +57,20 @@ COMMENT = 'Representa la entidad Muestra, proveida por el cliente dentro de un p
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Muestra`
+-- Table mydb.Muestra
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Muestra` (
-  `mue_idMuestra` INT NOT NULL COMMENT 'Representa un identificador único para cada muestra (llave primaria)',
-  `mue_numeroMuestra` INT NOT NULL COMMENT 'Define el nombre de la muestra entregada para un proyecto (obligatorio)',
-  `mue_condicionEmpaque` ENUM('TUBO', 'BOLSA', 'BLOQUE') NOT NULL COMMENT 'EL empaque puede ser tubo, bolsa o apique',
-  `mue_tipoMuestra` ENUM('ALTERADA', 'INALTERADA') NOT NULL COMMENT 'El tipo de muestra puede ser alterada o inalterada',
-  `mue_ubicacionBodega` VARCHAR(45) NOT NULL COMMENT 'Representa una cadena describiendo la ubicación de la muestra en bodega',
-  `mue_tipoExploracion` ENUM('SONDEO', 'APIQUE') NOT NULL COMMENT 'El tipo de exploración puede ser sondeo o apique',
-  `mue_descripcionMuestra` VARCHAR(45) NOT NULL COMMENT 'Descripción física de la muestra. Incluye datos como el lugar donde fue extraída, la profundidad y una breve descripción del color y su tipo de suelo.',
-  `per_idPerforacion` INT NOT NULL COMMENT 'Representa la llave foránea de la relación 1 a varios con la entidad Perforación',
-  `mue_profundidad` DECIMAL(5,2) NOT NULL COMMENT 'Representa la profundidad a la que fue tomada la muestra',
-  PRIMARY KEY (`mue_idMuestra`),
-  INDEX `fk_Muestra_Perforacion1_idx` (`per_idPerforacion` ASC) VISIBLE,
-  CONSTRAINT `fk_Muestra_Perforacion1`
-    FOREIGN KEY (`per_idPerforacion`)
-    REFERENCES `mydb`.`Perforacion` (`per_idPerforacion`)
+CREATE TABLE IF NOT EXISTS mydb.Muestra (
+  mue_idMuestra INT PRIMARY KEY COMMENT 'Representa un identificador único para cada muestra (llave primaria)',
+  mue_numeroMuestra INT NOT NULL COMMENT 'Define el nombre de la muestra entregada para un proyecto (obligatorio)',
+  mue_condicionEmpaque ENUM('TUBO', 'BOLSA', 'BLOQUE') NOT NULL COMMENT 'EL empaque puede ser tubo, bolsa o apique',
+  mue_tipoMuestra ENUM('ALTERADA', 'INALTERADA') NOT NULL COMMENT 'El tipo de muestra puede ser alterada o inalterada',
+  mue_ubicacionBodega VARCHAR(45) NOT NULL COMMENT 'Representa una cadena describiendo la ubicación de la muestra en bodega',
+  mue_tipoExploracion ENUM('SONDEO', 'APIQUE') NOT NULL COMMENT 'El tipo de exploración puede ser sondeo o apique',
+  mue_descripcionMuestra VARCHAR(45) NOT NULL COMMENT 'Descripción física de la muestra. Incluye datos como el lugar donde fue extraída, la profundidad y una breve descripción del color y su tipo de suelo.',
+  per_idPerforacion INT NOT NULL COMMENT 'Representa la llave foránea de la relación 1 a varios con la entidad Perforación',
+  mue_profundidad DECIMAL(5,2) NOT NULL COMMENT 'Representa la profundidad a la que fue tomada la muestra',
+  FOREIGN KEY (per_idPerforacion)
+    REFERENCES mydb.Perforacion (per_idPerforacion)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -87,17 +78,15 @@ COMMENT = 'Representa la entidad Muestra, proveida por el cliente dentro de un p
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`estadoPago`
+-- Table mydb.estadoPago
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`estadoPago` (
-  `pro_idProyecto` INT NOT NULL COMMENT 'Representa una llave foránea converitda en primaria que identifica una relación 1-1 entre la presente relación y un proyecto.',
-  `esp_valorAbonado` INT NOT NULL COMMENT 'Representa un valor abonado por el cliente en el momento de iniciar un proyecto. Puede ser 0 para indicar que el cliente no abonó ningún valor. Según sea el caso',
-  `esp_fechaAbono` DATETIME NULL COMMENT 'Representa la fecha en la que se entregó un abono para la realización de un proyecto. Puede ser vacía si no se ha pagado ningún abono',
-  `esp_fechaPagoTotal` DATETIME NULL COMMENT 'Representa la fecha en la que se ha pagado la totalidad del proyecto, puede ser nula si aún no ha sido pagado ',
-  PRIMARY KEY (`pro_idProyecto`),
-  CONSTRAINT `fk_estadoPago_Proyecto1`
-    FOREIGN KEY (`pro_idProyecto`)
-    REFERENCES `mydb`.`Proyecto` (`pro_idProyecto`)
+CREATE TABLE IF NOT EXISTS mydb.estadoPago (
+  pro_idProyecto INT PRIMARY KEY COMMENT 'Representa una llave foránea converitda en primaria que identifica una relación 1-1 entre la presente relación y un proyecto.',
+  esp_valorAbonado INT NOT NULL COMMENT 'Representa un valor abonado por el cliente en el momento de iniciar un proyecto. Puede ser 0 para indicar que el cliente no abonó ningún valor. Según sea el caso',
+  esp_fechaAbono DATETIME NULL COMMENT 'Representa la fecha en la que se entregó un abono para la realización de un proyecto. Puede ser vacía si no se ha pagado ningún abono',
+  esp_fechaPagoTotal DATETIME NULL COMMENT 'Representa la fecha en la que se ha pagado la totalidad del proyecto, puede ser nula si aún no ha sido pagado ',
+  FOREIGN KEY (pro_idProyecto)
+    REFERENCES mydb.Proyecto (pro_idProyecto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -105,58 +94,51 @@ COMMENT = 'Representa la entidad \'Estado de pago de un proyecto\'; ésta entida
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Empleado`
+-- Table mydb.Empleado
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Empleado` (
-  `emp_idEmpleado` INT NOT NULL COMMENT 'Representa la identificación del empleado (Puede ser tomada su identificación como cédula de ciudadanía)',
-  `emp_nombreEmpleado` VARCHAR(60) NOT NULL COMMENT 'Representa el nombre completo del empleado',
-  `emp_oficioEmpleado` VARCHAR(20) NOT NULL COMMENT 'Representa el oficio desempeñado por el empleado dentro de la entidad. (Puede ser una descripción general de su papel)',
-  `emp_apellidoEmpleado` VARCHAR(60) NOT NULL COMMENT 'Representa el (los) apellido (s) del empleado',
-  PRIMARY KEY (`emp_idEmpleado`))
+CREATE TABLE IF NOT EXISTS mydb.Empleado (
+  emp_idEmpleado INT PRIMARY KEY COMMENT 'Representa la identificación del empleado (Puede ser tomada su identificación como cédula de ciudadanía)',
+  emp_nombreEmpleado VARCHAR(60) NOT NULL COMMENT 'Representa el nombre completo del empleado',
+  emp_oficioEmpleado VARCHAR(20) NOT NULL COMMENT 'Representa el oficio desempeñado por el empleado dentro de la entidad. (Puede ser una descripción general de su papel)',
+  emp_apellidoEmpleado VARCHAR(60) NOT NULL COMMENT 'Representa el (los) apellido (s) del empleado'
+)
 ENGINE = InnoDB
 COMMENT = 'Representa la entidad fuerte Empleado, participante en el estudio de las muestras';
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`TipoEnsayo`
+-- Table mydb.TipoEnsayo
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`TipoEnsayo` (
-  `tip_idTipoEnsayo` INT NOT NULL AUTO_INCREMENT COMMENT 'Representa la identificación única de cada tipo de Ensayo. ',
-  `tip_nombreTipoEnsayo` VARCHAR(45) NOT NULL COMMENT 'Representa el nombre de ensayo proveniente de un conjunto de datos ya especificado dentro de la entidad',
-  PRIMARY KEY (`tip_idTipoEnsayo`))
+CREATE TABLE IF NOT EXISTS mydb.TipoEnsayo (
+  tip_idTipoEnsayo INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Representa la identificación única de cada tipo de Ensayo. ',
+  tip_nombreTipoEnsayo VARCHAR(45) NOT NULL COMMENT 'Representa el nombre de ensayo proveniente de un conjunto de datos ya especificado dentro de la entidad'
+)
 ENGINE = InnoDB
 COMMENT = 'Representa la entidad Ensayo, ésta entidad puede ser definida como una constante con alteraciones poco frecuentes';
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`EnsayoMuestra`
+-- Table mydb.EnsayoMuestra
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`EnsayoMuestra` (
-  `ens_idEnsayoMuestra` INT NOT NULL AUTO_INCREMENT COMMENT 'Representa una llave primaria autogenerada que identifica a cada registro único de la relación EnsayoMuestra',
-  `ens_fechaEnsayoMuestra` DATETIME NOT NULL COMMENT 'Representa la fecha en la que se realizó el ensayo',
-  `ens_hayResiduo` TINYINT NOT NULL COMMENT 'Un ensayo puede generar un residuo o no.',
-  `ens_condicionesParticularesEstudio` VARCHAR(400) NULL COMMENT 'Condiciones específicas establecidas por el cliente para un ensayo. Puede ser cambiar un parámetro como la presión o la humedad de un ensayo.',
-  `emp_idEmpleado` INT NOT NULL COMMENT 'Representa una llave foránea proveniente la relación Empleado. Representa la identificación de la persona que realizó el ensayo',
-  `mue_idMuestra` INT NOT NULL COMMENT 'Representa la identificación de la muestra estudiada dentro de un ensayo.',
-  `tip_idTipoEnsayo` INT NOT NULL COMMENT 'Representa una llave foránea relativa al id (identificador único dentro de dicha tabla) del tipo de ensayo realizado.',
-  `ens_estado` ENUM('PENDIENTE', 'EN CURSO', 'REALIZADO') NOT NULL DEFAULT 'PENDIENTE' COMMENT 'La columna estado representa si el ensayo ya fue realizado, esta en curso o no ha sido iniciado',
-  PRIMARY KEY (`ens_idEnsayoMuestra`),
-  INDEX `fk_estudioMuestra_Empleado1_idx` (`emp_idEmpleado` ASC) VISIBLE,
-  INDEX `fk_estudioMuestra_Muestra1_idx` (`mue_idMuestra` ASC) VISIBLE,
-  INDEX `fk_EnsayoMuestra_TipoEnsayo1_idx` (`tip_idTipoEnsayo` ASC) VISIBLE,
-  CONSTRAINT `fk_estudioMuestra_Empleado1`
-    FOREIGN KEY (`emp_idEmpleado`)
-    REFERENCES `mydb`.`Empleado` (`emp_idEmpleado`)
+CREATE TABLE IF NOT EXISTS mydb.EnsayoMuestra (
+  ens_idEnsayoMuestra INT PRIMARY KEY auto_increment COMMENT 'Representa una llave primaria autogenerada que identifica a cada registro único de la relación EnsayoMuestra',
+  ens_fechaEnsayoMuestra DATETIME NULL COMMENT 'Representa la fecha en la que se realizó el ensayo, NULL si no se ha realizado',
+  ens_hayResiduo TINYINT NULL COMMENT 'Un ensayo puede generar un residuo o no. NUll si no se ha realizado',
+  ens_condicionesParticularesEstudio VARCHAR(400) NULL COMMENT 'Condiciones específicas establecidas por el cliente para un ensayo. Puede ser cambiar un parámetro como la presión o la humedad de un ensayo.',
+  emp_idEmpleado INT NULL COMMENT 'Representa una llave foránea proveniente la relación Empleado. Representa la identificación de la persona que realizó el ensayo. NUll si no se ha realizado',
+  mue_idMuestra INT NOT NULL COMMENT 'Representa la identificación de la muestra estudiada dentro de un ensayo.',
+  tip_idTipoEnsayo INT NOT NULL COMMENT 'Representa una llave foránea relativa al id (identificador único dentro de dicha tabla) del tipo de ensayo realizado.',
+  ens_estado ENUM('PENDIENTE', 'EN CURSO', 'REALIZADO') NOT NULL DEFAULT 'PENDIENTE' COMMENT 'La columna estado representa si el ensayo ya fue realizado, esta en curso o no ha sido iniciado',
+  FOREIGN KEY (emp_idEmpleado)
+    REFERENCES mydb.Empleado (emp_idEmpleado)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_estudioMuestra_Muestra1`
-    FOREIGN KEY (`mue_idMuestra`)
-    REFERENCES `mydb`.`Muestra` (`mue_idMuestra`)
+  FOREIGN KEY (mue_idMuestra)
+    REFERENCES mydb.Muestra (mue_idMuestra)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_EnsayoMuestra_TipoEnsayo1`
-    FOREIGN KEY (`tip_idTipoEnsayo`)
-    REFERENCES `mydb`.`TipoEnsayo` (`tip_idTipoEnsayo`)
+  FOREIGN KEY (tip_idTipoEnsayo)
+    REFERENCES mydb.TipoEnsayo (tip_idTipoEnsayo)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -164,17 +146,15 @@ COMMENT = 'Esta relación representa cada ensayo de laboratorio individual que s
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`informeFinal`
+-- Table mydb.informeFinal
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`informeFinal` (
-  `inf_fechaRemisionInforme` DATETIME NOT NULL COMMENT 'Representa la fecha en la cual un informe ha sido remitido',
-  `inf_observacionesInforme` VARCHAR(1000) NULL COMMENT 'Representa observaciones opcionales dadas a un informe al momento de ser creado / entregado',
-  `pro_idProyecto` INT NOT NULL COMMENT 'Representa una llave foránea converitda en primaria en una relación 1-1 con la tabla proyecto',
-  `inf_rutaInformeFinal` VARCHAR (200) NOT NULL COMMENT 'Ruta donde están almacenados los archivos resultado individuales',
-  PRIMARY KEY (`pro_idProyecto`),
-  CONSTRAINT `fk_informeFinal_Proyecto1`
-    FOREIGN KEY (`pro_idProyecto`)
-    REFERENCES `mydb`.`Proyecto` (`pro_idProyecto`)
+CREATE TABLE IF NOT EXISTS mydb.informeFinal (
+  inf_fechaRemisionInforme DATETIME PRIMARY KEY COMMENT 'Representa la fecha en la cual un informe ha sido remitido',
+  inf_observacionesInforme VARCHAR(1000) NULL COMMENT 'Representa observaciones opcionales dadas a un informe al momento de ser creado / entregado',
+  pro_idProyecto INT NOT NULL COMMENT 'Representa una llave foránea converitda en primaria en una relación 1-1 con la tabla proyecto',
+  inf_rutaInformeFinal VARCHAR (200) NOT NULL COMMENT 'Ruta donde están almacenados los archivos resultado individuales',
+  FOREIGN KEY (pro_idProyecto)
+    REFERENCES mydb.Proyecto (pro_idProyecto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -182,27 +162,23 @@ COMMENT = 'Define la entidad débil \'Informe Final\', la cual representa un res
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`ArchivoResultado`
+-- Table mydb.ArchivoResultado
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`ArchivoResultado` (
-  `ens_idEnsayoMuestra` INT NOT NULL COMMENT 'Representa una llave foránea convertida en primaria en una relación 1-1 con la tabla EnsayoMuestra. ',
-  `ens_rutaArchivo` VARCHAR(1000) NOT NULL COMMENT 'Representa una cadena que contiene la ruta (Path) de un archivo de excel generado por la empresa esquematizando detalladamente el resultado de la aplicación de un ensayo a una muestra',
-  `pro_idProyecto` INT NOT NULL COMMENT 'Representa una llave foránea que relaciona los archivos con un único informe al que pertenece (Nótese que a través de ésta llave puede ser encontrado directamente el proyecto y el estado de pago relativo al archivo en cuestión)',
-  INDEX `fk_ArchivoResultado_EnsayoMuestra1_idx` (`ens_idEnsayoMuestra` ASC) VISIBLE,
-  INDEX `fk_ArchivoResultado_informeFinal1_idx` (`pro_idProyecto` ASC) VISIBLE,
-  PRIMARY KEY (`ens_idEnsayoMuestra`),
-  CONSTRAINT `fk_ArchivoResultado_EnsayoMuestra1`
-    FOREIGN KEY (`ens_idEnsayoMuestra`)
-    REFERENCES `mydb`.`EnsayoMuestra` (`ens_idEnsayoMuestra`)
+CREATE TABLE IF NOT EXISTS mydb.ArchivoResultado (
+  ens_idEnsayoMuestra INT PRIMARY KEY COMMENT 'Representa una llave foránea convertida en primaria en una relación 1-1 con la tabla EnsayoMuestra. ',
+  ens_rutaArchivo VARCHAR(1000) NOT NULL COMMENT 'Representa una cadena que contiene la ruta (Path) de un archivo de excel generado por la empresa esquematizando detalladamente el resultado de la aplicación de un ensayo a una muestra',
+  pro_idProyecto INT NOT NULL COMMENT 'Representa una llave foránea que relaciona los archivos con un único informe al que pertenece (Nótese que a través de ésta llave puede ser encontrado directamente el proyecto y el estado de pago relativo al archivo en cuestión)',
+  FOREIGN KEY (ens_idEnsayoMuestra)
+    REFERENCES mydb.EnsayoMuestra (ens_idEnsayoMuestra)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ArchivoResultado_informeFinal1`
-    FOREIGN KEY (`pro_idProyecto`)
-    REFERENCES `mydb`.`informeFinal` (`pro_idProyecto`)
+  FOREIGN KEY (pro_idProyecto)
+    REFERENCES mydb.informeFinal (pro_idProyecto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = 'Define la entidad débil \'Resultado Muestra\' la cual representa el resultado alcanzado dentro de un ensayo a una determinada muestra';
+
 
 -- Datos clientes
 
@@ -232,7 +208,6 @@ INSERT INTO Perforacion VALUES(5,'PZ-2','Macheta',4.960182,-73.690088,4);
 INSERT INTO Perforacion VALUES(6,'PZ-3','Gachala',4.588114,-73.60923,5);
 INSERT INTO Perforacion VALUES(7,'PZ-4','Miraflores',5.185256,-73.15222,6);
 INSERT INTO Perforacion VALUES(8,'PZ-5','Aquitania',5.337696,-72.904008,7);
-
 
 
 -- Datos muestras
@@ -276,10 +251,6 @@ INSERT INTO Muestra VALUES(37,'1','2','1','Pasillo 2','2','Arena naranja','8','1
 INSERT INTO Muestra VALUES(38,'2','2','2','Pasillo 6','1','Suelo volcánico','8','171');
 INSERT INTO Muestra VALUES(39,'3','2','2','Pasillo 5','2','Arena naranja','8','193');
 INSERT INTO Muestra VALUES(40,'4','2','2','Pasillo 5','2','Suelo volcánico','8','74');
-
-
-
-
 
 
 -- Datos estados pagos
@@ -367,7 +338,6 @@ INSERT INTO EnsayoMuestra VALUES(42,'2012-01-05',1,'NULL',2,22,15,'3');
 INSERT INTO EnsayoMuestra VALUES(43,'2011-09-16',1,'NULL',2,34,6,'3');
 
 
-
 -- datos informes finales
 INSERT INTO informeFinal VALUES('2018-01-09','NULL','1', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 1');
 INSERT INTO informeFinal VALUES('2020-08-21','NULL','2', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 2');
@@ -376,7 +346,6 @@ INSERT INTO informeFinal VALUES('2013-11-1','NULL','4', 'C:\Users\josel\Document
 INSERT INTO informeFinal VALUES('2014-9-23','NULL','5', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 5');
 INSERT INTO informeFinal VALUES('2011-9-5','NULL','6', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 6');
 INSERT INTO informeFinal VALUES('2012-01-24','NULL','7', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 7');
-
 
 
 -- datos archivos resultado
