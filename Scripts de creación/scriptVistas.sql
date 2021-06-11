@@ -42,37 +42,7 @@ CREATE VIEW vw_informeFinal_vs_Proyecto
 AS SELECT inf_rutaInformeFinal, inf_fechaRemisionInforme, inf_observacionesInforme, pro_nombreProyecto FROM
 informeFinal NATURAL JOIN Proyecto;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-DROP VIEW vw_informeFinal_vs_Proyecto;
-DROP VIEW vw_proyecto_lab;
-DROP VIEW vw_perforacion_vs_proyecto;
-DROP VIEW vw_empleado_vs_proyecto;
-DROP VIEW vw_proyecto_vs_archivoresultado;
-DROP VIEW vw_cliente_vs_proyecto;
-
-
-
-
-
-
-
-
-
+-- ID de empleado con su nombre de usuario en la base de datos
+CREATE VIEW vw_idEmpleado_vs_nombreUsuario
+AS SELECT emp_idEmpleado, emp_nombreUsuario
+FROM empleado;

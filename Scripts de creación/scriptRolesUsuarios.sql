@@ -29,7 +29,8 @@ GRANT SELECT ON mydb.vw_proyecto_lab TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_proyecto_perforacion_muestra_ensayomuestra TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_proyecto_vs_archivoresultado TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_perforacion_vs_proyecto TO 'empleadoLaboratorista';
-
+GRANT SELECT ON mydb.vw_idEmpleado_vs_nombreUsuario TO 'empleadoLaboratorista';
+GRANT EXECUTE ON PROCEDURE finalizarEnsayoMuestra TO 'empleadoLaboratorista';
 
 -- Permisos para jefe de laboratorio
 GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.Perforacion TO 'jefeLaboratorio';
@@ -44,7 +45,8 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_proyecto_vs_archivoresultado TO 
 GRANT SELECT ON mydb.vw_empleado_vs_proyecto TO 'jefeLaboratorio';
 GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_perforacion_vs_proyecto TO 'jefeLaboratorio';
 GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_informeFinal_vs_Proyecto TO 'jefeLaboratorio';
-
+GRANT SELECT ON mydb.vw_idEmpleado_vs_nombreUsuario TO 'jefeLaboratorio';
+GRANT EXECUTE ON PROCEDURE finalizarEnsayoMuestra TO 'jefeLaboratorio';
 
 
 -- Asignar roles a los usuarios

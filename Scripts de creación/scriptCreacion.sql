@@ -269,19 +269,19 @@ INSERT INTO estadoPago VALUES(7,0,NULL,'2012-01-24');
 
 ----------------------- Datos empleados -----------------------
 -- Laboratoristas
-INSERT INTO Empleado VALUES(1,'Jesús','Bermúdez','Laboratorista', 1000000, 'empleadoLaboratorista1', 'Sanitas', 'Positiva', 'Colpensiones');
+INSERT INTO Empleado VALUES(1,'Jesús','Bermúdez','Laboratorista', 1000000, 'empleadoLaboratorista1@localhost', 'Sanitas', 'Positiva', 'Colpensiones');
 
-INSERT INTO Empleado VALUES(4,'Isabel','Álvarez','Laboratorista', 1000000, 'empleadoLaboratorista2', 'Sanitas', 'Positiva', 'Colpensiones');
+INSERT INTO Empleado VALUES(4,'Isabel','Álvarez','Laboratorista', 1000000, 'empleadoLaboratorista2@localhost', 'Sanitas', 'Positiva', 'Colpensiones');
 
-INSERT INTO Empleado VALUES(5,'Paula','Bello','Laboratorista', 2000000, 'empleadoLaboratorista3', 'Compensar', 'Sura', 'Porvenir');
+INSERT INTO Empleado VALUES(5,'Paula','Bello','Laboratorista', 2000000, 'empleadoLaboratorista3@localhost', 'Compensar', 'Sura', 'Porvenir');
 
-INSERT INTO Empleado VALUES(6,'Javier','Bello','Laboratorista', 3000000, 'empleadoLaboratorista4', 'Sanitas', 'Positiva', 'Colpensiones');
+INSERT INTO Empleado VALUES(6,'Javier','Bello','Laboratorista', 3000000, 'empleadoLaboratorista4@localhost', 'Sanitas', 'Positiva', 'Colpensiones');
 
 -- Jefe de laboratorio
-INSERT INTO Empleado VALUES(2,'Helena','Medina','Jefe Laboratorio', 2000000, 'jefeLaboratorio1', 'Compensar', 'Sura', 'Porvenir');
+INSERT INTO Empleado VALUES(2,'Helena','Medina','Jefe Laboratorio', 2000000, 'jefeLaboratorio1@localhost', 'Compensar', 'Sura', 'Porvenir');
 
 -- Administrador
-INSERT INTO Empleado VALUES(3,'David','Gómez','Administrador', 3000000, 'Administrador1', 'Sanitas', 'Positiva', 'Colpensiones');
+INSERT INTO Empleado VALUES(3,'David','Gómez','Administrador', 3000000, 'Administrador1@localhost', 'Sanitas', 'Positiva', 'Colpensiones');
 
 
 -- Datos tipos ensayos
