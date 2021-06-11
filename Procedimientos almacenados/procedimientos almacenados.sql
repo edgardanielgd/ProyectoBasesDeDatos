@@ -13,5 +13,9 @@ BEGIN
     ens_hayResiduo = hay_residuo,
     emp_idEmpleado = @id_empleado_actual
     WHERE ens_idEnsayoMuestra = id_ensayo_muestra;  
+
+    
+
+
 END $$
 DELIMITER ;
