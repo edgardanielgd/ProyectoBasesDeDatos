@@ -97,13 +97,18 @@ COMMENT = 'Representa la entidad \'Estado de pago de un proyecto\'; ésta entida
 -- Table mydb.Empleado
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS mydb.Empleado (
-  emp_idEmpleado INT PRIMARY KEY COMMENT 'Representa la identificación del empleado (Puede ser tomada su identificación como cédula de ciudadanía)',
-  emp_nombreEmpleado VARCHAR(60) NOT NULL COMMENT 'Representa el nombre completo del empleado',
-  emp_oficioEmpleado VARCHAR(20) NOT NULL COMMENT 'Representa el oficio desempeñado por el empleado dentro de la entidad. (Puede ser una descripción general de su papel)',
-  emp_apellidoEmpleado VARCHAR(60) NOT NULL COMMENT 'Representa el (los) apellido (s) del empleado'
+  emp_idEmpleado INT PRIMARY KEY COMMENT 'Número de cédula',  
+  emp_nombreEmpleado VARCHAR(60) NOT NULL,
+  emp_apellidoEmpleado VARCHAR(60) NOT NULL,
+  emp_oficioEmpleado VARCHAR(20) NOT NULL,
+  emp_salario INT NOT NULL,
+  emp_nombreUsuario VARCHAR(60) NOT NULL COMMENT 'Nombre de usuario en la base de datos',
+  emp_nombreEPS VARCHAR(60) NOT NULL,
+  emp_nombreARL VARCHAR(60) NOT NULL,
+  emp_nombreFondoPension VARCHAR(60) NOT NULL
 )
 ENGINE = InnoDB
-COMMENT = 'Representa la entidad fuerte Empleado, participante en el estudio de las muestras';
+COMMENT = 'Entidad fuerte Empleado, participante en el estudio de las muestras';
 
 
 -- -----------------------------------------------------
@@ -262,14 +267,21 @@ INSERT INTO estadoPago VALUES(6,0,NULL,'2011-9-5');
 INSERT INTO estadoPago VALUES(7,0,NULL,'2012-01-24');
 
 
--- Datos empleados
-INSERT INTO Empleado VALUES(1,'Jesús','Bermúdez','Laboratorista');
-INSERT INTO Empleado VALUES(2,'Helena','Medina','Laboratorista');
-INSERT INTO Empleado VALUES(3,'David','Gómez','Laboratorista');
-INSERT INTO Empleado VALUES(4,'Isabel','Álvarez','Jefe de laboratorio');
-INSERT INTO Empleado VALUES(5,'Paula','Bello','Laboratorista');
-INSERT INTO Empleado VALUES(6,'Javier','Bello','Pasante');
-INSERT INTO Empleado VALUES(7,'Guillermo','Ávila','Gerente');
+----------------------- Datos empleados -----------------------
+-- Laboratoristas
+INSERT INTO Empleado VALUES(1,'Jesús','Bermúdez','Laboratorista', 1000000, 'empleadoLaboratorista1', 'Sanitas', 'Positiva', 'Colpensiones');
+
+INSERT INTO Empleado VALUES(4,'Isabel','Álvarez','Laboratorista', 1000000, 'empleadoLaboratorista2', 'Sanitas', 'Positiva', 'Colpensiones');
+
+INSERT INTO Empleado VALUES(5,'Paula','Bello','Laboratorista', 2000000, 'empleadoLaboratorista3', 'Compensar', 'Sura', 'Porvenir');
+
+INSERT INTO Empleado VALUES(6,'Javier','Bello','Laboratorista', 3000000, 'empleadoLaboratorista4', 'Sanitas', 'Positiva', 'Colpensiones');
+
+-- Jefe de laboratorio
+INSERT INTO Empleado VALUES(2,'Helena','Medina','Jefe Laboratorio', 2000000, 'jefeLaboratorio1', 'Compensar', 'Sura', 'Porvenir');
+
+-- Administrador
+INSERT INTO Empleado VALUES(3,'David','Gómez','Administrador', 3000000, 'Administrador1', 'Sanitas', 'Positiva', 'Colpensiones');
 
 
 -- Datos tipos ensayos
