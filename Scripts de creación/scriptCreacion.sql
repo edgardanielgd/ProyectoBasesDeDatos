@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS mydb.Perforacion (
   pro_idProyecto INT NOT NULL COMMENT 'Representa la llave foránea para la relación 1 a varios con la entidad proyecto',
   FOREIGN KEY (pro_idProyecto)
     REFERENCES Proyecto(pro_idProyecto)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = 'Representa la entidad Muestra, proveida por el cliente dentro de un proyecto';
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS mydb.Muestra (
   mue_profundidad DECIMAL(5,2) NOT NULL COMMENT 'Representa la profundidad a la que fue tomada la muestra',
   FOREIGN KEY (per_idPerforacion)
     REFERENCES mydb.Perforacion (per_idPerforacion)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = 'Representa la entidad Muestra, proveida por el cliente dentro de un proyecto';
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS mydb.estadoPago (
   esp_fechaPagoTotal DATETIME NULL COMMENT 'Representa la fecha en la que se ha pagado la totalidad del proyecto, puede ser nula si aún no ha sido pagado ',
   FOREIGN KEY (pro_idProyecto)
     REFERENCES mydb.Proyecto (pro_idProyecto)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = 'Representa la entidad \'Estado de pago de un proyecto\'; ésta entidad específicamente representa la existencia de un anticipo por parte de el cliente ante la propuesta de un proyecto';
@@ -131,15 +131,15 @@ CREATE TABLE IF NOT EXISTS mydb.EnsayoMuestra (
   ens_estado ENUM('PENDIENTE', 'EN CURSO', 'REALIZADO') NOT NULL DEFAULT 'PENDIENTE' COMMENT 'La columna estado representa si el ensayo ya fue realizado, esta en curso o no ha sido iniciado',
   FOREIGN KEY (emp_idEmpleado)
     REFERENCES mydb.Empleado (emp_idEmpleado)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   FOREIGN KEY (mue_idMuestra)
     REFERENCES mydb.Muestra (mue_idMuestra)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   FOREIGN KEY (tip_idTipoEnsayo)
     REFERENCES mydb.TipoEnsayo (tip_idTipoEnsayo)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = 'Esta relación representa cada ensayo de laboratorio individual que se realice.';
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS mydb.informeFinal (
   inf_rutaInformeFinal VARCHAR (200) NOT NULL COMMENT 'Ruta donde están almacenados los archivos resultado individuales',
   FOREIGN KEY (pro_idProyecto)
     REFERENCES mydb.Proyecto (pro_idProyecto)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = 'Define la entidad débil \'Informe Final\', la cual representa un resumen de los resultados a entregar dentro de un proyecto';
@@ -170,11 +170,11 @@ CREATE TABLE IF NOT EXISTS mydb.ArchivoResultado (
   pro_idProyecto INT NOT NULL COMMENT 'Representa una llave foránea que relaciona los archivos con un único informe al que pertenece (Nótese que a través de ésta llave puede ser encontrado directamente el proyecto y el estado de pago relativo al archivo en cuestión)',
   FOREIGN KEY (ens_idEnsayoMuestra)
     REFERENCES mydb.EnsayoMuestra (ens_idEnsayoMuestra)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   FOREIGN KEY (pro_idProyecto)
     REFERENCES mydb.informeFinal (pro_idProyecto)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = 'Define la entidad débil \'Resultado Muestra\' la cual representa el resultado alcanzado dentro de un ensayo a una determinada muestra';
