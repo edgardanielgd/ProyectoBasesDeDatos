@@ -406,7 +406,7 @@ INSERT INTO ArchivoResultado VALUES('42','C:\Users\josel\Documents\Resultado42',
 INSERT INTO ArchivoResultado VALUES('43','C:\Users\josel\Documents\Resultado43','6');
 
 
----------- Tabla historial para EnsayoMuestra -----------
+-- -------- Tabla historial para EnsayoMuestra -----------
 CREATE TABLE historialEnsayoMuestra(
     id_registro_historial INT auto_increment PRIMARY KEY,
     id_ensayo_muestra INT NOT NULL,
@@ -416,10 +416,20 @@ CREATE TABLE historialEnsayoMuestra(
     fecha DATETIME NOT NULL
 );
 
----------- Tabla historial para Muestra -----------
+-- -------- Tabla historial para Muestra -----------
 CREATE TABLE historialMuestra(
     id_registro_historial INT auto_increment PRIMARY KEY,
     id_muestra INT NOT NULL,
+    usuario VARCHAR(60) NOT NULL,
+    operacion varchar (15) check ( operacion in
+        ('Adicion', 'Actualizacion','Borrado')) NOT NULL,
+    fecha DATETIME NOT NULL
+);
+
+-- -------- Tabla historial para perforacion -----------
+CREATE TABLE historialPerforacion(
+    id_registro_historial INT auto_increment PRIMARY KEY,
+    id_perforacion INT NOT NULL,
     usuario VARCHAR(60) NOT NULL,
     operacion varchar (15) check ( operacion in
         ('Adicion', 'Actualizacion','Borrado')) NOT NULL,
