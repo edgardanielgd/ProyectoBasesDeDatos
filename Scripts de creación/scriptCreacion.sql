@@ -25,7 +25,6 @@ CREATE TABLE IF NOT EXISTS Proyecto (
   pro_idProyecto INT PRIMARY KEY COMMENT 'Representa la llave primaria de la entidad proyecto de tipo numérico',
   pro_cantidadEnsayos INT NULL COMMENT 'Cantidad total de ensayos a realizar',
   pro_valorTotal INT NOT NULL COMMENT 'Precio total del proyecto',
-  pro_IVA INT NOT NULL DEFAULT 0.19 COMMENT 'representa un iva específico a cobrar dentro del proyecto: (19% del valor total) con la posibilidad de ser distinto',
   pro_nombreProyecto VARCHAR(80) NOT NULL COMMENT 'Representa el nombre dado por el cliente para asignar a un proyecto que éste planea realizar o para el cuál busca estudiar alguna muestra',
   pro_FechaInicioProyecto DATE NOT NULL COMMENT 'Representa la fecha en la que se inicia un proyecto (Fecha en la que se crea el registro)',
   pro_FechaFinalizacionProyecto DATE NOT NULL COMMENT 'Representa la fecha en la que se da fin a un proyecto. Puede ser cuando se entrega el informe, cuando se completa el pago u otra fecha.',
