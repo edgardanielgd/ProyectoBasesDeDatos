@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS mydb.Empleado (
   emp_salario INT NOT NULL COMMENT "Salario actual del empleado por parte de la empresa",
   emp_nombreUsuario VARCHAR(60) NOT NULL COMMENT 'Nombre de usuario en la base de datos',
   emp_nombreEPS VARCHAR(60) NOT NULL COMMENT "Se refiere al nombre de la EPS del empleado",
-  emp_nombreARL VARCHAR(60) NOT NULL,
+  emp_nombreARL VARCHAR(60) NOT NULL COMMENT "Representa el nombre de la entidad Administradora de Riesgos Laborales",
   emp_nombreFondoPension VARCHAR(60) NOT NULL COMMENT "Relaciona el nombre del fondo de pensión del empleado"
 )
 ENGINE = InnoDB
@@ -194,13 +194,13 @@ INSERT INTO Cliente VALUES(8300108934,'Geocing S.A.S',7046969,'Bogotá','C:\User
 
 
 -- Datos proyectos
-INSERT INTO Proyecto VALUES(1,NULL,'130142100','24726999','Contrato de interventoría No. 481 de 2017','2017-12-14','2018-1-9',8001542751);
-INSERT INTO Proyecto VALUES(2,567,'136796825','25991396.75','500 de 2019','2019-12-16','2020-8-21',8001542751);
-INSERT INTO Proyecto VALUES(3,7,'79640000','15131600','Certificado trabajos realizados en el año 2011','2011-1-1','2011-12-31',8170014359);
-INSERT INTO Proyecto VALUES(4,NULL,'29000000','5510000','Orden de servicios No. 002','2013-3-1','2013-11-01',9005586047);
-INSERT INTO Proyecto VALUES(5,28,'22800000','4332000','Proyecto GE-334 Fopae','2014-5-8','2014-9-23',8300108934);
-INSERT INTO Proyecto VALUES(6,14,'10150000','1928500','OS No. CG-280','2011-8-9','2011-9-5',8300108934);
-INSERT INTO Proyecto VALUES(7,6,'3828000','727320','OS No. CG-294','2011-12-20','2012-01-24',8300108934);
+INSERT INTO Proyecto VALUES(1,NULL,'130142100','Contrato de interventoría No. 481 de 2017','2017-12-14','2018-1-9',8001542751);
+INSERT INTO Proyecto VALUES(2,567,'136796825','500 de 2019','2019-12-16','2020-8-21',8001542751);
+INSERT INTO Proyecto VALUES(3,7,'79640000','Certificado trabajos realizados en el año 2011','2011-1-1','2011-12-31',8170014359);
+INSERT INTO Proyecto VALUES(4,NULL,'29000000','Orden de servicios No. 002','2013-3-1','2013-11-01',9005586047);
+INSERT INTO Proyecto VALUES(5,28,'22800000','Proyecto GE-334 Fopae','2014-5-8','2014-9-23',8300108934);
+INSERT INTO Proyecto VALUES(6,14,'10150000','OS No. CG-280','2011-8-9','2011-9-5',8300108934);
+INSERT INTO Proyecto VALUES(7,6,'3828000','OS No. CG-294','2011-12-20','2012-01-24',8300108934);
 
 
 -- Datos perforación
