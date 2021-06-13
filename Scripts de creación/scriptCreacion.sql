@@ -407,30 +407,30 @@ INSERT INTO ArchivoResultado VALUES('43','C:\Users\josel\Documents\Resultado43',
 
 -- -------- Tabla historial para EnsayoMuestra -----------
 CREATE TABLE historialEnsayoMuestra(
-    id_registro_historial INT auto_increment PRIMARY KEY,
-    id_ensayo_muestra INT NOT NULL,
-    usuario VARCHAR(60) NOT NULL,
+    id_registro_historial INT auto_increment PRIMARY KEY COMMENT "Representa un id unico autogenerado que identifica la historia",
+    id_ensayo_muestra INT NOT NULL COMMENT "Representa el id del ensayo muestra alterado",
+    usuario VARCHAR(60) NOT NULL COMMENT "Representa el nombre del usuario que efectúa la operación",
     operacion varchar (15) check ( operacion in
-        ('Adicion', 'Actualizacion','Borrado')) NOT NULL,
-    fecha DATETIME NOT NULL
-);
+        ('Adicion', 'Actualizacion','Borrado')) NOT NULL COMMENT "Señala el tipo de la operación realizada",
+    fecha DATETIME NOT NULL COMMENT "Representa la fecha en la que se realizó la operación"
+) COMMENT "Representa una tabla que guarda el historial de cada cambio hecho sobre la tabla EnsayoMuestra";
 
 -- -------- Tabla historial para Muestra -----------
 CREATE TABLE historialMuestra(
-    id_registro_historial INT auto_increment PRIMARY KEY,
-    id_muestra INT NOT NULL,
-    usuario VARCHAR(60) NOT NULL,
+    id_registro_historial INT auto_increment PRIMARY KEY COMMENT "Representa un id unico autogenerado que identifica la historia",
+    id_muestra INT NOT NULL COMMENT "Representa el id de la muestra alterada",
+    usuario VARCHAR(60) NOT NULL COMMENT "Representa el nombre del usuario que efectúa la operación",
     operacion varchar (15) check ( operacion in
-        ('Adicion', 'Actualizacion','Borrado')) NOT NULL,
-    fecha DATETIME NOT NULL
-);
+        ('Adicion', 'Actualizacion','Borrado')) NOT NULL COMMENT "Señala el tipo de la operación realizada",
+    fecha DATETIME NOT NULL COMMENT "Representa la fecha en la que se realizó la operación"
+) COMMENT "Representa una tabla que guarda el historial de cada cambio hecho sobre la tabla Muestra";
 
 -- -------- Tabla historial para perforacion -----------
 CREATE TABLE historialPerforacion(
-    id_registro_historial INT auto_increment PRIMARY KEY,
-    id_perforacion INT NOT NULL,
-    usuario VARCHAR(60) NOT NULL,
+    id_registro_historial INT auto_increment PRIMARY KEY COMMENT "Representa un id unico autogenerado que identifica la historia",
+    id_perforacion INT NOT NULL COMMENT "Representa el id de la perforación alterada",
+    usuario VARCHAR(60) NOT NULL COMMENT "Representa el nombre del usuario que efectúa la operación",
     operacion varchar (15) check ( operacion in
-        ('Adicion', 'Actualizacion','Borrado')) NOT NULL,
-    fecha DATETIME NOT NULL
-);
+        ('Adicion', 'Actualizacion','Borrado')) NOT NULL COMMENT "Señala el tipo de la operación realizada",
+    fecha DATETIME NOT NULL COMMENT "Representa la fecha en la que se realizó la operación"
+) COMMENT "Representa una tabla que guarda el historial de cada cambio hecho sobre la tabla Perforacion";
