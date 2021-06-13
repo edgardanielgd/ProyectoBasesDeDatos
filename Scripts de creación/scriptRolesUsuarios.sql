@@ -5,6 +5,9 @@
 
 -- Creación de usuarios
 CREATE USER IF NOT EXISTS 'empleadoLaboratorista1'@'localhost' IDENTIFIED BY 'ABCD1234@';
+CREATE USER IF NOT EXISTS 'empleadoLaboratorista2'@'localhost' IDENTIFIED BY 'ABCD1234@';
+CREATE USER IF NOT EXISTS 'empleadoLaboratorista3'@'localhost' IDENTIFIED BY 'ABCD1234@';
+CREATE USER IF NOT EXISTS 'empleadoLaboratorista4'@'localhost' IDENTIFIED BY 'ABCD1234@';
 CREATE USER IF NOT EXISTS 'jefeLaboratorio1'@'localhost' IDENTIFIED BY 'ABCD1234@';
 CREATE USER IF NOT EXISTS 'Administrador1'@'localhost' IDENTIFIED BY 'ABCD1234@';
 
@@ -26,7 +29,8 @@ GRANT SELECT ON mydb.vw_proyecto_lab TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_proyecto_perforacion_muestra_ensayomuestra TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_proyecto_vs_archivoresultado TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_perforacion_vs_proyecto TO 'empleadoLaboratorista';
-
+GRANT SELECT ON mydb.vw_idEmpleado_vs_nombreUsuario TO 'empleadoLaboratorista';
+GRANT EXECUTE ON PROCEDURE finalizarEnsayoMuestra TO 'empleadoLaboratorista';
 
 -- Permisos para jefe de laboratorio
 GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.Perforacion TO 'jefeLaboratorio';
@@ -41,14 +45,18 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_proyecto_vs_archivoresultado TO 
 GRANT SELECT ON mydb.vw_empleado_vs_proyecto TO 'jefeLaboratorio';
 GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_perforacion_vs_proyecto TO 'jefeLaboratorio';
 GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_informeFinal_vs_Proyecto TO 'jefeLaboratorio';
-
+GRANT SELECT ON mydb.vw_idEmpleado_vs_nombreUsuario TO 'jefeLaboratorio';
+GRANT EXECUTE ON PROCEDURE finalizarEnsayoMuestra TO 'jefeLaboratorio';
 
 
 -- Asignar roles a los usuarios
 GRANT 'empleadoLaboratorista' TO 'empleadoLaboratorista1'@'localhost';
+GRANT 'empleadoLaboratorista' TO 'empleadoLaboratorista2'@'localhost';
+GRANT 'empleadoLaboratorista' TO 'empleadoLaboratorista3'@'localhost';
+GRANT 'empleadoLaboratorista' TO 'empleadoLaboratorista4'@'localhost';
 GRANT 'jefeLaboratorio' TO 'jefeLaboratorio1'@'localhost';
 GRANT 'Administrador' TO 'Administrador1'@'localhost';
 
 -- Activar roles
 SET DEFAULT ROLE ALL
-TO 'empleadoLaboratorista1'@'localhost', 'jefeLaboratorio1'@'localhost', 'Administrador1'@'localhost';
+TO 'empleadoLaboratorista1'@'localhost', 'jefeLaboratorio1'@'localhost', 'Administrador1'@'localhost', 'empleadoLaboratorista2'@'localhost', 'empleadoLaboratorista3'@'localhost', 'empleadoLaboratorista4'@'localhost';
