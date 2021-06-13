@@ -96,3 +96,13 @@ FOR EACH ROW BEGIN
     END IF;
 END $$
 DELIMITER ;
+
+/*Revisar que la latitud y longitud de una perforación tengan valores coherentes*/
+DELIMITER $$
+CREATE TRIGGER revisarCoordenadas BEFORE INSERT ON perforacion
+FOR EACH ROW BEGIN
+    IF NOT ((NEW.per_latitud BETWEEN -90 AND 90) AND (NEW.per_longitud BETWEEN -180 AND 180)) THEN
+         SIGNAL SQLSTATE '45000';  -- Abort the insert with an error
+    END IF;
+END $$
+DELIMITER ;
