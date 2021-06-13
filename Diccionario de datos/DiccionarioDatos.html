@@ -1,0 +1,292 @@
+<html><head>
+<title>Schema Report for database: mydb</title>
+<style>
+        td,th {
+        text-align:left;
+        vertical-align:middle;
+        }
+        table {
+        border-collapse: collapse;
+        border: 1px solid;
+        }
+        caption, th, td {
+        padding: .2em .8em;
+        border: 1px solid #000000;
+        }
+        caption {
+        background: #D3D3D3;
+        font-weight: bold;
+        font-size: 1.1em;
+        }
+        th {
+        font-weight: bold;
+        background: #000000;
+        color: white;
+        }
+        td {
+        background: #FFFFFF;
+        }
+        </style>
+      </head>
+     <body>
+<h1>Schema Report for database: mydb</h1>
+<a id="home">Table List </a><br /><ul>
+<li><a href="#archivoresultado">archivoresultado </a></li>
+<li><a href="#cliente">cliente </a></li>
+<li><a href="#empleado">empleado </a></li>
+<li><a href="#ensayomuestra">ensayomuestra </a></li>
+<li><a href="#estadopago">estadopago </a></li>
+<li><a href="#historialensayomuestra">historialensayomuestra </a></li>
+<li><a href="#historialmuestra">historialmuestra </a></li>
+<li><a href="#historialperforacion">historialperforacion </a></li>
+<li><a href="#informefinal">informefinal </a></li>
+<li><a href="#muestra">muestra </a></li>
+<li><a href="#perforacion">perforacion </a></li>
+<li><a href="#proyecto">proyecto </a></li>
+<li><a href="#tipoensayo">tipoensayo </a></li>
+</ul>
+<a id="archivoresultado"></a><table style="width:100%"><caption>Table: archivoresultado </caption>
+<tr><td>Table Comments</td><td colspan="6">Define la entidad débil 'Resultado Muestra' la cual representa el resultado alcanzado dentro de un ensayo a una determinada muestra</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>ens_idEnsayoMuestra</td><td>INT</td><td>Yes</td><td>Yes</td><td>Yes</td><td></td><td>Representa una llave foránea convertida en primaria en una relación 1-1 con la tabla EnsayoMuestra. </td></tr>
+<tr><td>ens_rutaArchivo</td><td>VARCHAR(1000)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa una cadena que contiene la ruta (Path) de un archivo de excel generado por la empresa esquematizando detalladamente el resultado de la aplicación de un ensayo a una muestra</td></tr>
+<tr><td>pro_idProyecto</td><td>INT</td><td>Yes</td><td>No</td><td>Yes</td><td></td><td>Representa una llave foránea que relaciona los archivos con un único informe al que pertenece (Nótese que a través de ésta llave puede ser encontrado directamente el proyecto y el estado de pago relativo al archivo en cuestión)</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="cliente"></a><table style="width:100%"><caption>Table: cliente </caption>
+<tr><td>Table Comments</td><td colspan="6">Representa la entidad Fuerte 'Cliente', señala siempre a una empresa (por ésta razón su identificador es el NIT de dicha empresa)</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>cli_NIT</td><td>BIGINT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>NIT es el identificador único que tiene cada empresa en Colombia</td></tr>
+<tr><td>cli_razonSocial</td><td>VARCHAR(100)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>La razón social es el nombre comercial de una empresa</td></tr>
+<tr><td>cli_telefono</td><td>VARCHAR(11)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa un único teléfono de contacto para la empresa (Mismos entes de la empresa sugieren el guardado de solamente un teléfono de contacto)</td></tr>
+<tr><td>cli_sede</td><td>VARCHAR(20)</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Representa la sede de la empresa que ha solicitado la realización de algún proyecto</td></tr>
+<tr><td>cli_certificadoCamaraComercio</td><td>VARCHAR(255)</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Certificado de cada empresa disponible en https://linea.ccb.org.co/CertificadosElectronicosR/Index.html</td></tr>
+<tr><td>cli_nombreContacto</td><td>VARCHAR(45)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Nombre persona intermediaria de una empresa. Por ejemplo puede ser una secretaria o un empleado específico en una empresa</td></tr>
+<tr><td>cli_apellidoContacto</td><td>VARCHAR(45)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el apellido del contacto de la empresa. Mismas directivas del negocio destino de la base de dato manifiestan la necesidad de guardar sólo un contacto de la empresa</td></tr>
+<tr><td>cli_emailContacto</td><td>VARCHAR(45)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el email de contacto. La presencia de sólo un contacto por empresa se explica en la columna "cli_apellidoContacto"</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="empleado"></a><table style="width:100%"><caption>Table: empleado </caption>
+<tr><td>Table Comments</td><td colspan="6">Entidad fuerte Empleado, participante en el estudio de las muestras</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>emp_idEmpleado</td><td>INT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Número de cédula</td></tr>
+<tr><td>emp_nombreEmpleado</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Nombre(s) del empleado en cuestión</td></tr>
+<tr><td>emp_apellidoEmpleado</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Apellido(s) del empleado en cuestión</td></tr>
+<tr><td>emp_oficioEmpleado</td><td>VARCHAR(20)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Oficio del empleado dentro de la empresa</td></tr>
+<tr><td>emp_salario</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Salario actual del empleado por parte de la empresa</td></tr>
+<tr><td>emp_nombreUsuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Nombre de usuario en la base de datos</td></tr>
+<tr><td>emp_nombreEPS</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Se refiere al nombre de la EPS del empleado</td></tr>
+<tr><td>emp_nombreARL</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el nombre de la entidad Administradora de Riesgos Laborales</td></tr>
+<tr><td>emp_nombreFondoPension</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Relaciona el nombre del fondo de pensión del empleado</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="ensayomuestra"></a><table style="width:100%"><caption>Table: ensayomuestra </caption>
+<tr><td>Table Comments</td><td colspan="6">Esta relación representa cada ensayo de laboratorio individual que se realice.</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>ens_idEnsayoMuestra</td><td>INT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Representa una llave primaria autogenerada que identifica a cada registro único de la relación EnsayoMuestra</td></tr>
+<tr><td>ens_fechaEnsayoMuestra</td><td>DATETIME</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Representa la fecha en la que se realizó el ensayo, NULL si no se ha realizado</td></tr>
+<tr><td>ens_hayResiduo</td><td>TINYINT</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Un ensayo puede generar un residuo o no. NUll si no se ha realizado</td></tr>
+<tr><td>ens_condicionesParticularesEstudio</td><td>VARCHAR(400)</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Condiciones específicas establecidas por el cliente para un ensayo. Puede ser cambiar un parámetro como la presión o la humedad de un ensayo.</td></tr>
+<tr><td>emp_idEmpleado</td><td>INT</td><td>No</td><td>No</td><td>Yes</td><td>NULL</td><td>Representa una llave foránea proveniente la relación Empleado. Representa la identificación de la persona que realizó el ensayo. NUll si no se ha realizado</td></tr>
+<tr><td>mue_idMuestra</td><td>INT</td><td>Yes</td><td>No</td><td>Yes</td><td></td><td>Representa la identificación de la muestra estudiada dentro de un ensayo.</td></tr>
+<tr><td>tip_idTipoEnsayo</td><td>INT</td><td>Yes</td><td>No</td><td>Yes</td><td></td><td>Representa una llave foránea relativa al id (identificador único dentro de dicha tabla) del tipo de ensayo realizado.</td></tr>
+<tr><td>ens_estado</td><td>ENUM('PENDIENTE', 'EN CURSO', 'REALIZADO')</td><td>Yes</td><td>No</td><td>No</td><td>'PENDIENTE'</td><td>La columna estado representa si el ensayo ya fue realizado, esta en curso o no ha sido iniciado</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="estadopago"></a><table style="width:100%"><caption>Table: estadopago </caption>
+<tr><td>Table Comments</td><td colspan="6">Representa la entidad 'Estado de pago de un proyecto'; ésta entidad específicamente representa la existencia de un anticipo por parte de el cliente ante la propuesta de un proyecto</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>pro_idProyecto</td><td>INT</td><td>Yes</td><td>Yes</td><td>Yes</td><td></td><td>Representa una llave foránea converitda en primaria que identifica una relación 1-1 entre la presente relación y un proyecto.</td></tr>
+<tr><td>esp_valorAbonado</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa un valor abonado por el cliente en el momento de iniciar un proyecto. Puede ser 0 para indicar que el cliente no abonó ningún valor. Según sea el caso</td></tr>
+<tr><td>esp_fechaAbono</td><td>DATETIME</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Representa la fecha en la que se entregó un abono para la realización de un proyecto. Puede ser vacía si no se ha pagado ningún abono</td></tr>
+<tr><td>esp_fechaPagoTotal</td><td>DATETIME</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Representa la fecha en la que se ha pagado la totalidad del proyecto, puede ser nula si aún no ha sido pagado </td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="historialensayomuestra"></a><table style="width:100%"><caption>Table: historialensayomuestra </caption>
+<tr><td>Table Comments</td><td colspan="6">Representa una tabla que guarda el historial de cada cambio hecho sobre la tabla EnsayoMuestra</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>id_registro_historial</td><td>INT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Representa un id unico autogenerado que identifica la historia</td></tr>
+<tr><td>id_ensayo_muestra</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el id del ensayo muestra alterado</td></tr>
+<tr><td>usuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>'Representa el nombre del usuario que efectúa la operación'</td></tr>
+<tr><td>operacion</td><td>VARCHAR(15)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>'Señala el tipo de la operación realizada'</td></tr>
+<tr><td>fecha</td><td>DATETIME</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa la fecha en la que se realizó la operación</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="historialmuestra"></a><table style="width:100%"><caption>Table: historialmuestra </caption>
+<tr><td>Table Comments</td><td colspan="6">Representa una tabla que guarda el historial de cada cambio hecho sobre la tabla Muestra</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>id_registro_historial</td><td>INT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Representa un id unico autogenerado que identifica la historia</td></tr>
+<tr><td>id_muestra</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el id de la muestra alterada</td></tr>
+<tr><td>usuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>'Representa el nombre del usuario que efectúa la operación'</td></tr>
+<tr><td>operacion</td><td>VARCHAR(15)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>'Señala el tipo de la operación realizada'</td></tr>
+<tr><td>fecha</td><td>DATETIME</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa la fecha en la que se realizó la operación</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="historialperforacion"></a><table style="width:100%"><caption>Table: historialperforacion </caption>
+<tr><td>Table Comments</td><td colspan="6">Representa una tabla que guarda el historial de cada cambio hecho sobre la tabla Perforacion</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>id_registro_historial</td><td>INT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Representa un id unico autogenerado que identifica la historia</td></tr>
+<tr><td>id_perforacion</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el id de la perforación alterada</td></tr>
+<tr><td>usuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>'Representa el nombre del usuario que efectúa la operación'</td></tr>
+<tr><td>operacion</td><td>VARCHAR(15)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>'Señala el tipo de la operación realizada'</td></tr>
+<tr><td>fecha</td><td>DATETIME</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa la fecha en la que se realizó la operación</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="informefinal"></a><table style="width:100%"><caption>Table: informefinal </caption>
+<tr><td>Table Comments</td><td colspan="6">Define la entidad débil 'Informe Final', la cual representa un resumen de los resultados a entregar dentro de un proyecto</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>inf_fechaRemisionInforme</td><td>DATETIME</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Representa la fecha en la cual un informe ha sido remitido</td></tr>
+<tr><td>inf_observacionesInforme</td><td>VARCHAR(1000)</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Representa observaciones opcionales dadas a un informe al momento de ser creado / entregado</td></tr>
+<tr><td>pro_idProyecto</td><td>INT</td><td>Yes</td><td>No</td><td>Yes</td><td></td><td>Representa una llave foránea converitda en primaria en una relación 1-1 con la tabla proyecto</td></tr>
+<tr><td>inf_rutaInformeFinal</td><td>VARCHAR(200)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Ruta donde están almacenados los archivos resultado individuales</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="muestra"></a><table style="width:100%"><caption>Table: muestra </caption>
+<tr><td>Table Comments</td><td colspan="6">Representa la entidad Muestra, proveida por el cliente dentro de un proyecto</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>mue_idMuestra</td><td>INT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Representa un identificador único para cada muestra (llave primaria)</td></tr>
+<tr><td>mue_numeroMuestra</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Define el nombre de la muestra entregada para un proyecto (obligatorio)</td></tr>
+<tr><td>mue_condicionEmpaque</td><td>ENUM('TUBO', 'BOLSA', 'BLOQUE')</td><td>Yes</td><td>No</td><td>No</td><td></td><td>EL empaque puede ser tubo, bolsa o apique</td></tr>
+<tr><td>mue_tipoMuestra</td><td>ENUM('ALTERADA', 'INALTERADA')</td><td>Yes</td><td>No</td><td>No</td><td></td><td>El tipo de muestra puede ser alterada o inalterada</td></tr>
+<tr><td>mue_ubicacionBodega</td><td>VARCHAR(45)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa una cadena describiendo la ubicación de la muestra en bodega</td></tr>
+<tr><td>mue_tipoExploracion</td><td>ENUM('SONDEO', 'APIQUE')</td><td>Yes</td><td>No</td><td>No</td><td></td><td>El tipo de exploración puede ser sondeo o apique</td></tr>
+<tr><td>mue_descripcionMuestra</td><td>VARCHAR(45)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Descripción física de la muestra. Incluye datos como el lugar donde fue extraída, la profundidad y una breve descripción del color y su tipo de suelo.</td></tr>
+<tr><td>per_idPerforacion</td><td>INT</td><td>Yes</td><td>No</td><td>Yes</td><td></td><td>Representa la llave foránea de la relación 1 a varios con la entidad Perforación</td></tr>
+<tr><td>mue_profundidad</td><td>DECIMAL(5,2)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa la profundidad a la que fue tomada la muestra</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="perforacion"></a><table style="width:100%"><caption>Table: perforacion </caption>
+<tr><td>Table Comments</td><td colspan="6">Representa la entidad Muestra, proveida por el cliente dentro de un proyecto</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>per_idPerforacion</td><td>INT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Representa un identificador unico para cada perforación realizada</td></tr>
+<tr><td>per_nombrePerforacion</td><td>VARCHAR(45)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Define un nombre para la perforación realizada (no se usa como identificador dado que no es único para cada perforación)</td></tr>
+<tr><td>per_localizacion</td><td>VARCHAR(100)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Se refiere a la localización general de la perforación</td></tr>
+<tr><td>per_latitud</td><td>DECIMAL(8,6)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Define las coordenadas en latitud de la perforación</td></tr>
+<tr><td>per_longitud</td><td>DECIMAL(9,6)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa la longitud donde se encuentra la perforación</td></tr>
+<tr><td>pro_idProyecto</td><td>INT</td><td>Yes</td><td>No</td><td>Yes</td><td></td><td>Representa la llave foránea para la relación 1 a varios con la entidad proyecto</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="proyecto"></a><table style="width:100%"><caption>Table: proyecto </caption>
+<tr><td>Table Comments</td><td colspan="6">Representa la entidad Proyecto, la cual es generada cada vez que un servicio es prestado a un cliente</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>pro_idProyecto</td><td>INT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Representa la llave primaria de la entidad proyecto de tipo numérico</td></tr>
+<tr><td>pro_cantidadEnsayos</td><td>INT</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Cantidad total de ensayos a realizar</td></tr>
+<tr><td>pro_valorTotal</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Precio total del proyecto</td></tr>
+<tr><td>pro_nombreProyecto</td><td>VARCHAR(80)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el nombre dado por el cliente para asignar a un proyecto que éste planea realizar o para el cuál busca estudiar alguna muestra</td></tr>
+<tr><td>pro_FechaInicioProyecto</td><td>DATE</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa la fecha en la que se inicia un proyecto (Fecha en la que se crea el registro)</td></tr>
+<tr><td>pro_FechaFinalizacionProyecto</td><td>DATE</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa la fecha en la que se da fin a un proyecto. Puede ser cuando se entrega el informe, cuando se completa el pago u otra fecha.</td></tr>
+<tr><td>cli_NIT</td><td>BIGINT</td><td>Yes</td><td>No</td><td>Yes</td><td></td><td>Representa la llave foránea que relaciona cada proyecto con un único cliente</td></tr>
+</table><a href="#home">Table List </a></br>
+<a id="tipoensayo"></a><table style="width:100%"><caption>Table: tipoensayo </caption>
+<tr><td>Table Comments</td><td colspan="6">Representa la entidad Ensayo, ésta entidad puede ser definida como una constante con alteraciones poco frecuentes</td></tr>
+<tr><td colspan="7">Columns</td></tr>
+        <tr>
+        <th>Name</th>
+        <th>Data Type</th>
+        <th>Nullable</th>
+        <th>PK</th>
+        <th>FK</th>
+        <th>Default</th>
+        <th>Comment</th>
+        </tr>
+<tr><td>tip_idTipoEnsayo</td><td>INT</td><td>Yes</td><td>Yes</td><td>No</td><td></td><td>Representa la identificación única de cada tipo de Ensayo. </td></tr>
+<tr><td>tip_nombreTipoEnsayo</td><td>VARCHAR(45)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el nombre de ensayo proveniente de un conjunto de datos ya especificado dentro de la entidad</td></tr>
+</table><a href="#home">Table List </a></br>
+</body></html>
