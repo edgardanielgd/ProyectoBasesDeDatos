@@ -19,3 +19,51 @@ BEGIN
 
 END $$
 DELIMITER ;
+
+-- Un procedimiento que actualice el atributo "cantidad de ensayos" de un proyecto
+-- EN función de los ensayos que ya han sido realizados
+DELIMITER $$
+CREATE PROCEDURE proc_actualizarCantidadEnsayos(idProyecto INT)
+BEGIN
+	DECLARE cantidadExistente,existe,cantidadNecesitada INT DEFAULT 0;
+    SELECT COUNT(*) INTO existe FROM Proyecto
+    WHERE pro_idProyecto = idProyecto;
+    IF existe > 0 THEN
+		SELECT pro_cantidadEnsayos INTO cantidadExistente FROM
+		Proyecto WHERE pro_idProyecto=idProyecto;
+        
+		SELECT COUNT(*) INTO cantidadNecesitada FROM
+        (SELECT per_idPerforacion FROM Perforacion
+        WHERE pro_idProyecto = idProyecto) AS t NATURAL JOIN Muestra
+        NATURAL JOIN EnsayoMuestra;
+        
+        IF cantidadNecesitada > cantidadExistente THEN
+			UPDATE Proyecto SET pro_cantidadEnsayos = cantidadNecesitada
+            WHERE pro_idProyecto = idProyecto;
+        END IF;
+    END IF;
+    
+END $$
+DELIMITER ;
+
+-- Crea un procedimiento que muestra los proyectos localizados cerca de determinada
+-- latitud y longitud (la cercanía se pasa en el parámetro "radio")
+DELIMITER $$
+CREATE PROCEDURE proc_proyectos_cerca_de(latitud INT,longitud INT,radio INT)
+BEGIN
+	SELECT DISTINCT pro_nombreProyecto,per_localizacion FROM Proyecto
+    NATURAL JOIN (SELECT pro_idProyecto FROM Perforacion WHERE
+    per_latitud - radio < latitud AND per_latitud + radio > latitud
+    AND per_longitud - radio < longitud AND per_longitud + radio < longitud)
+    AS t1;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE FUNCTION func_evaluar_rutaArchivo(idEnsayoMuestra INT, ruta VARCHAR(100))
+RETURNS VARCHAR(100) DETERMINISTIC
+BEGIN
+	
+END $$
+DELIMITER ;
+
