@@ -97,14 +97,14 @@ COMMENT = 'Representa la entidad \'Estado de pago de un proyecto\'; ésta entida
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS mydb.Empleado (
   emp_idEmpleado INT PRIMARY KEY COMMENT 'Número de cédula',  
-  emp_nombreEmpleado VARCHAR(60) NOT NULL,
-  emp_apellidoEmpleado VARCHAR(60) NOT NULL,
-  emp_oficioEmpleado VARCHAR(20) NOT NULL,
-  emp_salario INT NOT NULL,
+  emp_nombreEmpleado VARCHAR(60) NOT NULL COMMENT "Nombre(s) del empleado en cuestión",
+  emp_apellidoEmpleado VARCHAR(60) NOT NULL COMMENT "Apellido(s) del empleado en cuestión",
+  emp_oficioEmpleado VARCHAR(20) NOT NULL COMMENT "Oficio del empleado dentro de la empresa",
+  emp_salario INT NOT NULL COMMENT "Salario actual del empleado por parte de la empresa",
   emp_nombreUsuario VARCHAR(60) NOT NULL COMMENT 'Nombre de usuario en la base de datos',
-  emp_nombreEPS VARCHAR(60) NOT NULL,
+  emp_nombreEPS VARCHAR(60) NOT NULL COMMENT "Se refiere al nombre de la EPS del empleado",
   emp_nombreARL VARCHAR(60) NOT NULL,
-  emp_nombreFondoPension VARCHAR(60) NOT NULL
+  emp_nombreFondoPension VARCHAR(60) NOT NULL COMMENT "Relaciona el nombre del fondo de pensión del empleado"
 )
 ENGINE = InnoDB
 COMMENT = 'Entidad fuerte Empleado, participante en el estudio de las muestras';
