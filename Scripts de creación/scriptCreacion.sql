@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS Proyecto (
   pro_FechaInicioProyecto DATE NOT NULL COMMENT 'Representa la fecha en la que se inicia un proyecto (Fecha en la que se crea el registro)',
   pro_FechaFinalizacionProyecto DATE NOT NULL COMMENT 'Representa la fecha en la que se da fin a un proyecto. Puede ser cuando se entrega el informe, cuando se completa el pago u otra fecha.',
   cli_NIT BIGINT NOT NULL COMMENT 'Representa la llave foránea que relaciona cada proyecto con un único cliente',
+  INDEX `fk_Proyecto_Cliente1_idx` (`cli_NIT` ASC) VISIBLE,
   FOREIGN KEY (cli_NIT)
     REFERENCES Cliente(cli_NIT)
     ON DELETE CASCADE
@@ -47,6 +48,7 @@ CREATE TABLE IF NOT EXISTS mydb.Perforacion (
   per_latitud DECIMAL(8,6) NOT NULL COMMENT 'Define las coordenadas en latitud de la perforación',
   per_longitud DECIMAL(9,6) NOT NULL COMMENT 'Representa la longitud donde se encuentra la perforación',
   pro_idProyecto INT NOT NULL COMMENT 'Representa la llave foránea para la relación 1 a varios con la entidad proyecto',
+  INDEX `fk_Perforacion_Proyecto1_idx` (`pro_idProyecto` ASC) VISIBLE,
   FOREIGN KEY (pro_idProyecto)
     REFERENCES Proyecto(pro_idProyecto)
     ON DELETE CASCADE
@@ -68,6 +70,7 @@ CREATE TABLE IF NOT EXISTS mydb.Muestra (
   mue_descripcionMuestra VARCHAR(45) NOT NULL COMMENT 'Descripción física de la muestra. Incluye datos como el lugar donde fue extraída, la profundidad y una breve descripción del color y su tipo de suelo.',
   per_idPerforacion INT NOT NULL COMMENT 'Representa la llave foránea de la relación 1 a varios con la entidad Perforación',
   mue_profundidad DECIMAL(5,2) NOT NULL COMMENT 'Representa la profundidad a la que fue tomada la muestra',
+  INDEX `fk_Muestra_Perforacion1_idx` (`per_idPerforacion` ASC) VISIBLE,
   FOREIGN KEY (per_idPerforacion)
     REFERENCES mydb.Perforacion (per_idPerforacion)
     ON DELETE CASCADE
@@ -133,6 +136,9 @@ CREATE TABLE IF NOT EXISTS mydb.EnsayoMuestra (
   mue_idMuestra INT NOT NULL COMMENT 'Representa la identificación de la muestra estudiada dentro de un ensayo.',
   tip_idTipoEnsayo INT NOT NULL COMMENT 'Representa una llave foránea relativa al id (identificador único dentro de dicha tabla) del tipo de ensayo realizado.',
   ens_estado ENUM('PENDIENTE', 'EN CURSO', 'REALIZADO') NOT NULL DEFAULT 'PENDIENTE' COMMENT 'La columna estado representa si el ensayo ya fue realizado, esta en curso o no ha sido iniciado',
+  INDEX `fk_estudioMuestra_Empleado1_idx` (`emp_idEmpleado` ASC) VISIBLE,
+  INDEX `fk_estudioMuestra_Muestra1_idx` (`mue_idMuestra` ASC) VISIBLE,
+  INDEX `fk_EnsayoMuestra_TipoEnsayo1_idx` (`tip_idTipoEnsayo` ASC) VISIBLE,
   FOREIGN KEY (emp_idEmpleado)
     REFERENCES mydb.Empleado (emp_idEmpleado)
     ON DELETE CASCADE
@@ -172,6 +178,8 @@ CREATE TABLE IF NOT EXISTS mydb.ArchivoResultado (
   ens_idEnsayoMuestra INT PRIMARY KEY COMMENT 'Representa una llave foránea convertida en primaria en una relación 1-1 con la tabla EnsayoMuestra. ',
   ens_rutaArchivo VARCHAR(1000) NOT NULL COMMENT 'Representa una cadena que contiene la ruta (Path) de un archivo de excel generado por la empresa esquematizando detalladamente el resultado de la aplicación de un ensayo a una muestra',
   pro_idProyecto INT NOT NULL COMMENT 'Representa una llave foránea que relaciona los archivos con un único informe al que pertenece (Nótese que a través de ésta llave puede ser encontrado directamente el proyecto y el estado de pago relativo al archivo en cuestión)',
+  INDEX `fk_ArchivoResultado_EnsayoMuestra1_idx` (`ens_idEnsayoMuestra` ASC) VISIBLE,
+  INDEX `fk_ArchivoResultado_informeFinal1_idx` (`pro_idProyecto` ASC) VISIBLE,
   FOREIGN KEY (ens_idEnsayoMuestra)
     REFERENCES mydb.EnsayoMuestra (ens_idEnsayoMuestra)
     ON DELETE CASCADE
