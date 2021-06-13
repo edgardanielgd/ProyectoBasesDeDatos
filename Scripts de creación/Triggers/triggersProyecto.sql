@@ -86,3 +86,13 @@ FOR EACH ROW BEGIN
     END IF;
 END $$
 DELIMITER ;
+
+/*Revisar que la profundidad de una muestra tenga valores coherentes entre 1 y 150 metros*/
+DELIMITER $$
+CREATE TRIGGER revisarProfundidadMuestra BEFORE INSERT ON muestra
+FOR EACH ROW BEGIN
+    IF NOT NEW.mue_profundidad BETWEEN 1 AND 150 THEN
+        signal sqlstate '45000';  -- Abort the insert with an error
+    END IF;
+END $$
+DELIMITER ;
