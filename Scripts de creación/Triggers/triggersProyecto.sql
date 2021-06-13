@@ -73,3 +73,16 @@ FOR EACH ROW BEGIN
     VALUES (OLD.per_idPerforacion , USER(), "Borrado", NOW());
 END $$
 DELIMITER ;
+
+/*Poner los campos de fecha, ejecutor y hayResiduo como NULL cuando se ingrese un EnsayoMuestra que
+todavía no se ha hecho*/
+DELIMITER $$
+CREATE TRIGGER checkUnfinishedEnsayoMuestra BEFORE INSERT ON EnsayoMuestra
+FOR EACH ROW BEGIN
+    IF NEW.ens_estado = 'PENDIENTE' THEN
+        SET NEW.ens_hayResiduo = IF(NEW.ens_hayResiduo IS NOT NULL, NULL, NEW.ens_hayResiduo),
+			NEW.emp_idEmpleado = IF(NEW.emp_idEmpleado IS NOT NULL, NULL, NEW.emp_idEmpleado),
+			NEW.ens_fechaEnsayoMuestra = IF(NEW.ens_fechaEnsayoMuestra IS NOT NULL, NULL, NEW.ens_fechaEnsayoMuestra);
+    END IF;
+END $$
+DELIMITER ;
