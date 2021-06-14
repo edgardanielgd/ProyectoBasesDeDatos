@@ -106,8 +106,8 @@ BEGIN
 END $$
 DELIMITER ;
 
--- Retorna una fecha en la cual se espera (a partir del promedio de duraci�n de proyectos)
--- acabe el proyecto pasado como par�metro (ID)
+-- Retorna una fecha en la cual se espera (a partir del promedio de duración de proyectos)
+-- acabe el proyecto pasado como parámetro (ID)
 DELIMITER $$
 CREATE FUNCTION func_estimar_finalizacion(idProyecto INT)
 RETURNS DATE DETERMINISTIC
@@ -133,3 +133,53 @@ BEGIN
 	END IF;
 END $$
 DELIMITER ;
+
+-- Declara una función que actualiza la ruta de informe final para un archivoresultado dado
+-- Además retorna la carpeta de la ruta del archivo
+DELIMITER $$
+CREATE FUNCTION func_evaluar_rutaArchivo(idEnsayoMuestra INT)
+RETURNS VARCHAR(100) DETERMINISTIC
+BEGIN
+	DECLARE existe,indice,id_p INT DEFAULT 0;
+    DECLARE ruta,carpetaRuta,rutaInformes VARCHAR(100) DEFAULT '';
+    
+    SELECT COUNT(*) INTO existe FROM ArchivoResultado
+    WHERE ens_idEnsayoMuestra = idEnsayoMuestra;
+    
+    IF existe <= 0 THEN 
+		RETURN '';
+	END IF;
+    
+    SELECT ens_rutaArchivo INTO ruta FROM ArchivoResultado
+    WHERE ens_idEnsayoMuestra = idEnsayoMuestra;
+    
+    SET indice = LOCATE('\\',REVERSE(ruta));
+    IF ruta IS NOT NULL AND indice > 0 AND LENGTH(ruta) > 0 THEN
+		SET carpetaRuta = SUBSTR(ruta, 1, LENGTH(ruta) - indice);
+    END IF;
+	RETURN carpetaRuta;
+    SET id_p = (SELECT pro_idProyecto FROM
+    ArchivoResultado WHERE ens_idEnsayoMuestra = idEnsayoMuestra);
+    
+    SELECT COUNT(*) INTO existe FROM InformeFinal
+    WHERE pro_idProyecto = id_p;
+    
+    IF existe <=0 THEN
+		INSERT INTO InformeFinal(pro_idProyecto,inf_rutaInformeFinal) VALUES
+        (id_p,carpetaRuta);
+	else
+		SELECT inf_rutaInformeFinal INTO rutaInformes FROM InformeFinal
+        WHERE pro_idProyecto = id_p;
+        
+        IF FIND_IN_SET(carpetaRuta,rutaInformes) = 0 THEN
+			UPDATE InformeFinal SET inf_rutaInformeFinal = 
+            CONCAT(inf_rutaInformeFinal,",",carpetaRuta)
+            WHERE pro_idProyecto = id_p;
+        END IF;
+	END IF;
+    
+    RETURN carpetaRuta;
+END $$
+DELIMITER ;
+
+DROP FUNCTION func_evaluar_rutaArchivo;

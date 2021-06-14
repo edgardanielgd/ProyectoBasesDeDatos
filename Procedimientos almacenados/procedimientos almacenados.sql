@@ -21,7 +21,7 @@ END $$
 DELIMITER ;
 
 -- Un procedimiento que actualice el atributo "cantidad de ensayos" de un proyecto
--- EN funciÛn de los ensayos que ya han sido realizados
+-- EN funci√≥n de los ensayos que ya han sido realizados
 DELIMITER $$
 CREATE PROCEDURE proc_actualizarCantidadEnsayos(idProyecto INT)
 BEGIN
@@ -47,23 +47,16 @@ END $$
 DELIMITER ;
 
 -- Crea un procedimiento que muestra los proyectos localizados cerca de determinada
--- latitud y longitud (la cercanÌa se pasa en el par·metro "radio")
+-- latitud y longitud (la cercan√≠a se pasa en el par√°metro "radio")
 DELIMITER $$
 CREATE PROCEDURE proc_proyectos_cerca_de(latitud INT,longitud INT,radio INT)
 BEGIN
 	SELECT DISTINCT pro_nombreProyecto,per_localizacion FROM Proyecto
-    NATURAL JOIN (SELECT pro_idProyecto FROM Perforacion WHERE
-    per_latitud - radio < latitud AND per_latitud + radio > latitud
-    AND per_longitud - radio < longitud AND per_longitud + radio < longitud)
+    NATURAL JOIN (SELECT pro_idProyecto,per_localizacion FROM Perforacion WHERE
+    per_latitud < latitud + radio AND per_latitud > latitud - radio
+    AND per_longitud < longitud + radio AND per_longitud > longitud - radio)
     AS t1;
 END $$
 DELIMITER ;
 
-DELIMITER $$
-CREATE FUNCTION func_evaluar_rutaArchivo(idEnsayoMuestra INT, ruta VARCHAR(100))
-RETURNS VARCHAR(100) DETERMINISTIC
-BEGIN
-	
-END $$
-DELIMITER ;
 

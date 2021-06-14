@@ -194,11 +194,11 @@ COMMENT = 'Define la entidad débil \'Resultado Muestra\' la cual representa el 
 
 -- Datos clientes
 
-INSERT INTO Cliente VALUES(8999992948,'Servicio Geológico Colombiano',2200200,'Bogotá','C:\Users\josel\Documents\CertificadoServicioGeologicoColombiano','Óscar Eladio','Paredes Zapata','cliente@sgc.gov.co');
-INSERT INTO Cliente VALUES(8001542751,'Idiger',4292800,'Bogotá','C:\Users\josel\Documents\CertificadoIdiger','Guillermo','Escobar Castro','notificacionesjudiciales@idiger.gov.co');
-INSERT INTO Cliente VALUES(8170014359,'CI Ambiental S.A.S',3175030960,'Barranquilla','C:\Users\josel\Documents\CertificadoCIAmbiental','Carlos','Trujillo','info@ciambiental.com');
-INSERT INTO Cliente VALUES(9005586047,'DACH & ASOCIADOS S.A.S',6421617,'Bogotá','C:\Users\josel\Documents\CertificadoDACHAsociados','Julián','Ramírez','dachasociados@hotmail.com');
-INSERT INTO Cliente VALUES(8300108934,'Geocing S.A.S',7046969,'Bogotá','C:\Users\josel\Documents\CertificadoGeocing','Carlos','Gómez','proyectos@geocing.com'); 
+INSERT INTO Cliente VALUES(8999992948,'Servicio Geológico Colombiano',2200200,'Bogotá','C:\\Users\\josel\\Documents\\CertificadoServicioGeologicoColombiano','Óscar Eladio','Paredes Zapata','cliente@sgc.gov.co');
+INSERT INTO Cliente VALUES(8001542751,'Idiger',4292800,'Bogotá','C:\\Users\\josel\\Documents\\CertificadoIdiger','Guillermo','Escobar Castro','notificacionesjudiciales@idiger.gov.co');
+INSERT INTO Cliente VALUES(8170014359,'CI Ambiental S.A.S',3175030960,'Barranquilla','C:\\Users\\josel\\Documents\\CertificadoCIAmbiental','Carlos','Trujillo','info@ciambiental.com');
+INSERT INTO Cliente VALUES(9005586047,'DACH & ASOCIADOS S.A.S',6421617,'Bogotá','C:\\Users\\josel\\Documents\\CertificadoDACHAsociados','Julián','Ramírez','dachasociados@hotmail.com');
+INSERT INTO Cliente VALUES(8300108934,'Geocing S.A.S',7046969,'Bogotá','C:\\Users\\josel\\Documents\\CertificadoGeocing','Carlos','Gómez','proyectos@geocing.com'); 
 
 
 -- Datos proyectos
@@ -358,59 +358,59 @@ INSERT INTO EnsayoMuestra VALUES(43,'2011-09-16',1,'NULL',2,34,6,'3');
 
 
 -- datos informes finales
-INSERT INTO informeFinal VALUES('2018-01-09','NULL','1', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 1');
-INSERT INTO informeFinal VALUES('2020-08-21','NULL','2', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 2');
-INSERT INTO informeFinal VALUES('2011-12-31','NULL','3', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 3');
-INSERT INTO informeFinal VALUES('2013-11-1','NULL','4', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 4');
-INSERT INTO informeFinal VALUES('2014-9-23','NULL','5', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 5');
-INSERT INTO informeFinal VALUES('2011-9-5','NULL','6', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 6');
-INSERT INTO informeFinal VALUES('2012-01-24','NULL','7', 'C:\Users\josel\Documents\Proyecto empresa dbms\git repo\ProyectoBasesDeDatos\Informe Final 7');
+INSERT INTO informeFinal VALUES('2018-01-09','NULL','1', 'C:\\Users\\josel\\Documents\\Proyecto empresa dbms\\git repo\\ProyectoBasesDeDatos\\Informe Final 1');
+INSERT INTO informeFinal VALUES('2020-08-21','NULL','2', 'C:\\Users\\josel\\Documents\\Proyecto empresa dbms\\git repo\\ProyectoBasesDeDatos\\Informe Final 2');
+INSERT INTO informeFinal VALUES('2011-12-31','NULL','3', 'C:\\Users\\josel\\Documents\\Proyecto empresa dbms\\git repo\\ProyectoBasesDeDatos\\Informe Final 3');
+INSERT INTO informeFinal VALUES('2013-11-1','NULL','4', 'C:\\Users\\josel\\Documents\\Proyecto empresa dbms\\git repo\\ProyectoBasesDeDatos\\Informe Final 4');
+INSERT INTO informeFinal VALUES('2014-9-23','NULL','5', 'C:\\Users\\josel\\Documents\\Proyecto empresa dbms\\git repo\\ProyectoBasesDeDatos\\Informe Final 5');
+INSERT INTO informeFinal VALUES('2011-9-5','NULL','6', 'C:\\Users\\josel\\Documents\\Proyecto empresa dbms\\git repo\\ProyectoBasesDeDatos\\Informe Final 6');
+INSERT INTO informeFinal VALUES('2012-01-24','NULL','7', 'C:\\Users\\josel\\Documents\\Proyecto empresa dbms\\git repo\\ProyectoBasesDeDatos\\Informe Final 7');
 
 
 -- datos archivos resultado
-INSERT INTO ArchivoResultado VALUES('1','C:\Users\josel\Documents\Resultado1','1');
-INSERT INTO ArchivoResultado VALUES('2','C:\Users\josel\Documents\Resultado2','1');
-INSERT INTO ArchivoResultado VALUES('3','C:\Users\josel\Documents\Resultado3','1');
-INSERT INTO ArchivoResultado VALUES('4','C:\Users\josel\Documents\Resultado4','1');
-INSERT INTO ArchivoResultado VALUES('5','C:\Users\josel\Documents\Resultado5','1');
-INSERT INTO ArchivoResultado VALUES('6','C:\Users\josel\Documents\Resultado6','1');
-INSERT INTO ArchivoResultado VALUES('7','C:\Users\josel\Documents\Resultado7','1');
-INSERT INTO ArchivoResultado VALUES('8','C:\Users\josel\Documents\Resultado8','1');
-INSERT INTO ArchivoResultado VALUES('9','C:\Users\josel\Documents\Resultado9','1');
-INSERT INTO ArchivoResultado VALUES('10','C:\Users\josel\Documents\Resultado10','1');
-INSERT INTO ArchivoResultado VALUES('11','C:\Users\josel\Documents\Resultado11','1');
-INSERT INTO ArchivoResultado VALUES('12','C:\Users\josel\Documents\Resultado12','1');
-INSERT INTO ArchivoResultado VALUES('13','C:\Users\josel\Documents\Resultado13','1');
-INSERT INTO ArchivoResultado VALUES('14','C:\Users\josel\Documents\Resultado14','2');
-INSERT INTO ArchivoResultado VALUES('15','C:\Users\josel\Documents\Resultado15','2');
-INSERT INTO ArchivoResultado VALUES('16','C:\Users\josel\Documents\Resultado16','2');
-INSERT INTO ArchivoResultado VALUES('17','C:\Users\josel\Documents\Resultado17','2');
-INSERT INTO ArchivoResultado VALUES('18','C:\Users\josel\Documents\Resultado18','2');
-INSERT INTO ArchivoResultado VALUES('19','C:\Users\josel\Documents\Resultado19','3');
-INSERT INTO ArchivoResultado VALUES('20','C:\Users\josel\Documents\Resultado20','3');
-INSERT INTO ArchivoResultado VALUES('21','C:\Users\josel\Documents\Resultado21','3');
-INSERT INTO ArchivoResultado VALUES('22','C:\Users\josel\Documents\Resultado22','3');
-INSERT INTO ArchivoResultado VALUES('23','C:\Users\josel\Documents\Resultado23','3');
-INSERT INTO ArchivoResultado VALUES('24','C:\Users\josel\Documents\Resultado24','3');
-INSERT INTO ArchivoResultado VALUES('25','C:\Users\josel\Documents\Resultado25','3');
-INSERT INTO ArchivoResultado VALUES('26','C:\Users\josel\Documents\Resultado26','3');
-INSERT INTO ArchivoResultado VALUES('27','C:\Users\josel\Documents\Resultado27','3');
-INSERT INTO ArchivoResultado VALUES('28','C:\Users\josel\Documents\Resultado28','3');
-INSERT INTO ArchivoResultado VALUES('29','C:\Users\josel\Documents\Resultado29','3');
-INSERT INTO ArchivoResultado VALUES('30','C:\Users\josel\Documents\Resultado30','4');
-INSERT INTO ArchivoResultado VALUES('31','C:\Users\josel\Documents\Resultado31','4');
-INSERT INTO ArchivoResultado VALUES('32','C:\Users\josel\Documents\Resultado32','4');
-INSERT INTO ArchivoResultado VALUES('33','C:\Users\josel\Documents\Resultado33','5');
-INSERT INTO ArchivoResultado VALUES('34','C:\Users\josel\Documents\Resultado34','6');
-INSERT INTO ArchivoResultado VALUES('35','C:\Users\josel\Documents\Resultado35','6');
-INSERT INTO ArchivoResultado VALUES('36','C:\Users\josel\Documents\Resultado36','6');
-INSERT INTO ArchivoResultado VALUES('37','C:\Users\josel\Documents\Resultado37','7');
-INSERT INTO ArchivoResultado VALUES('38','C:\Users\josel\Documents\Resultado38','7');
-INSERT INTO ArchivoResultado VALUES('39','C:\Users\josel\Documents\Resultado39','7');
-INSERT INTO ArchivoResultado VALUES('40','C:\Users\josel\Documents\Resultado40','7');
-INSERT INTO ArchivoResultado VALUES('41','C:\Users\josel\Documents\Resultado41','1');
-INSERT INTO ArchivoResultado VALUES('42','C:\Users\josel\Documents\Resultado42','4');
-INSERT INTO ArchivoResultado VALUES('43','C:\Users\josel\Documents\Resultado43','6');
+INSERT INTO ArchivoResultado VALUES('1','C:\\Users\\josel\\Documents\\Resultado1','1');
+INSERT INTO ArchivoResultado VALUES('2','C:\\Users\\josel\\Documents\\Resultado2','1');
+INSERT INTO ArchivoResultado VALUES('3','C:\\Users\\josel\\Documents\\Resultado3','1');
+INSERT INTO ArchivoResultado VALUES('4','C:\\Users\\josel\\Documents\\Resultado4','1');
+INSERT INTO ArchivoResultado VALUES('5','C:\\Users\\josel\\Documents\\Resultado5','1');
+INSERT INTO ArchivoResultado VALUES('6','C:\\Users\\josel\\Documents\\Resultado6','1');
+INSERT INTO ArchivoResultado VALUES('7','C:\\Users\\josel\\Documents\\Resultado7','1');
+INSERT INTO ArchivoResultado VALUES('8','C:\\Users\\josel\\Documents\\Resultado8','1');
+INSERT INTO ArchivoResultado VALUES('9','C:\\Users\\josel\\Documents\\Resultado9','1');
+INSERT INTO ArchivoResultado VALUES('10','C:\\Users\\josel\\Documents\\Resultado10','1');
+INSERT INTO ArchivoResultado VALUES('11','C:\\Users\\josel\\Documents\\Resultado11','1');
+INSERT INTO ArchivoResultado VALUES('12','C:\\Users\\josel\\Documents\\Resultado12','1');
+INSERT INTO ArchivoResultado VALUES('13','C:\\Users\\josel\\Documents\\Resultado13','1');
+INSERT INTO ArchivoResultado VALUES('14','C:\\Users\\josel\\Documents\\Resultado14','2');
+INSERT INTO ArchivoResultado VALUES('15','C:\\Users\\josel\\Documents\\Resultado15','2');
+INSERT INTO ArchivoResultado VALUES('16','C:\\Users\\josel\\Documents\\Resultado16','2');
+INSERT INTO ArchivoResultado VALUES('17','C:\\Users\\josel\\Documents\\Resultado17','2');
+INSERT INTO ArchivoResultado VALUES('18','C:\\Users\\josel\\Documents\\Resultado18','2');
+INSERT INTO ArchivoResultado VALUES('19','C:\\Users\\josel\\Documents\\Resultado19','3');
+INSERT INTO ArchivoResultado VALUES('20','C:\\Users\\josel\\Documents\\Resultado20','3');
+INSERT INTO ArchivoResultado VALUES('21','C:\\Users\\josel\\Documents\\Resultado21','3');
+INSERT INTO ArchivoResultado VALUES('22','C:\\Users\\josel\\Documents\\Resultado22','3');
+INSERT INTO ArchivoResultado VALUES('23','C:\\Users\\josel\\Documents\\Resultado23','3');
+INSERT INTO ArchivoResultado VALUES('24','C:\\Users\\josel\\Documents\\Resultado24','3');
+INSERT INTO ArchivoResultado VALUES('25','C:\\Users\\josel\\Documents\\Resultado25','3');
+INSERT INTO ArchivoResultado VALUES('26','C:\\Users\\josel\\Documents\\Resultado26','3');
+INSERT INTO ArchivoResultado VALUES('27','C:\\Users\\josel\\Documents\\Resultado27','3');
+INSERT INTO ArchivoResultado VALUES('28','C:\\Users\\josel\\Documents\\Resultado28','3');
+INSERT INTO ArchivoResultado VALUES('29','C:\\Users\\josel\\Documents\\Resultado29','3');
+INSERT INTO ArchivoResultado VALUES('30','C:\\Users\\josel\\Documents\\Resultado30','4');
+INSERT INTO ArchivoResultado VALUES('31','C:\\Users\\josel\\Documents\\Resultado31','4');
+INSERT INTO ArchivoResultado VALUES('32','C:\\Users\\josel\\Documents\\Resultado32','4');
+INSERT INTO ArchivoResultado VALUES('33','C:\\Users\\josel\\Documents\\Resultado33','5');
+INSERT INTO ArchivoResultado VALUES('34','C:\\Users\\josel\\Documents\\Resultado34','6');
+INSERT INTO ArchivoResultado VALUES('35','C:\\Users\\josel\\Documents\\Resultado35','6');
+INSERT INTO ArchivoResultado VALUES('36','C:\\Users\\josel\\Documents\\Resultado36','6');
+INSERT INTO ArchivoResultado VALUES('37','C:\\Users\\josel\\Documents\\Resultado37','7');
+INSERT INTO ArchivoResultado VALUES('38','C:\\Users\\josel\\Documents\\Resultado38','7');
+INSERT INTO ArchivoResultado VALUES('39','C:\\Users\\josel\\Documents\\Resultado39','7');
+INSERT INTO ArchivoResultado VALUES('40','C:\\Users\\josel\\Documents\\Resultado40','7');
+INSERT INTO ArchivoResultado VALUES('41','C:\\Users\\josel\\Documents\\Resultado41','1');
+INSERT INTO ArchivoResultado VALUES('42','C:\\Users\\josel\\Documents\\Resultado42','4');
+INSERT INTO ArchivoResultado VALUES('43','C:\\Users\\josel\\Documents\\Resultado43','6');
 
 
 -- -------- Tabla historial para EnsayoMuestra -----------
