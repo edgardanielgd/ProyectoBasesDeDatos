@@ -181,5 +181,3 @@ BEGIN
     RETURN carpetaRuta;
 END $$
 DELIMITER ;
-
-DROP FUNCTION func_evaluar_rutaArchivo;
