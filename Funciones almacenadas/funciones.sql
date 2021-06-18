@@ -23,7 +23,7 @@ BEGIN
 	DECLARE total, falto, existe INT DEFAULT 0;
     SELECT COUNT(*) INTO existe FROM Proyecto
     WHERE pro_idProyecto = idProyecto;
-    IF exiiste <= 0 THEN
+    IF existe <= 0 THEN
 		RETURN 0;
     END IF;
     SELECT pro_valorTotal INTO total FROM Proyecto
