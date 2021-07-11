@@ -42,7 +42,7 @@ COMMENT = 'Representa la entidad Proyecto, la cual es generada cada vez que un s
 -- Table mydb.Perforacion
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS mydb.Perforacion (
-  per_idPerforacion INT PRIMARY KEY COMMENT 'Representa un identificador unico para cada perforación realizada',
+  per_idPerforacion INT PRIMARY KEY auto_increment COMMENT 'Representa un identificador unico para cada perforación realizada',
   per_nombrePerforacion VARCHAR(45) NOT NULL COMMENT 'Define un nombre para la perforación realizada (no se usa como identificador dado que no es único para cada perforación)',
   per_localizacion VARCHAR(100) NOT NULL COMMENT 'Se refiere a la localización general de la perforación',
   per_latitud DECIMAL(8,6) NOT NULL COMMENT 'Define las coordenadas en latitud de la perforación',
@@ -56,12 +56,11 @@ CREATE TABLE IF NOT EXISTS mydb.Perforacion (
 ENGINE = InnoDB
 COMMENT = 'Representa la entidad Muestra, proveida por el cliente dentro de un proyecto';
 
-
 -- -----------------------------------------------------
 -- Table mydb.Muestra
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS mydb.Muestra (
-  mue_idMuestra INT PRIMARY KEY COMMENT 'Representa un identificador único para cada muestra (llave primaria)',
+  mue_idMuestra INT PRIMARY KEY auto_increment COMMENT 'Representa un identificador único para cada muestra (llave primaria)',
   mue_numeroMuestra INT NOT NULL COMMENT 'Define el nombre de la muestra entregada para un proyecto (obligatorio)',
   mue_condicionEmpaque ENUM('TUBO', 'BOLSA', 'BLOQUE') NOT NULL COMMENT 'EL empaque puede ser tubo, bolsa o apique',
   mue_tipoMuestra ENUM('ALTERADA', 'INALTERADA') NOT NULL COMMENT 'El tipo de muestra puede ser alterada o inalterada',
@@ -220,6 +219,10 @@ INSERT INTO Perforacion VALUES(5,'PZ-2','Macheta',4.960182,-73.690088,4);
 INSERT INTO Perforacion VALUES(6,'PZ-3','Gachala',4.588114,-73.60923,5);
 INSERT INTO Perforacion VALUES(7,'PZ-4','Miraflores',5.185256,-73.15222,6);
 INSERT INTO Perforacion VALUES(8,'PZ-5','Aquitania',5.337696,-72.904008,7);
+INSERT INTO Perforacion VALUES(NUll, 'AS-1', 'Suba', 4.11234, -32.2321, 1);
+INSERT INTO Perforacion VALUES(NUll, 'PZ-16', 'San Eduardo', 3.123123, 18.11142, 1);
+INSERT INTO Perforacion VALUES(NUll, 'PZ-6', 'San Gil', 13.122342323, 78.6542, 2);
+INSERT INTO Perforacion VALUES(NUll, 'PZ-9', 'La Vega', 54.221321, -32.99832, 2);
 
 
 -- Datos muestras

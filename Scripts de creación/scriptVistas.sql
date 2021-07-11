@@ -35,7 +35,7 @@ Proyecto NATURAL JOIN Perforacion;
 
 -- Vista para que los empleados no vean la información económica
 CREATE VIEW vw_proyecto_lab
-AS SELECT pro_idProyecto,pro_nombreProyecto FROM Proyecto; 
+AS SELECT pro_idProyecto,pro_nombreProyecto, pro_FechaInicioProyecto FROM Proyecto; 
 
 -- Rutas de informe final para cada proyecto
 CREATE VIEW vw_informeFinal_vs_Proyecto
@@ -46,3 +46,8 @@ informeFinal NATURAL JOIN Proyecto;
 CREATE VIEW vw_idEmpleado_vs_nombreUsuario
 AS SELECT emp_idEmpleado, emp_nombreUsuario
 FROM empleado;
+
+-- Vista que se utilizará en la interfaz del form3.cs
+CREATE VIEW vw_idProyecto_nombreProyecto_estadoProyecto
+AS SELECT pro_idProyecto AS ID, pro_nombreProyecto AS NombreProyecto, IF(pro_FechaFinalizacionProyecto = NULL, 'En curso', 'Finalizado') AS Estado
+FROM proyecto;
