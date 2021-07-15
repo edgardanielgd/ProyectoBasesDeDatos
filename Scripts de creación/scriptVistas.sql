@@ -56,3 +56,8 @@ ens_estado FROM EnsayoMuestra;
 CREATE VIEW vw_idProyecto_nombreProyecto_estadoProyecto
 AS SELECT pro_idProyecto AS ID, pro_nombreProyecto AS NombreProyecto, IF(pro_FechaFinalizacionProyecto = NULL, 'En curso', 'Finalizado') AS Estado
 FROM proyecto;
+
+-- Nombre del ejecutor de un ensayo muestra
+CREATE VIEW vw_ejecutorEnsayoMuestra
+AS SELECT emp_idEmpleado AS Ejecutor, ens_idEnsayoMuestra AS ensayoMuestra_id
+FROM ensayoMuestra NATURAL JOIN empleado;
