@@ -32,7 +32,7 @@ GRANT SELECT ON mydb.vw_perforacion_vs_proyecto TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_idEmpleado_vs_nombreUsuario TO 'empleadoLaboratorista';
 GRANT SELECT, UPDATE, INSERT ON mydb.vw_ensayoMuestra_laboratorista TO 'empleadoLaboratorista';
 GRANT SELECT ON vw_ejecutorEnsayoMuestra TO 'empleadoLaboratorista';
-
+GRANT SELECT ON vw_nombreEmpleado_vs_idEmpleado TO 'empleadoLaboratorista';
 GRANT EXECUTE ON PROCEDURE finalizarEnsayoMuestra TO 'empleadoLaboratorista';
 
 -- Permisos para jefe de laboratorio
@@ -50,6 +50,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_perforacion_vs_proyecto TO 'jefe
 GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_informeFinal_vs_Proyecto TO 'jefeLaboratorio';
 GRANT SELECT ON mydb.vw_idEmpleado_vs_nombreUsuario TO 'jefeLaboratorio';
 GRANT SELECT ON vw_ejecutorEnsayoMuestra TO 'jefeLaboratorio';
+GRANT SELECT ON vw_nombreEmpleado_vs_idEmpleado TO 'jefeLaboratorio';
 GRANT EXECUTE ON PROCEDURE finalizarEnsayoMuestra TO 'jefeLaboratorio';
 
 

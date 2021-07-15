@@ -61,3 +61,8 @@ FROM proyecto;
 CREATE VIEW vw_ejecutorEnsayoMuestra
 AS SELECT emp_idEmpleado AS Ejecutor, ens_idEnsayoMuestra AS ensayoMuestra_id
 FROM ensayoMuestra NATURAL JOIN empleado;
+
+-- Nombre de un empleado dado su id
+CREATE VIEW vw_nombreEmpleado_vs_idEmpleado
+AS SELECT emp_nombreEmpleado AS nombre, emp_idEmpleado AS id 
+FROM empleado;
