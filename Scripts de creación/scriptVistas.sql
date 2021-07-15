@@ -46,3 +46,9 @@ informeFinal NATURAL JOIN Proyecto;
 CREATE VIEW vw_idEmpleado_vs_nombreUsuario
 AS SELECT emp_idEmpleado, emp_nombreUsuario
 FROM empleado;
+
+-- Datos de la tabla ensayoMuestra que deben restringir el acceso a un laboratorista
+CREATE VIEW vw_ensayoMuestra_laboratorista
+AS SELECT ens_idEnsayoMuestra, ens_fechaEnsayoMuestra, ens_hayResiduo, 
+ens_estado FROM EnsayoMuestra;
+
