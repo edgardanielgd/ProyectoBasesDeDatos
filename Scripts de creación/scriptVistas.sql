@@ -49,8 +49,7 @@ FROM empleado;
 
 -- Datos de la tabla ensayoMuestra que deben restringir el acceso a un laboratorista
 CREATE VIEW vw_ensayoMuestra_laboratorista
-AS SELECT ens_idEnsayoMuestra, ens_fechaEnsayoMuestra, ens_hayResiduo, emp_idEmpleado
-ens_estado FROM EnsayoMuestra;
+AS SELECT ens_idEnsayoMuestra, ens_fechaEnsayoMuestra, ens_hayResiduo, emp_idEmpleado, ens_estado FROM EnsayoMuestra;
 
 -- Vista que se utilizará en la interfaz del form3.cs
 CREATE VIEW vw_idProyecto_nombreProyecto_estadoProyecto

@@ -23,7 +23,7 @@ GRANT ALL ON mydb.* TO 'Administrador';
 GRANT SELECT, UPDATE ON mydb.Perforacion TO 'empleadoLaboratorista';
 GRANT SELECT, UPDATE ON mydb.Muestra TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.TipoEnsayo TO 'empleadoLaboratorista';
-GRANT SELECT ON mydb.EnsayoMuestra TO 'empleadoLaboratorista';
+GRANT SELECT, INSERT ON mydb.EnsayoMuestra TO 'empleadoLaboratorista';
 GRANT SELECT, INSERT, UPDATE ON mydb.ArchivoResultado TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_proyecto_lab TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_proyecto_perforacion_muestra_ensayomuestra TO 'empleadoLaboratorista';
