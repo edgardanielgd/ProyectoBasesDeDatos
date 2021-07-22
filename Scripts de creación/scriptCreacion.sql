@@ -176,7 +176,7 @@ COMMENT = 'Define la entidad débil \'Informe Final\', la cual representa un res
 CREATE TABLE IF NOT EXISTS mydb.ArchivoResultado (
   ens_idEnsayoMuestra INT PRIMARY KEY COMMENT 'Representa una llave foránea convertida en primaria en una relación 1-1 con la tabla EnsayoMuestra. ',
   ens_rutaArchivo VARCHAR(1000) NOT NULL COMMENT 'Representa una cadena que contiene la ruta (Path) de un archivo de excel generado por la empresa esquematizando detalladamente el resultado de la aplicación de un ensayo a una muestra',
-  pro_idProyecto INT NOT NULL COMMENT 'Representa una llave foránea que relaciona los archivos con un único informe al que pertenece (Nótese que a través de ésta llave puede ser encontrado directamente el proyecto y el estado de pago relativo al archivo en cuestión)',
+  pro_idProyecto INT NULL COMMENT 'Representa una llave foránea que relaciona los archivos con un único informe al que pertenece (Nótese que a través de ésta llave puede ser encontrado directamente el proyecto y el estado de pago relativo al archivo en cuestión)',
   INDEX `fk_ArchivoResultado_EnsayoMuestra1_idx` (`ens_idEnsayoMuestra` ASC) VISIBLE,
   INDEX `fk_ArchivoResultado_informeFinal1_idx` (`pro_idProyecto` ASC) VISIBLE,
   FOREIGN KEY (ens_idEnsayoMuestra)
