@@ -49,10 +49,19 @@ FROM empleado;
 
 -- Datos de la tabla ensayoMuestra que deben restringir el acceso a un laboratorista
 CREATE VIEW vw_ensayoMuestra_laboratorista
-AS SELECT ens_idEnsayoMuestra, ens_fechaEnsayoMuestra, ens_hayResiduo, 
-ens_estado FROM EnsayoMuestra;
+AS SELECT ens_idEnsayoMuestra, ens_fechaEnsayoMuestra, ens_hayResiduo, emp_idEmpleado, ens_estado FROM EnsayoMuestra;
 
 -- Vista que se utilizará en la interfaz del form3.cs
 CREATE VIEW vw_idProyecto_nombreProyecto_estadoProyecto
 AS SELECT pro_idProyecto AS ID, pro_nombreProyecto AS NombreProyecto, IF(pro_FechaFinalizacionProyecto = NULL, 'En curso', 'Finalizado') AS Estado
 FROM proyecto;
+
+-- Nombre del ejecutor de un ensayo muestra
+CREATE VIEW vw_ejecutorEnsayoMuestra
+AS SELECT emp_idEmpleado AS Ejecutor, ens_idEnsayoMuestra AS ensayoMuestra_id
+FROM ensayoMuestra NATURAL JOIN empleado;
+
+-- Nombre de un empleado dado su id
+CREATE VIEW vw_nombreEmpleado_vs_idEmpleado
+AS SELECT emp_nombreEmpleado AS nombre, emp_idEmpleado AS id 
+FROM empleado;

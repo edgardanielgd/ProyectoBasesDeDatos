@@ -23,14 +23,17 @@ GRANT ALL ON mydb.* TO 'Administrador';
 GRANT SELECT, UPDATE ON mydb.Perforacion TO 'empleadoLaboratorista';
 GRANT SELECT, UPDATE ON mydb.Muestra TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.TipoEnsayo TO 'empleadoLaboratorista';
-GRANT SELECT ON mydb.EnsayoMuestra TO 'empleadoLaboratorista';
+GRANT SELECT, INSERT ON mydb.EnsayoMuestra TO 'empleadoLaboratorista';
 GRANT SELECT, INSERT, UPDATE ON mydb.ArchivoResultado TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_proyecto_lab TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_proyecto_perforacion_muestra_ensayomuestra TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_proyecto_vs_archivoresultado TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_perforacion_vs_proyecto TO 'empleadoLaboratorista';
 GRANT SELECT ON mydb.vw_idEmpleado_vs_nombreUsuario TO 'empleadoLaboratorista';
-GRANT SELECT, UPDATE, CREATE ON mydb.vw_ensayoMuestra_laboratorista TO 'empleadoLaboratorista';
+GRANT SELECT, UPDATE, INSERT ON mydb.vw_ensayoMuestra_laboratorista TO 'empleadoLaboratorista';
+GRANT SELECT ON vw_ejecutorEnsayoMuestra TO 'empleadoLaboratorista';
+GRANT SELECT ON vw_nombreEmpleado_vs_idEmpleado TO 'empleadoLaboratorista';
+GRANT SELECT ON vw_idProyecto_nombreProyecto_estadoProyecto TO 'empleadoLaboratorista';
 GRANT EXECUTE ON PROCEDURE finalizarEnsayoMuestra TO 'empleadoLaboratorista';
 
 -- Permisos para jefe de laboratorio
@@ -47,6 +50,9 @@ GRANT SELECT ON mydb.vw_empleado_vs_proyecto TO 'jefeLaboratorio';
 GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_perforacion_vs_proyecto TO 'jefeLaboratorio';
 GRANT SELECT, INSERT, UPDATE, DELETE ON mydb.vw_informeFinal_vs_Proyecto TO 'jefeLaboratorio';
 GRANT SELECT ON mydb.vw_idEmpleado_vs_nombreUsuario TO 'jefeLaboratorio';
+GRANT SELECT ON vw_ejecutorEnsayoMuestra TO 'jefeLaboratorio';
+GRANT SELECT ON vw_nombreEmpleado_vs_idEmpleado TO 'jefeLaboratorio';
+GRANT SELECT ON vw_idProyecto_nombreProyecto_estadoProyecto TO 'jefeLaboratorio';
 GRANT EXECUTE ON PROCEDURE finalizarEnsayoMuestra TO 'jefeLaboratorio';
 
 
