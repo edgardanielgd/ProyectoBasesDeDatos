@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS mydb DEFAULT CHARACTER SET latin1 ;
+﻿CREATE SCHEMA IF NOT EXISTS mydb DEFAULT CHARACTER SET latin1 ;
 USE mydb ;
 
 -- -----------------------------------------------------
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Proyecto (
   pro_valorTotal INT NOT NULL COMMENT 'Precio total del proyecto',
   pro_nombreProyecto VARCHAR(80) NOT NULL COMMENT 'Representa el nombre dado por el cliente para asignar a un proyecto que éste planea realizar o para el cuál busca estudiar alguna muestra',
   pro_FechaInicioProyecto DATE NOT NULL COMMENT 'Representa la fecha en la que se inicia un proyecto (Fecha en la que se crea el registro)',
-  pro_FechaFinalizacionProyecto DATE NOT NULL COMMENT 'Representa la fecha en la que se da fin a un proyecto. Puede ser cuando se entrega el informe, cuando se completa el pago u otra fecha.',
+  pro_FechaFinalizacionProyecto DATE NULL COMMENT 'Representa la fecha en la que se da fin a un proyecto. Puede ser cuando se entrega el informe, cuando se completa el pago u otra fecha.',
   cli_NIT BIGINT NOT NULL COMMENT 'Representa la llave foránea que relaciona cada proyecto con un único cliente',
   INDEX `fk_Proyecto_Cliente1_idx` (`cli_NIT` ASC) VISIBLE,
   FOREIGN KEY (cli_NIT)
