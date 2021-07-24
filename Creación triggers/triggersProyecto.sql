@@ -1,76 +1,103 @@
 /*                 Triggers para el historial de EnsayoMuestra         */
+
 DELIMITER $$
-CREATE TRIGGER tgr_update_ensayoMuestra BEFORE UPDATE ON EnsayoMuestra
+CREATE TRIGGER tgr_update_ensayoMuestra AFTER UPDATE ON EnsayoMuestra
 FOR EACH ROW BEGIN
-    INSERT INTO historialEnsayoMuestra(id_ensayo_muestra, usuario, operacion, fecha)
-    VALUES (OLD.ens_idEnsayoMuestra , USER(), "Actualizacion", NOW());
+    SELECT per_nombrePerforacion INTO @nombrePerforacion
+    FROM ensayoMuestra NATURAL JOIN muestra NATURAL JOIN perforacion
+    WHERE ens_idEnsayoMuestra = OLD.ens_idEnsayoMuestra;
+
+    SELECT mue_numeroMuestra INTO @numeroMuestra
+    FROM ensayoMuestra NATURAL JOIN muestra
+    WHERE ens_idEnsayoMuestra = OLD.ens_idEnsayoMuestra;
+
+    INSERT INTO historialEnsayoMuestra VALUES(@nombrePerforacion, @numeroMuestra, "Actualización", USER(), NOW());
 END $$
 DELIMITER ;
- 
+
+
 DELIMITER $$
-CREATE TRIGGER tgr_insert_ensayoMuestra BEFORE INSERT ON EnsayoMuestra
+CREATE TRIGGER tgr_insert_ensayoMuestra AFTER INSERT ON EnsayoMuestra
 FOR EACH ROW BEGIN
-    INSERT INTO historialEnsayoMuestra(id_ensayo_muestra, usuario, operacion, fecha)
-    VALUES (NEW.ens_idEnsayoMuestra , USER(), "Adicion", NOW());
+    SELECT per_nombrePerforacion INTO @nombrePerforacion
+    FROM ensayoMuestra NATURAL JOIN muestra NATURAL JOIN perforacion
+    WHERE ens_idEnsayoMuestra = NEW.ens_idEnsayoMuestra;
+
+    SELECT mue_numeroMuestra INTO @numeroMuestra
+    FROM ensayoMuestra NATURAL JOIN muestra
+    WHERE ens_idEnsayoMuestra = NEW.ens_idEnsayoMuestra;
+
+    INSERT INTO historialEnsayoMuestra VALUES(@nombrePerforacion, @numeroMuestra, "Adición", USER(), NOW());
 END $$
 DELIMITER ;
+
+create table joda(
+	id INT NOT NULL auto_increment primary key,
+    numeroMuestra INT NOT NULL
+);
+
+drop table joda;
 
 DELIMITER $$
 CREATE TRIGGER tgr_delete_ensayoMuestra BEFORE DELETE ON EnsayoMuestra
 FOR EACH ROW BEGIN
-    INSERT INTO historialEnsayoMuestra(id_ensayo_muestra, usuario, operacion, fecha)
-    VALUES (OLD.ens_idEnsayoMuestra , USER(), "Borrado", NOW());
+    SELECT per_nombrePerforacion INTO @nombrePerforacion
+    FROM ensayoMuestra NATURAL JOIN muestra NATURAL JOIN perforacion
+    WHERE ensayoMuestra.ens_idEnsayoMuestra = OLD.ens_idEnsayoMuestra;
+
+    SELECT mue_numeroMuestra INTO @numeroMuestra
+    FROM ensayoMuestra NATURAL JOIN muestra
+    WHERE ens_idEnsayoMuestra = OLD.ens_idEnsayoMuestra;
+    
+    INSERT INTO historialEnsayoMuestra VALUES(@nombrePerforacion, @numeroMuestra, "Borrado", USER(), NOW());
 END $$
 DELIMITER ;
 
-/*                 Triggers para el historial de Muestra         */
-DELIMITER $$
-CREATE TRIGGER tgr_update_Muestra BEFORE UPDATE ON Muestra
-FOR EACH ROW BEGIN
-    INSERT INTO historialMuestra(id_muestra, usuario, operacion, fecha)
-    VALUES (OLD.mue_idMuestra , USER(), "Actualizacion", NOW());
-END $$
-DELIMITER ;
- 
-DELIMITER $$
-CREATE TRIGGER tgr_insert_Muestra BEFORE INSERT ON Muestra
-FOR EACH ROW BEGIN
-    INSERT INTO historialMuestra(id_muestra, usuario, operacion, fecha)
-    VALUES (NEW.mue_idMuestra , USER(), "Adicion", NOW());
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER tgr_delete_Muestra BEFORE DELETE ON Muestra
-FOR EACH ROW BEGIN
-    INSERT INTO historialMuestra(id_muestra, usuario, operacion, fecha)
-    VALUES (OLD.mue_idMuestra , USER(), "Borrado", NOW());
-END $$
-DELIMITER ;
+drop TRIGGER tgr_delete_ensayoMuestra;
 
 
 /*                 Triggers para el historial de Perforación         */
 DELIMITER $$
-CREATE TRIGGER tgr_update_perforacion BEFORE UPDATE ON perforacion
+CREATE TRIGGER tgr_update_perforacion AFTER UPDATE ON perforacion
 FOR EACH ROW BEGIN
-    INSERT INTO historialPerforacion(id_perforacion, usuario, operacion, fecha)
-    VALUES (OLD.per_idPerforacion , USER(), "Actualizacion", NOW());
+    INSERT INTO historialPerforacion VALUES(OLD.per_nombrePerforacion, "Actualización", USER(), NOW());
 END $$
 DELIMITER ;
  
 DELIMITER $$
-CREATE TRIGGER tgr_insert_perforacion BEFORE INSERT ON perforacion
+CREATE TRIGGER tgr_insert_perforacion AFTER INSERT ON perforacion
 FOR EACH ROW BEGIN
-    INSERT INTO historialPerforacion(id_perforacion, usuario, operacion, fecha)
-    VALUES (NEW.per_idPerforacion , USER(), "Adicion", NOW());
+    INSERT INTO historialPerforacion VALUES(NEW.per_nombrePerforacion, "Adición", USER(), NOW());
 END $$
 DELIMITER ;
 
 DELIMITER $$
 CREATE TRIGGER tgr_delete_perforacion BEFORE DELETE ON perforacion
 FOR EACH ROW BEGIN
-    INSERT INTO historialPerforacion(id_perforacion, usuario, operacion, fecha)
-    VALUES (OLD.per_idPerforacion , USER(), "Borrado", NOW());
+    INSERT INTO historialPerforacion VALUES(OLD.per_nombrePerforacion, "Borrado", USER(), NOW());
+END $$
+DELIMITER ;
+
+
+/*                 Triggers para el historial de Muestra         */
+DELIMITER $$
+CREATE TRIGGER tgr_update_Muestra AFTER UPDATE ON Muestra
+FOR EACH ROW BEGIN
+    INSERT INTO historialMuestra VALUES (OLD.mue_numeroMuestra, "Actualización", USER(), NOW());
+END $$
+DELIMITER ;
+ 
+DELIMITER $$
+CREATE TRIGGER tgr_insert_Muestra AFTER INSERT ON Muestra
+FOR EACH ROW BEGIN
+    INSERT INTO historialMuestra VALUES (NEW.mue_numeroMuestra, "Adición", USER(), NOW());
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER tgr_delete_Muestra BEFORE DELETE ON Muestra
+FOR EACH ROW BEGIN
+    INSERT INTO historialMuestra VALUES (OLD.mue_numeroMuestra, "Borrado", USER(), NOW());
 END $$
 DELIMITER ;
 
@@ -89,7 +116,7 @@ DELIMITER ;
 
 /*Revisar que la profundidad de una muestra tenga valores coherentes entre 1 y 150 metros*/
 DELIMITER $$
-CREATE TRIGGER revisarProfundidadMuestra BEFORE INSERT ON muestra
+CREATE TRIGGER revisarProfundidadMuestra AFTER INSERT ON muestra
 FOR EACH ROW BEGIN
     IF NOT NEW.mue_profundidad BETWEEN 1 AND 150 THEN
         signal sqlstate '45000';  -- Abort the insert with an error
@@ -99,7 +126,7 @@ DELIMITER ;
 
 /*Revisar que la latitud y longitud de una perforación tengan valores coherentes*/
 DELIMITER $$
-CREATE TRIGGER revisarCoordenadas BEFORE INSERT ON perforacion
+CREATE TRIGGER revisarCoordenadas AFTER INSERT ON perforacion
 FOR EACH ROW BEGIN
     IF NOT ((NEW.per_latitud BETWEEN -90 AND 90) AND (NEW.per_longitud BETWEEN -180 AND 180)) THEN
          SIGNAL SQLSTATE '45000';  -- Abort the insert with an error
