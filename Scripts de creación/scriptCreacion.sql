@@ -1,4 +1,4 @@
-﻿CREATE SCHEMA IF NOT EXISTS mydb DEFAULT CHARACTER SET latin1 ;
+CREATE SCHEMA IF NOT EXISTS mydb DEFAULT CHARACTER SET latin1;
 USE mydb ;
 
 -- -----------------------------------------------------
@@ -418,8 +418,8 @@ INSERT INTO ArchivoResultado VALUES('43','C:\\Users\\josel\\Documents\\Resultado
 
 -- -------- Tabla historial para EnsayoMuestra -----------
 CREATE TABLE historialEnsayoMuestra(
-	Perforacion VARCHAR(60) NOT NULL,
-  numeroMuestra INT NOT NULL,
+	per_nombrePerforacion VARCHAR(60) NOT NULL,
+  per_numeroMuestra INT NOT NULL,
   operacion varchar (15) check ( operacion in ('Adicion', 'Actualizacion','Borrado')) NOT NULL COMMENT "Señala el tipo de la operación realizada",
 	usuario VARCHAR(60) NOT NULL,
   fecha DATETIME NOT NULL COMMENT "Representa la fecha en la que se realizó la operación"
@@ -427,7 +427,7 @@ CREATE TABLE historialEnsayoMuestra(
 
 -- -------- Tabla historial para Muestra -----------
 CREATE TABLE historialMuestra(
-  Muestra INT NOT NULL,
+  mue_numeroMuestra INT NOT NULL,
   operacion varchar (15) check (operacion in ('Adicion', 'Actualizacion','Borrado')) NOT NULL,
 	usuario VARCHAR(60) NOT NULL,
   fecha DATETIME NOT NUll
@@ -436,7 +436,7 @@ CREATE TABLE historialMuestra(
 
 -- -------- Tabla historial para perforacion -----------
 CREATE TABLE historialPerforacion(
-  Perforacion VARCHAR(60) NOT NULL,
+  per_nombrePerforacion VARCHAR(60) NOT NULL,
   operacion varchar (15) check (operacion in ('Adicion', 'Actualizacion','Borrado')) NOT NULL,
   usuario VARCHAR(60) NOT NULL,
   fecha DATETIME NOT NUll

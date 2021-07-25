@@ -8,7 +8,7 @@ y se deben ser consultadas constantemente */
 
 -----   Índice perforacion ---------
 CREATE INDEX idx_nombre_perforacion
-ON perforacion(nombrePerforacion);
+ON perforacion(per_nombrePerforacion);
 
 -----   Índice muestra ---------
 CREATE INDEX idx_numero_muestra
