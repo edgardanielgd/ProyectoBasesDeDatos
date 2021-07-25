@@ -143,7 +143,7 @@
 <tr><td>esp_fechaPagoTotal</td><td>DATETIME</td><td>No</td><td>No</td><td>No</td><td>NULL</td><td>Representa la fecha en la que se ha pagado la totalidad del proyecto, puede ser nula si aún no ha sido pagado </td></tr>
 </table><a href="#home">Table List </a></br>
 <a id="historialensayomuestra"></a><table style="width:100%"><caption>Table: historialensayomuestra </caption>
-<tr><td>Table Comments</td><td colspan="6"></td></tr>
+<tr><td>Table Comments</td><td colspan="6">Representa una tabla para el correcto guardado del historial de cambios realizados sobre la entidad ensayo muestra (accesible solo para administradores)</td></tr>
 <tr><td colspan="7">Columns</td></tr>
         <tr>
         <th>Name</th>
@@ -154,14 +154,14 @@
         <th>Default</th>
         <th>Comment</th>
         </tr>
-<tr><td>per_nombrePerforacion</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
-<tr><td>per_numeroMuestra</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
+<tr><td>per_nombrePerforacion</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el nombre de la perforacion realizada</td></tr>
+<tr><td>per_numeroMuestra</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td>representa el numero de la muestra implicada</td></tr>
 <tr><td>operacion</td><td>VARCHAR(15)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Señala el tipo de la operación realizada</td></tr>
-<tr><td>usuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
+<tr><td>usuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Señala el usuario que realizo la operacion</td></tr>
 <tr><td>fecha</td><td>DATETIME</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa la fecha en la que se realizó la operación</td></tr>
 </table><a href="#home">Table List </a></br>
 <a id="historialmuestra"></a><table style="width:100%"><caption>Table: historialmuestra </caption>
-<tr><td>Table Comments</td><td colspan="6"></td></tr>
+<tr><td>Table Comments</td><td colspan="6">Representa una tabla para la administracion que organiza la informacion respecto a los cambios realizados sobre la tabla muestra a traves del tiempo</td></tr>
 <tr><td colspan="7">Columns</td></tr>
         <tr>
         <th>Name</th>
@@ -172,10 +172,10 @@
         <th>Default</th>
         <th>Comment</th>
         </tr>
-<tr><td>mue_numeroMuestra</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
-<tr><td>operacion</td><td>VARCHAR(15)</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
-<tr><td>usuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
-<tr><td>fecha</td><td>DATETIME</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
+<tr><td>mue_numeroMuestra</td><td>INT</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el numero de la muestra en cuestion</td></tr>
+<tr><td>operacion</td><td>VARCHAR(15)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa la operacion que se ha realizado</td></tr>
+<tr><td>usuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Indica el usuario ejecutor de la operacion</td></tr>
+<tr><td>fecha</td><td>DATETIME</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Presenta la fecha en la que se realizo la modificacion</td></tr>
 </table><a href="#home">Table List </a></br>
 <a id="historialperforacion"></a><table style="width:100%"><caption>Table: historialperforacion </caption>
 <tr><td>Table Comments</td><td colspan="6"></td></tr>
@@ -189,10 +189,10 @@
         <th>Default</th>
         <th>Comment</th>
         </tr>
-<tr><td>per_nombrePerforacion</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
-<tr><td>operacion</td><td>VARCHAR(15)</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
-<tr><td>usuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
-<tr><td>fecha</td><td>DATETIME</td><td>Yes</td><td>No</td><td>No</td><td></td><td></td></tr>
+<tr><td>per_nombrePerforacion</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Indica el nombre de la perforacion modificada</td></tr>
+<tr><td>operacion</td><td>VARCHAR(15)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Representa el tipo de operacion realizado</td></tr>
+<tr><td>usuario</td><td>VARCHAR(60)</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Señala el usuario ejecutor</td></tr>
+<tr><td>fecha</td><td>DATETIME</td><td>Yes</td><td>No</td><td>No</td><td></td><td>Presenta la fecha de la modificacion</td></tr>
 </table><a href="#home">Table List </a></br>
 <a id="informefinal"></a><table style="width:100%"><caption>Table: informefinal </caption>
 <tr><td>Table Comments</td><td colspan="6">Define la entidad débil 'Informe Final', la cual representa un resumen de los resultados a entregar dentro de un proyecto</td></tr>
